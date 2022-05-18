@@ -1,0 +1,442 @@
+/* Inicio de reglas generales */
+
+:root {
+    --primario: #37FF8B;
+    --blanco: #FFFAFB;
+    --negro: #231123;
+    --terciario: #7A82AB;
+    --auxiliar: #475841;
+    --fuentePrimaria: 'Ubuntu';
+}
+
+* {
+    font-family: var(--fuentePrimaria);
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+h1 {
+    font-size: 2rem;
+    color: var(--negro);
+}
+
+textarea {
+    resize: none;
+    padding: 2vh;
+}
+
+button {
+    color: #231123;
+    font-size: 1rem;
+    padding: 1vh;
+    text-decoration: none;
+    -webkit-border-radius: 28px;
+    -moz-border-radius: 28px;
+    border-radius: 28px;
+    -webkit-box-shadow: 0px 1px 3px #666666;
+    -moz-box-shadow: 0px 1px 3px #666666;
+    box-shadow: 0px 1px 3px #666666;
+    border: solid #000000 2px;
+    width: 10vw;
+    margin-top: 1vh;
+    align-self: center;
+}
+
+/* Fin de reglas generales */
+
+/* Inicio de reglas generales para header */
+
+
+/* Fin de reglas generales para header */
+
+/* Inicio reglas generales para el footer */
+
+footer {
+    background: var(--primario);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Fin de reglas generales para el footer */
+
+/* index.html */
+
+.login {
+    height: 50vh;
+    width: 100vw;
+    background-image: url(../assets/img/fondo.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    padding: 4vh;
+}
+
+.login-menu {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    background: rgba(255, 255, 255, .7);
+    width: 50vw;
+    height: 40vh;
+    padding: 10vh;
+}
+.formularioLogueo {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.formularioLogueo div {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 2vh;
+}
+
+.formularioLogueo div input {
+    padding: 1rem;
+}
+
+.formularioLogueo input[type="submit"]{
+    color: #231123;
+    font-size: 1rem;
+    padding: 1vh;
+    text-decoration: none;
+    -webkit-border-radius: 28px;
+    -moz-border-radius: 28px;
+    border-radius: 28px;
+    -webkit-box-shadow: 0px 1px 3px #666666;
+    -moz-box-shadow: 0px 1px 3px #666666;
+    box-shadow: 0px 1px 3px #666666;
+    border: solid #000000 2px;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#ffffff));
+    background: -moz-linear-gradient(top, #ffffff, #ffffff);
+    width: 10vw;
+    margin-top: 1vh;
+    align-self: center;
+}
+
+.formularioLogueo input[type="submit"]{
+    cursor: pointer;
+}
+
+.registrarse p {
+    font-size: 1.5rem;
+    color: var(--negro);
+}
+
+.nosotros {
+    width: 100vw;
+    padding: 2vw;
+}
+
+.ubicacion {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.ubicacion iframe{
+    width: 98%;
+}
+
+/* Fin de index.html */
+/* Inicio mascotas.html */
+
+.main-mascotas {
+    display: flex;
+}
+
+.main-mascotas aside{
+    width: 25%;
+    margin-right: 1rem;
+    padding: 1vh;
+}
+
+.main-mascotas .mascotas {
+    padding: 1vh;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4vh;
+    width: 75%;
+}
+
+.main-mascotas .mascotas article {
+    width: 15%;
+}
+
+/* Fin de mascotas.html */
+/* Inicio de tienda.html */
+
+.main-mercado {
+    display: flex;
+}
+
+.main-mercado aside{
+    width: 25%;
+    margin-right: 1rem;
+    padding: 1vh;
+}
+
+.main-mercado .objetos {
+    padding: 1vh;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4vh;
+    width: 75%;
+}
+
+.main-mercado .objetos article {
+    width: 15%;
+}
+
+/* Fin de tienda.html */
+/* Inicio de perdidos.html */
+
+.main-perdidos {
+    display: flex;
+}
+
+.main-perdidos aside{
+    width: 25%;
+    margin-right: 1rem;
+    padding: 1vh;
+}
+
+.main-perdidos .mascotas {
+    padding: 1vh;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4vh;
+    width: 75%;
+}
+
+.main-perdidos .mascotas article {
+    width: 20%;
+}
+
+/* Fin de perdidos.html */
+/* Inicio de contacto.html */
+
+.contacto {
+    display: flex;
+    width: 50vw;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    padding: 5vh;
+}
+
+.contacto form {
+    display: flex;
+    gap: 2vh;
+}
+
+.contacto form input[type="text"]{
+    padding: 2vh;
+}
+
+.contacto form select {
+    padding: 2vh;
+}
+
+.formularioContacto {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.formularioContacto div {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 2vh;
+}
+
+.formularioContacto div input {
+    padding: 1rem;
+}
+
+.formularioContacto input[type="submit"]{
+    color: #231123;
+    font-size: 1rem;
+    padding: 1vh;
+    text-decoration: none;
+    -webkit-border-radius: 28px;
+    -moz-border-radius: 28px;
+    border-radius: 28px;
+    -webkit-box-shadow: 0px 1px 3px #666666;
+    -moz-box-shadow: 0px 1px 3px #666666;
+    box-shadow: 0px 1px 3px #666666;
+    border: solid #000000 2px;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#ffffff));
+    background: -moz-linear-gradient(top, #ffffff, #ffffff);
+    width: 10vw;
+    margin-top: 1vh;
+    align-self: center;
+}
+
+.formularioContacto input[type="submit"]{
+    cursor: pointer;
+}
+
+/* Fin de contacto.html */
+/* Inicio de logueo.html*/
+
+.main-logueo {
+    display: flex;
+    width: 100vw;
+    justify-content: space-evenly;
+    align-self: center;
+    align-items: center;
+    padding: 3vh;
+}
+
+.main-logueo .logueo {
+    display: flex;
+    flex-direction: column;
+    width: 30vw;
+}
+
+.main-logueo .logueo input {
+    width: 100%;
+}
+
+.logueo input[type="submit"]{
+    color: #231123;
+    font-size: 1rem;
+    padding: 1vh;
+    text-decoration: none;
+    -webkit-border-radius: 28px;
+    -moz-border-radius: 28px;
+    border-radius: 28px;
+    -webkit-box-shadow: 0px 1px 3px #666666;
+    -moz-box-shadow: 0px 1px 3px #666666;
+    box-shadow: 0px 1px 3px #666666;
+    border: solid #000000 2px;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#ffffff));
+    background: -moz-linear-gradient(top, #ffffff, #ffffff);
+    width: 100%;
+    margin-top: 1vh;
+    align-self: center;
+}
+
+.logueo input[type="submit"]{
+    cursor: pointer;
+}
+
+.formularioRegistro {
+    display: flex;
+    flex-direction: column;
+    padding: 2vh;
+    gap: 2vh;
+}
+
+.formularioRegistro input[type="text"],
+.formularioRegistro input[type="password"],
+.formularioRegistro input[type="email"],
+.formularioRegistro input[type="tel"] {
+    padding: 2vh;
+    width: 100%;
+}
+
+.formularioRegistro input[type="submit"] {
+    color: #231123;
+    font-size: 1rem;
+    padding: 1vh;
+    text-decoration: none;
+    -webkit-border-radius: 28px;
+    -moz-border-radius: 28px;
+    border-radius: 28px;
+    -webkit-box-shadow: 0px 1px 3px #666666;
+    -moz-box-shadow: 0px 1px 3px #666666;
+    box-shadow: 0px 1px 3px #666666;
+    border: solid #000000 2px;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#ffffff));
+    background: -moz-linear-gradient(top, #ffffff, #ffffff);
+    width: 100%;
+    margin-top: 1vh;
+    align-self: center;
+}
+
+.formularioRegistro input[type="submit"]{
+    cursor: pointer;
+}
+
+/* Fin de logueo.html*/
+/* Inicio de mascota.html */
+
+.main-mascota {
+    display: flex;
+    justify-self: start;
+    align-items: center;
+    padding: 3vh;
+    flex-direction: column;
+    gap: 5vh;
+}
+
+.info-general {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.info-dueño {
+    width: 75%;
+}
+
+.info-mascota {
+    padding: 5vh;
+}
+
+/* Fin de mascota.html */
+/* Inicio de objeto.html */
+
+.main-objeto {
+    display: flex;
+    justify-self: start;
+    align-items: center;
+    padding: 3vh;
+    flex-direction: column;
+    gap: 5vh;
+}
+
+.info-general-objeto{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.info-dueño {
+    width: 60%;
+}
+
+.info-objeto {
+    padding: 5vh;
+}
+
+/* Fin de objeto.html */
+
+
+/* Inicio de registro */
+
+
+/* Fin de registro */
+
+/* Mediaquerys */
+
+@media (min-width: 768px) {
+
+ }
+
+ @media (min-width: 1024px) { 
+
+ }
+
+/* Fin de mediaquerys */

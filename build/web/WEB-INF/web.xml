@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>indexController</servlet-name>
+        <servlet-class>Controllers.indexController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>logoutController</servlet-name>
+        <servlet-class>Controllers.logoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>mascotaController</servlet-name>
+        <servlet-class>Controllers.mascotaController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>indexController</servlet-name>
+        <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>logoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>mascotaController</servlet-name>
+        <url-pattern>/mascota</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
