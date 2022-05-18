@@ -34,6 +34,15 @@ public class UsuarioDAO {
         }
         return null;
     }
+    
+    public int buscarIdUsuarioPorCorreo(String email) throws SQLException {
+        Statement stmt = this.conn.createStatement();
+        ResultSet result = stmt.executeQuery("SELECT id FROM usuarios WHERE email = '" + email + "'");
+        while (result.next()) {
+                return result.getInt("id");
+        }
+        return -1;
+    }
 
     public Connection getConn() {
         return conn;

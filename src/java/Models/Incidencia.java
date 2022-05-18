@@ -3,6 +3,7 @@ package Models;
 public class Incidencia {
     private int id;
     private String descripcion;
+    private String motivo;
     private String estado;
     private int idUsuario;
     private int idEncargado;
@@ -25,6 +26,21 @@ public class Incidencia {
         this.idEncargado = idEncargado;
     }
 
+    public Incidencia(String descripcion, String motivo, String estado, int idUsuario, int idEncargado) {
+        this.descripcion = descripcion;
+        this.motivo = motivo;
+        this.estado = estado;
+        this.idUsuario = idUsuario;
+        this.idEncargado = idEncargado;
+    }
+
+    public Incidencia(String descripcion, String motivo, String estado, int idUsuario) {
+        this.descripcion = descripcion;
+        this.motivo = motivo;
+        this.estado = estado;
+        this.idUsuario = idUsuario;
+    }
+    
     public int getId() {
         return id;
     }
@@ -65,6 +81,14 @@ public class Incidencia {
         this.idEncargado = idEncargado;
     }
 
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
+    }
+    
     @Override
     public String toString() {
         return "Incidencia{" + "id=" + id + ", descripcion=" + descripcion + ", estado=" + estado + ", idUsuario=" + idUsuario + ", idEncargado=" + idEncargado + '}';

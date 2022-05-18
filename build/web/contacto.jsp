@@ -24,6 +24,7 @@
     <script src="./js/main.js"></script>
 </head>
 
+
 <body>
     <header>
             <nav class="navbar navbar-expand-lg navbar-dark bg-success">
@@ -73,16 +74,27 @@
         </header>
     <main>
         <section class="contacto" id="contacto">
-            <form action="#" class="formularioContacto">
-                <input type="text" name="nombre" id="nombreContacto" placeholder="Nombre">
-                <select name="motivo" id="motivo">
-                    <option value="1">Problemas con la adopción</option>
-                    <option value="2">Problemas con el adoptante</option>
-                    <option value="3">Problemas en general</option>
-                    <option value="4">Más por añadir, en el proyecto...</option>
+            <form action="contacto" class="formularioContacto">
+                    <select name="motivo" id="motivo">
+                    <%
+                        if (request.getParameter("denunciar") == null){
+                            %>
+                        <option value="1">Problema comunicando con usuario</option>
+                        <option value="2">Problema con la adopción de una mascota </option>
+                        <option value="3">Problema con la compra de un artículo </option>
+                        <option value="4">Problema con la adopción de una mascota </option>
+                        <option value="5">Otros</option>
+                            <%
+                        } else {
+                            %>
+                        <option value="6">Denunciar publicación de mascota</option>
+                        <option value="7">Denunciar publicación de artículo</option>
+                            <%
+                        }
+                    %>
                 </select>
-                <textarea name="" id="" cols="40" rows="20" placeholder="Escribe aquí tu texto"></textarea>
-                <input type="submit" value="Enviar" class="hvr-grow-shadow">
+                <textarea name="descripcion" id="" cols="40" rows="20" placeholder="Escribe aquí tu texto"></textarea>
+                <input name="contactar" type="submit" value="Enviar" class="hvr-grow-shadow">
             </form>
         </section>
     </main>
@@ -90,5 +102,6 @@
         <p class="footer" style="color: white;">&copy; Guillermo Illera Vinatea - Calle emperador, Portal 43, Piso 4ºB</p>
     </footer>
 </body>
+
 
 </html>
