@@ -1,3 +1,8 @@
+<%@page import="Models.Articulo"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="DAO.ArticuloDAO"%>
+<%@page import="DAO.ConectorBD"%>
 <%@page import="Models.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" errorPage="error.jsp"%>
 <!DOCTYPE html>
@@ -77,67 +82,73 @@
                     <p>Formulario para el filtrado de objetos</p>
                 </form>
             </aside>
-            <section class="objetos">
-                <article>
-                    <a href="objeto.html">
-                        <img src="https://picsum.photos/200/300?random=1" alt="">
+            <section class="objetos d-flex justify-content-center float-left">
+                <div class="card col-3" style="">
+                    <a href="publicarArticulo.jsp">
+                        <svg class="card-img-top" src="./assets/img/mas.png" xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+                        <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
                     </a>
-                </article>
-                <article>
-                    <a href="objeto.html">
-                        <img src="https://picsum.photos/200/300?random=2" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">¡Publica aquí tu mascota!</h5>
+                        <a href="publicarArticulo.jsp" class="btn btn-primary" style="width: 100%;">Publicar mascota</a>
+                    </div>
+                </div>
+                <%                
+                    ConectorBD bdActual = new ConectorBD("localhost", "adoptaio", "root", "");
+                    ArticuloDAO mostrarArticulos = new ArticuloDAO();
+                    mostrarArticulos.setConn(bdActual.getConexion());
+                    ArrayList<Articulo> articulos;
+                    if (request.getParameter("pagina") == null) {
+                        articulos = mostrarArticulos.devolverArticulos(8, 0, mostrarArticulos.contarArticulos());
+                    } else {
+                        articulos = mostrarArticulos.devolverArticulos(8, Integer.parseInt(request.getParameter("pagina")), mostrarArticulos.contarArticulos());
+                    }
+                    for (Articulo articulo : articulos) {
+                %>
+                <div class="card col-3" style="">
+                    <a href="articulo.jsp?idArticulo=<%=articulo.getId()%>">
+                        <img class="card-img-top" src="data:image/png;base64,<%=articulo.getFotoArticulo()%>" alt="Red dot" />
                     </a>
-                </article>
-                <article>
-                    <a href="objeto.html">
-                        <img src="https://picsum.photos/200/300?random=3" alt="">
-                    </a>
-                </article>
-                <article>
-                    <a href="objeto.html">
-                        <img src="https://picsum.photos/200/300?random=4" alt="">
-                    </a>
-                </article>
-                <article>
-                    <a href="objeto.html">
-                        <img src="https://picsum.photos/200/300?random=5" alt="">
-                    </a>
-                </article>
-                <article>
-                    <a href="objeto.html">
-                        <img src="https://picsum.photos/200/300?random=6" alt="">
-                    </a>
-                </article>
-                <article>
-                    <a href="objeto.html">
-                        <img src="https://picsum.photos/200/300?random=7" alt="">
-                    </a>
-                </article>
-                <article>
-                    <a href="objeto.html">
-                        <img src="https://picsum.photos/200/300?random=8" alt="">
-                    </a>
-                </article>
-                <article>
-                    <a href="objeto.html">
-                        <img src="https://picsum.photos/200/300?random=9" alt="">
-                    </a>
-                </article>
-                <article>
-                    <a href="objeto.html">
-                        <img src="https://picsum.photos/200/300?random=10" alt="">
-                    </a>
-                </article>
-                <article>
-                    <a href="objeto.html">
-                        <img src="https://picsum.photos/200/300?random=11" alt="">
-                    </a>
-                </article>
-                <article>
-                    <a href="objeto.html">
-                        <img src="https://picsum.photos/200/300?random=12" alt="">
-                    </a>
-                </article>
+                    <div class="card-body">
+                        <h5 class="card-title"><%=articulo.getNombre()%>
+                    </div>
+                    </h5>
+                    <a href="articulo.jsp?idArticulo=<%=articulo.getId()%>" class="btn btn-success">Ver artículo</a>
+                </div>
+                <%
+                    }
+                %>
+                <div class="col-12 d-flex justify-content-around">
+                    <div class="col-5 float-left">
+                        <%
+                        if (request.getParameter("pagina") == null || Integer.parseInt(request.getParameter("pagina")) == 0) {
+                        %>
+                        <a href="#" class="btn btn-success" style="width: 100%;">Pagina anterior</a>
+                        <%
+                        } else {
+                            int siguientePagina = Integer.parseInt(request.getParameter("pagina")) - 1;
+                        %>
+                        <a href="mercado.jsp?pagina=<%=siguientePagina%>" class="btn btn-success" style="width: 100%;">Pagina anterior</a>
+                        <%
+                            }
+                        %>
+                    </div>
+                    <div class="col-5">
+                        <%
+                        if (request.getParameter("pagina") == null || Integer.parseInt(request.getParameter("pagina")) == 0) {
+                        %>
+                        <a href="mercado.jsp?pagina=1" class="btn btn-success" style="width: 100%;">Siguiente página</a>
+                        <%
+                        } else {
+                            int siguientePagina = Integer.parseInt(request.getParameter("pagina")) + 1;
+                        %>
+                        <a href="mercado.jsp?pagina=<%=siguientePagina%>" class="btn btn-success" style="width: 100%;">Siguiente página</a>
+                        <%
+                            }
+                        %>
+                    </div>
+                </div>
             </section>
         </main>
         <footer class="footer bg-success">

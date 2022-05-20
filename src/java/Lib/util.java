@@ -3,6 +3,8 @@ package Lib;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 
 public class util {
@@ -32,5 +34,40 @@ public class util {
    public static int contarPaginas(int x) {
         return x / 9;
    }
+   
+       public static String devolverComunidad(int n) {
+        ArrayList<String> comunidad = new ArrayList(Arrays.asList("Andalucía", "Aragón", "Canarias", "Cantabria", "Castilla y León",
+                "Castilla-La Mancha", "Cataluña", "Ceuta", "Comunidad Valenciana",
+                "Comunidad de Madrid", "Extremadura", "Galicia", "Islas Baleares",
+                "La Rioja", "Melilla", "Navarra", "País Vasco", "Principado de Asturias",
+                "Región de Murcia"));
+        return comunidad.get(n);
+    }
+    
+    public static ArrayList<String> devolverArrayComunidad(){
+        return new ArrayList(Arrays.asList("Andalucía", "Aragón", "Canarias", "Cantabria", "Castilla y León",
+                "Castilla-La Mancha", "Cataluña", "Ceuta", "Comunidad Valenciana",
+                "Comunidad de Madrid", "Extremadura", "Galicia", "Islas Baleares",
+                "La Rioja", "Melilla", "Navarra", "País Vasco", "Principado de Asturias",
+                "Región de Murcia"));
+    }
+    
+    public static String devolverProvincia(int n) {
+        ArrayList<String> provincia = new ArrayList(Arrays.asList("Alava", "Albacete", "Alicante", "Almería", "Avila", "Badajoz", "Baleares", "Barcelona", "Burgos", "Cáceres",
+        "Cádiz", "Castellón", "Ciudad Real", "Córdoba", "La Coruña", "Cuenca", "Gerona", "Granada", "Guadalajara",
+        "Guipúzcoa", "Huelva", "Huesca", "Jaén", "León", "Lérida", "La rioja", "Lugo", "Madrid", "Málaga", "Murcia", "Navarra",
+        "Orense", "Asturias", "Palencia", "Las Palmas", "Pontevedra", "Salamanca", "Tenerife", "Cantabria", "Segovia", "Sevilla", "Soria", "Tarragona",
+        "Teruel", "Toledo", "Valencia", "Valladolid", "Vizcaya", "Zamora", "Zaragoza", "Ceuta", "Melilla"));
+        return provincia.get(n);
+    }    
+   
+        public static ArrayList<String> devolverArrayProvincia(){
+            return new ArrayList(Arrays.asList("Alava", "Albacete", "Alicante", "Almería", "Avila", "Badajoz", "Baleares", "Barcelona", "Burgos", "Cáceres",
+            "Cádiz", "Castellón", "Ciudad Real", "Córdoba", "La Coruña", "Cuenca", "Gerona", "Granada", "Guadalajara",
+            "Guipúzcoa", "Huelva", "Huesca", "Jaén", "León", "Lérida", "La rioja", "Lugo", "Madrid", "Málaga", "Murcia", "Navarra",
+            "Orense", "Asturias", "Palencia", "Las Palmas", "Pontevedra", "Salamanca", "Tenerife", "Cantabria", "Segovia", "Sevilla", "Soria", "Tarragona",
+            "Teruel", "Toledo", "Valencia", "Valladolid", "Vizcaya", "Zamora", "Zaragoza", "Ceuta", "Melilla"));
+    }
+    
    
 }

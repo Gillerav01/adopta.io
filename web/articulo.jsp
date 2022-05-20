@@ -1,5 +1,10 @@
+<%@page import="Lib.util"%>
+<%@page import="DAO.UsuarioDAO"%>
+<%@page import="Models.Articulo"%>
+<%@page import="DAO.ArticuloDAO"%>
+<%@page import="DAO.ConectorBD"%>
 <%@page import="Models.Usuario"%>
-<%@page contentType="text/html" pageEncoding="UTF-8" errorPage="error.jsp"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es-ES">
 
@@ -73,20 +78,33 @@
             </nav>
         </header>
         <main class="main-objeto">
+            <%
+                ConectorBD bdActual = new ConectorBD("localhost", "adoptaio", "root", "");
+                ArticuloDAO informacionArticulo = new ArticuloDAO();
+                informacionArticulo.setConn(bdActual.getConexion());
+                UsuarioDAO informacionDuenio = new UsuarioDAO();
+                informacionDuenio.setConn(bdActual.getConexion());
+                Articulo articulo = informacionArticulo.informacionArtículoDetallado(Integer.parseInt(request.getParameter("idArticulo")));
+                Usuario usuario = informacionDuenio.informacionUsuarioDetallada(informacionDuenio.buscarIdDuenioArticulo(Integer.parseInt(request.getParameter("idArticulo"))));
+                informacionArticulo.cerrarConexion();
+                informacionDuenio.cerrarConexion();
+                bdActual.cerrarConexion();
+            %>
             <section class="info-general-objeto">
-                <img src="https://picsum.photos/200/300?random=1">
+                <img src="data:image/png;base64,<%=articulo.getFotoArticulo()%>" alt="Foto del artículo con nombre <%=articulo.getNombre()%>" />
                 <div class="info-dueño">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga corrupti atque mollitia aut eaque
-                        molestiae dicta dignissimos, blanditiis, consectetur harum sapiente aspernatur, delectus error
-                        asperiores deleniti nulla cupiditate? Libero, porro.</p>
-                    <button>Contactar</button>
+                    <p><%=usuario.getNombre()%>, vive en <%=usuario.getComunidad()%>.</p>
+                    <p> Datos de contacto </p>
+                    <ul>
+                        <li>Teléfono: <%=usuario.getTelefono()%></li>
+                        <li>Correo: <%=usuario.getEmail()%></li>
+                    </ul>
+                        <a href="mailto:<%=usuario.getEmail()%>?&subject=Quiero%20contactar%20con%20usted:%20<%=usuario.getNombre()%>">Contactar con <%=usuario.getNombre()%></a>
                 </div>
             </section>
             <section class="info-objeto">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id impedit tempora similique officia
-                    ratione, mollitia vitae, deleniti, alias numquam commodi dolores tenetur! Hic, ducimus in incidunt
-                    debitis a molestiae error!</p>
-                <button>Comprar</button>
+                <p><%=articulo.getDescripcion()%></p>
+                <a href="mailto:<%=usuario.getEmail()%>?&subject=Quiero%20comprar%20tu%20artículo:%20<%=articulo.getNombre()%>&body=Hola%20me%20gustaria%20comprar%20el%20articulo:%20<%=articulo.getNombre()%>%20por%20<%=articulo.getPrecio()%>€.%20Ruego%20se%20ponga%20en%20contacto%20para%20continuar%20con%20el%20proceso.%20Saludos%20de%20<%=usuario.getNombre()%>">Comprar artículo</a>
             </section>
         </main>
         <footer class="footer bg-success">

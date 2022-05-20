@@ -7,6 +7,7 @@ public class Articulo {
     private String nombre;
     private String descripcion;
     private String estado;
+    private String fotoArticulo;
     private double precio;
     private Date fechaRegistro;
     private Date fechaCompra;
@@ -39,6 +40,32 @@ public class Articulo {
         this.idComprador = idComprador;
     }
 
+    public Articulo(int id, String nombre, String descripcion, String estado, String fotoArticulo, double precio, Date fechaRegistro, int idVendedor) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.estado = estado;
+        this.fotoArticulo = fotoArticulo;
+        this.precio = precio;
+        this.fechaRegistro = fechaRegistro;
+        this.idVendedor = idVendedor;
+    }
+
+    
+    
+    public Articulo(int id, String nombre, String descripcion, String estado, String fotoArticulo, double precio, Date fechaRegistro, Date fechaCompra, int idVendedor, int idComprador) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.estado = estado;
+        this.fotoArticulo = fotoArticulo;
+        this.precio = precio;
+        this.fechaRegistro = fechaRegistro;
+        this.fechaCompra = fechaCompra;
+        this.idVendedor = idVendedor;
+        this.idComprador = idComprador;
+    }
+    
     public int getId() {
         return id;
     }
@@ -69,6 +96,14 @@ public class Articulo {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getFotoArticulo() {
+        return fotoArticulo;
+    }
+
+    public void setFotoArticulo(String fotoArticulo) {
+        this.fotoArticulo = fotoArticulo;
     }
 
     public double getPrecio() {

@@ -77,6 +77,20 @@ public class MascotaDAO {
             return mascotas;
         }
     }
+    
+        public Mascota informacionMascotaDetallado(int id) throws SQLException {
+        if (this.conn == null) {
+            System.out.println("No existe una conexión con la base de datos.");
+            return null;
+        } else {
+            Statement stmt = this.conn.createStatement();
+            ResultSet result = stmt.executeQuery("SELECT * FROM mascotas WHERE mascotas.id = " + id);
+            while (result.next()) {
+                return new Mascota(result.getInt("id"), result.getString("nombre"), result.getString("tipo"), result.getString("raza"), result.getInt("prioridad"), result.getBoolean("perdida"), result.getString("fotoMascota"), result.getInt("idUsuario"));
+            }
+            return null;
+        }
+    }
 
     public void setConn(Connection conn) {
         this.conn = conn;

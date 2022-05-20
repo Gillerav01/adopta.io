@@ -1,3 +1,7 @@
+<%@page import="Models.Mascota"%>
+<%@page import="DAO.MascotaDAO"%>
+<%@page import="DAO.UsuarioDAO"%>
+<%@page import="DAO.ConectorBD"%>
 <%@page import="Models.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" errorPage="error.jsp"%>
 <!DOCTYPE html>
@@ -71,23 +75,34 @@
             </nav>
         </header>
     <main class="main-mascota">
-        <!-- Aquí ten en cuenta que dependiendo desde donde venga el usuario, mascotas.html o perdidos.html, con la funcionalidad
-            que le planeo añadir, se mostrará una cosa u otra, por ahora hagamos como que siempre accede desde mascotas.html
-        -->
-        <section class="info-general">
-            <img src="https://picsum.photos/200/300?random=1">
-            <div class="info-dueño">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus vitae dolor asperiores.
-                    Debitis ipsum deserunt, laboriosam optio, consequuntur, dolorum deleniti voluptatum labore
-                    architecto nulla doloremque quis vero? Fugiat, ducimus pariatur.</p>
-                <button class="hvr-grow-shadow">Contactar</button>
-            </div>
-        </section>
-        <section class="info-mascota">
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. In saepe ipsum dolor tenetur, amet officia
-                cum sed quo id dolores libero. Quibusdam esse ab ea iure sapiente mollitia optio officia!</p>
-            <button class="hvr-grow-shadow">Solicitar adopcion</button>
-        </section>
+                    <%
+                ConectorBD bdActual = new ConectorBD("localhost", "adoptaio", "root", "");
+                MascotaDAO informacionMascota = new MascotaDAO();
+                informacionMascota.setConn(bdActual.getConexion());
+                UsuarioDAO informacionDuenio = new UsuarioDAO();
+                informacionDuenio.setConn(bdActual.getConexion());
+                Mascota mascota = informacionMascota.informacionMascotaDetallado(Integer.parseInt(request.getParameter("idMascota")));
+                Usuario usuario = informacionDuenio.informacionUsuarioDetallada(informacionDuenio.buscarIdDuenioMascota(Integer.parseInt(request.getParameter("idMascota"))));
+                informacionMascota.cerrarConexion();
+                informacionDuenio.cerrarConexion();
+                bdActual.cerrarConexion();
+            %>
+            <section class="info-general-objeto">
+                <img src="data:image/png;base64,<%=mascota.getImagenMascota()%>" alt="Foto del artículo con nombre <%=mascota.getNombre()%>" />
+                <div class="info-dueño">
+                    <p><%=usuario.getNombre()%>, vive en <%=usuario.getComunidad()%>.</p>
+                    <p> Datos de contacto </p>
+                    <ul>
+                        <li>Teléfono: <%=usuario.getTelefono()%></li>
+                        <li>Correo: <%=usuario.getEmail()%></li>
+                    </ul>
+                        <a href="mailto:<%=usuario.getEmail()%>?&subject=Quiero%20contactar%20con%20usted:%20<%=usuario.getNombre()%>">Contactar con <%=usuario.getNombre()%></a>
+                </div>
+            </section>
+            <section class="info-objeto">
+                    <p><%=mascota.getTipo()%> - <%=mascota.getRaza()%></p>
+                <a href="mailto:<%=usuario.getEmail()%>?&subject=Quiero%20comprar%20tu%20artículo:%20<%=usuario.getNombre()%>&body=Hola%20me%20gustaria%20comprar%20el%20mascota:%20<%=mascota.getNombre()%>%20por%20Ruego%20se%20ponga%20en%20contacto%20para%20continuar%20con%20el%20proceso.%20Saludos%20de%20<%=usuario.getNombre()%>">Adoptar mascota</a>
+            </section>
     </main>
     <footer class="footer bg-success">
         <p class="footer" style="color: white;">&copy; Guillermo Illera Vinatea - Calle emperador, Portal 43, Piso 4ºB</p>

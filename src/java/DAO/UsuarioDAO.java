@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class UsuarioDAO {
-    
+
     private Connection conn;
 
     public boolean crearUsuario(Usuario Usuario) throws SQLException {
@@ -34,12 +34,39 @@ public class UsuarioDAO {
         }
         return null;
     }
-    
+
+    public Usuario informacionUsuarioDetallada(int id) throws SQLException {
+        Statement stmt = this.conn.createStatement();
+        ResultSet result = stmt.executeQuery("SELECT * FROM usuarios WHERE id = " + id);
+        while (result.next()) {
+            return new Usuario(result.getString("nombre"), result.getString("email"), result.getString("telefono"), result.getString("dni"), result.getString("urlImagen"), result.getString("localidad"), result.getString("comunidad"));
+        }
+        return null;
+    }
+
+    public int buscarIdDuenioArticulo(int idArticulo) throws SQLException {
+        Statement stmt = this.conn.createStatement();
+        ResultSet result = stmt.executeQuery("SELECT articulos.idVendedor FROM articulos WHERE articulos.id = " + idArticulo);
+        while (result.next()) {
+            return result.getInt("idVendedor");
+        }
+        return -1;
+    }
+
+    public int buscarIdDuenioMascota(int idMascota) throws SQLException {
+        Statement stmt = this.conn.createStatement();
+        ResultSet result = stmt.executeQuery("SELECT mascotas.idUsuario FROM mascotas WHERE mascotas.id = " + idMascota);
+        while (result.next()) {
+            return result.getInt("idUsuario");
+        }
+        return -1;
+    }
+
     public int buscarIdUsuarioPorCorreo(String email) throws SQLException {
         Statement stmt = this.conn.createStatement();
         ResultSet result = stmt.executeQuery("SELECT id FROM usuarios WHERE email = '" + email + "'");
         while (result.next()) {
-                return result.getInt("id");
+            return result.getInt("id");
         }
         return -1;
     }
@@ -51,7 +78,7 @@ public class UsuarioDAO {
     public void setConn(Connection conn) {
         this.conn = conn;
     }
-    
+
     public Connection cerrarConexion() {
         try {
             this.conn.close();
@@ -62,5 +89,5 @@ public class UsuarioDAO {
         this.conn = null;
         return this.conn;
     }
-    
+
 }
