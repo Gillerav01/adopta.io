@@ -29,7 +29,7 @@ public class UsuarioDAO {
         ResultSet result = stmt.executeQuery("SELECT * FROM usuarios WHERE email = '" + login + "'");
         while (result.next()) {
             if (result.getString("password").equals(util.convertirSHA256(pwd))) {
-                return new Usuario(result.getString("nombre"), result.getString("email"), result.getString("telefono"), result.getString("dni"), result.getString("urlImagen"), result.getString("localidad"), result.getString("comunidad"));
+                return new Usuario(result.getInt("id"), result.getString("nombre"), result.getString("email"), result.getString("telefono"), result.getString("dni"), result.getString("urlImagen"), result.getString("localidad"), result.getString("comunidad"));
             }
         }
         return null;

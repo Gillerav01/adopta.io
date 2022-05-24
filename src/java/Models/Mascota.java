@@ -32,6 +32,14 @@ public class Mascota {
         this.idUsuario = idUsuario;
     }
 
+    public Mascota(String nombre, String tipo, String raza, int prioridad, int idUsuario) {
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.raza = raza;
+        this.prioridad = prioridad;
+        this.idUsuario = idUsuario;
+    }
+
     public Mascota(int id, String nombre, String tipo, String raza, int prioridad, boolean perdida, String imagenMascota, int idUsuario) {
         this.id = id;
         this.nombre = nombre;
@@ -51,6 +59,13 @@ public class Mascota {
         this.perdida = perdida;
         this.imagenMascota = imagenMascota;
         this.idUsuario = idUsuario;
+    }
+
+    public Mascota(String nombre, String tipo, String raza, int prioridad) {
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.raza = raza;
+        this.prioridad = prioridad;
     }
 
     public String getImagenMascota() {

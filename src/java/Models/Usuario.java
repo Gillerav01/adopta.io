@@ -36,6 +36,31 @@ public class Usuario {
         this.comunidad = comunidad;
     }
 
+    public Usuario(int id, String nombre, String email, String telefono, String dni, String urlImagen, String localidad, String comunidad) {
+        this.id = id;
+        this.nombre = nombre;
+        this.email = email;
+        this.telefono = telefono;
+        this.dni = dni;
+        this.urlImagen = urlImagen;
+        this.localidad = localidad;
+        this.comunidad = comunidad;
+    }
+    
+    
+
+    public Usuario(int id, String nombre, String email, String telefono, String dni, String localidad, String comunidad) {
+        this.id = id;
+        this.nombre = nombre;
+        this.email = email;
+        this.telefono = telefono;
+        this.dni = dni;
+        this.localidad = localidad;
+        this.comunidad = comunidad;
+    }
+    
+    
+
     public Usuario(String nombre, String email, String telefono, String dni, String password, String urlImagen, String localidad, String comunidad) {
         this.nombre = nombre;
         this.email = email;

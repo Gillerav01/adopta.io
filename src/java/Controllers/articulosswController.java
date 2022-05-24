@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +26,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Guillermo
  */
-public class articuloController extends HttpServlet {
+@WebServlet(name = "articuloController", urlPatterns = {"/articulos"})
+public class articulosswController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -58,6 +60,7 @@ public class articuloController extends HttpServlet {
             }
         }
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -73,7 +76,7 @@ public class articuloController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(articuloController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(articulosswController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -91,7 +94,7 @@ public class articuloController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(articuloController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(articulosswController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

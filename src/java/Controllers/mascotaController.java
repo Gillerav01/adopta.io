@@ -5,12 +5,22 @@
  */
 package Controllers;
 
+import DAO.ConectorBD;
+import DAO.MascotaDAO;
+import Models.Mascota;
+import Models.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -28,19 +38,25 @@ public class mascotaController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet mascotaController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet mascotaController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        RequestDispatcher rd = null;
+        ConectorBD bdActual = new ConectorBD("localhost", "adoptaio", "root", "");
+       
+        if (request.getParameter("registrarMascota") != null){
+            System.out.println("Has pulsado registrarse.");
+            MascotaDAO registro = new MascotaDAO();
+            registro.setConn(bdActual.getConexion());
+            HttpSession session = request.getSession(true);
+            Usuario actual = (Usuario) session.getAttribute("usuarioLogueado");
+            if (registro.registrarMascota(new Mascota(request.getParameter("nombre"), request.getParameter("tipoMascota"), request.getParameter("raza"), Integer.parseInt(request.getParameter("prioridad"))), Integer.parseInt(request.getParameter("perdida")), actual.getId())){
+                System.out.println("Se ha registrado correctamente");
+                rd = getServletContext().getRequestDispatcher("/mascotas.jsp");
+                registro.cerrarConexion();
+                rd.forward(request, response);
+            } else {
+                System.out.println("No se ha registrado.");
+            }
         }
     }
 
@@ -54,9 +70,13 @@ public class mascotaController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(mascotaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -70,7 +90,11 @@ public class mascotaController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(mascotaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -12,6 +12,10 @@
         <servlet-name>mascotaController</servlet-name>
         <servlet-class>Controllers.mascotaController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>articulo</servlet-name>
+        <servlet-class>Controllers.articuloController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>indexController</servlet-name>
         <url-pattern>/index</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>mascotaController</servlet-name>
         <url-pattern>/mascota</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>articulo</servlet-name>
+        <url-pattern>/articulo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

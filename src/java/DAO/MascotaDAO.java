@@ -106,5 +106,16 @@ public class MascotaDAO {
         this.conn = null;
         return this.conn;
     }
+    
+        public boolean registrarMascota(Mascota mascota, int perdida, int idUsuario) throws SQLException {
+        if (this.conn == null) {
+            System.out.println("No existe una conexión con la base de datos.");
+            return false;
+        } else {
+            Statement st = this.conn.createStatement();
+            st.executeUpdate("INSERT INTO `mascotas` (`id`, `nombre`, `tipo`, `raza`, `prioridad`, `perdida`, `fotoMascota`, `idUsuario`, `idAdoptante`) VALUES (NULL, '" + mascota.getNombre() + "', '" + mascota.getTipo() + "', '" + mascota.getRaza() + "', " + mascota.getPrioridad() + "," + perdida + ", DEFAULT, '" + idUsuario + "', NULL);");
+            return true;
+        }
+    }
 
 }

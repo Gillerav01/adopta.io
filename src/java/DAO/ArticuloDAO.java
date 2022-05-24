@@ -53,6 +53,17 @@ public class ArticuloDAO {
         }
     }
 
+            public boolean registrarArticulo(Articulo articulo, int idUsuario) throws SQLException {
+        if (this.conn == null) {
+            System.out.println("No existe una conexión con la base de datos.");
+            return false;
+        } else {
+            Statement st = this.conn.createStatement();
+            st.executeUpdate("INSERT INTO `articulos` (`id`, `nombre`, `descripcion`, `estado`, `fotoArticulo`, `precio`, `fechaRegistro`, `fechaVenta`, `idVendedor`, `idComprador`) VALUES (NULL, '" + articulo.getNombre() + "', '" + articulo.getDescripcion() + "', 'Publicado', DEFAULT, '" + articulo.getPrecio() + "', current_timestamp(), NULL, " + idUsuario + ", NULL);");
+            return true;
+        }
+    }
+    
     public void setConn(Connection conn) {
         this.conn = conn;
     }

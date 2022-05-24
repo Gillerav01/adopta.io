@@ -51,6 +51,11 @@ public class Articulo {
         this.idVendedor = idVendedor;
     }
 
+    public Articulo(String nombre, String descripcion, double precio) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+    }
     
     
     public Articulo(int id, String nombre, String descripcion, String estado, String fotoArticulo, double precio, Date fechaRegistro, Date fechaCompra, int idVendedor, int idComprador) {
