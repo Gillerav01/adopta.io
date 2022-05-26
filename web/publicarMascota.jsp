@@ -4,34 +4,35 @@
     Author     : Guillermo
 --%>
 
+<%@page import="Lib.util"%>
 <%@page import="Models.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es-ES">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;1,300&display=swap"
-        rel="stylesheet">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Inicio</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;1,300&display=swap"
+              rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+              integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
-    <link rel="stylesheet" href="./css/normalize/normalize.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link rel="stylesheet" href="./css/style.css">
-    <script src="./js/main.js"></script>
-</head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
+        <link rel="stylesheet" href="./css/normalize/normalize.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <link rel="stylesheet" href="./css/style.css">
+        <script src="./js/main.js"></script>
+    </head>
 
-<body>
-    <header>
+    <body>
+        <header>
             <nav class="navbar navbar-expand-lg navbar-dark bg-success">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="index.jsp">ADOPTA.IO
@@ -57,6 +58,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="contacto.jsp">Contacto</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="administracion.jsp">Administracion</a>
                             </li>
                     </div>
                 </div>
@@ -87,22 +91,34 @@
                     <section class="datos--mascota" id="datos-mascota">
                         <input type="text" placeholder="Nombre de la mascota" name="nombre">
                         <select id="tipo" class="tipoMascota" name="tipoMascota">
-                                <option value="Perro">Perro</option>
+                            <option value="Perro">Perro</option>
                             <option value="gato">Gato</option>
                             <option value="Pajaro">Pajaro</option>
                             <option value="Roedor">Roedor</option>                    
                         </select>
+                        <section class="informacion-localizacion-motivo">
+                            <select name="comunidad">
+                                <%                            
+                                    for (String comunidad : util.devolverArrayComunidad()) {
+                                %>
+                                    <option value="<%=comunidad%>"><%=comunidad%></option>
+                                <%
+                                    }
+                                %>
+                            </select>
+                            <textarea id="motivo" class="motivo" name="motivo" placeholder="Introduzca del motivo de la adopción"></textarea>
+                        </section>
                         <input type="text" placeholder="Introduzca la raza de la mascota" name="raza" id="raza" class="raza">
                         <section class="seccion-prioridad" id="seccion-prioridad">
                             <p id="valorPrioridad">¡Introduzca la prioridad de adopción de la mascota!</p>
                             <input type="range" min="1" max="10" step="1" id="prioridad" name="prioridad">
                         </section>
                         <section class="seccion-perdida" id="seccion-perdida">
-                           <input type="radio" id="perdida" name="perdida" value="1">
-                           <label for="perdida">Mi mascota está perdida</label>
+                            <input type="radio" id="perdida" name="perdida" value="1">
+                            <label for="perdida">Mi mascota está perdida</label>
 
-                           <input type="radio" id="noperdida" name="perdida" value="0">
-                           <label for="noperdida">Mi mascota no está perdida</label>
+                            <input type="radio" id="noperdida" name="perdida" value="0">
+                            <label for="noperdida">Mi mascota no está perdida</label>
                         </section>
                     </section>
                     <input type="submit" name="registrarMascota" value="Registrar mascota" id="registrarMascota" class="registrarMascota">
@@ -113,6 +129,6 @@
         <footer class="footer bg-success">
             <p class="footer" style="color: white;">&copy; Guillermo Illera Vinatea - Calle emperador, Portal 43, Piso 4ºB</p>
         </footer>
-</body>
+    </body>
 
 </html>

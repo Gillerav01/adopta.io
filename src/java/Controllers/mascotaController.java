@@ -49,7 +49,7 @@ public class mascotaController extends HttpServlet {
             registro.setConn(bdActual.getConexion());
             HttpSession session = request.getSession(true);
             Usuario actual = (Usuario) session.getAttribute("usuarioLogueado");
-            if (registro.registrarMascota(new Mascota(request.getParameter("nombre"), request.getParameter("tipoMascota"), request.getParameter("raza"), Integer.parseInt(request.getParameter("prioridad"))), Integer.parseInt(request.getParameter("perdida")), actual.getId())){
+            if (registro.registrarMascota(new Mascota(request.getParameter("nombre"), request.getParameter("tipoMascota"), request.getParameter("raza"), Integer.parseInt(request.getParameter("prioridad")), request.getParameter("comunidad"), request.getParameter("motivo")), Integer.parseInt(request.getParameter("perdida")), actual.getId())){
                 System.out.println("Se ha registrado correctamente");
                 rd = getServletContext().getRequestDispatcher("/mascotas.jsp");
                 registro.cerrarConexion();

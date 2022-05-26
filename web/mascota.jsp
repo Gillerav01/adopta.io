@@ -41,10 +41,10 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="index.jsp">Inicio </a>
+                                <a class="nav-link" aria-current="page" href="index.jsp">Inicio </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="mascotas.jsp">Mascotas</a>
+                                <a class="nav-link active" href="mascotas.jsp">Mascotas</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="mercado.jsp">Mercado</a>
@@ -54,6 +54,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="contacto.jsp">Contacto</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="administracion.jsp">Administracion</a>
                             </li>
                     </div>
                 </div>
@@ -101,6 +104,7 @@
             </section>
             <section class="info-objeto">
                     <p><%=mascota.getTipo()%> - <%=mascota.getRaza()%></p>
+                    <p>Motivo de la adopción: <%=mascota.getMotivo()%></p>
                 <a href="mailto:<%=usuario.getEmail()%>?&subject=Quiero%20comprar%20tu%20artículo:%20<%=usuario.getNombre()%>&body=Hola%20me%20gustaria%20comprar%20el%20mascota:%20<%=mascota.getNombre()%>%20por%20Ruego%20se%20ponga%20en%20contacto%20para%20continuar%20con%20el%20proceso.%20Saludos%20de%20<%=usuario.getNombre()%>">Adoptar mascota</a>
             </section>
     </main>

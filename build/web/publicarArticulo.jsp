@@ -58,6 +58,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="contacto.jsp">Contacto</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="administracion.jsp">Administracion</a>
+                            </li>
                     </div>
                 </div>
                 <form class="d-flex">
@@ -86,7 +89,7 @@
                     </section>
                     <section class="datos-articulo">
                         <input type="text" placeholder="Nombre del artículo" name="nombre">
-                        <textarea name="textarea" placeholder="Describe el objeto aquí" name="deescripcion"></textarea>
+                        <textarea name="textarea" placeholder="Describe el objeto aquí" name="descripcion"></textarea>
                         <input type="text" placeholder="Precio en euros" name="precio">
                     </section>
                     <section class="botones-articulo">

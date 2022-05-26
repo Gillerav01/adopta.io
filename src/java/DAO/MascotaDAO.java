@@ -72,7 +72,7 @@ public class MascotaDAO {
                 if (result.getInt("perdida") == 1) {
                     perdida = true;
                 }
-                mascotas.add(new Mascota(result.getInt("id"), result.getString("nombre"), result.getString("tipo"), result.getString("raza"), result.getInt("prioridad"), perdida, result.getString("fotoMascota"), result.getInt("idUsuario")));
+                mascotas.add(new Mascota(result.getInt("id"), result.getString("nombre"), result.getString("tipo"), result.getString("raza"), result.getInt("prioridad"), perdida, result.getString("comunidad"), result.getString("motivo"), result.getString("fotoMascota"), result.getInt("idUsuario")));
             }
             return mascotas;
         }
@@ -113,7 +113,7 @@ public class MascotaDAO {
             return false;
         } else {
             Statement st = this.conn.createStatement();
-            st.executeUpdate("INSERT INTO `mascotas` (`id`, `nombre`, `tipo`, `raza`, `prioridad`, `perdida`, `fotoMascota`, `idUsuario`, `idAdoptante`) VALUES (NULL, '" + mascota.getNombre() + "', '" + mascota.getTipo() + "', '" + mascota.getRaza() + "', " + mascota.getPrioridad() + "," + perdida + ", DEFAULT, '" + idUsuario + "', NULL);");
+            st.executeUpdate("INSERT INTO `mascotas` (`id`, `nombre`, `tipo`, `raza`, `prioridad`, `perdida`, `comunidad`, `motivo`, `fotoMascota`, `idUsuario`, `idAdoptante`) VALUES (NULL, '" + mascota.getNombre() + "', '" + mascota.getTipo() + "', '" + mascota.getRaza() + "', " + mascota.getPrioridad() + "," + perdida + ", '" + mascota.getComunidad() + "', '" + mascota.getMotivo() + "'" + ", DEFAULT, '" + idUsuario + "', NULL);");
             return true;
         }
     }

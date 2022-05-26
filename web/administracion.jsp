@@ -17,13 +17,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
     <link rel="stylesheet" href="./css/normalize/normalize.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" href="./css/style.css">
+    <script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" href="css/style.css">
     <script src="./js/main.js"></script>
+    <script src="./js/administracion.js"></script>
 </head>
-
 
 <body>
     <header>
@@ -50,61 +59,48 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="perdidos.jsp">Perdidos </a>
                             </li>
-                            <li class="nav-item active">
+                            <li class="nav-item">
                                 <a class="nav-link" href="contacto.jsp">Contacto</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="administracion.jsp">Administracion</a>
+                                <a class="nav-link active" href="administracion.jsp">Administracion</a>
                             </li>
                     </div>
                 </div>
                 <form class="d-flex">
                     <%
                         Usuario actual = (Usuario) session.getAttribute("usuarioLogueado");
-                        if (actual != null) {
-                    %>
-                    <p>Bienvenido, <%=actual.getNombre()%>. <a href="logout">Cerrar sesion</a></p>
-                    <%
-                    } else {
-                    %>
-                    <p>No estás logueado. Inicia sesion <a href="index.jsp">aquí</a></p>
-                    <%
-                        }
-
-                    %>
-                </form>
-            </nav>
-        </header>
-    <main>
-        <section class="contacto" id="contacto">
-            <form action="contacto" class="formularioContacto">
-                    <select name="motivo" id="motivo">
-                    <%
-                        if (request.getParameter("denunciar") == null){
+                        if (actual != null){
                             %>
-                        <option value="Problema comunicando con usuario">Problema comunicando con usuario</option>
-                        <option value="Problema con la adopción de una mascota">Problema con la adopción de una mascota </option>
-                        <option value="Problema con la compra de un artículo">Problema con la compra de un artículo </option>
-                        <option value="Problema con la adopción de una mascota">Problema con la adopción de una mascota </option>
-                        <option value="Otros">Otros</option>
+                            <p>Bienvenido, <%=actual.getNombre()%>. <a href="logout">Cerrar sesion</a></p>
                             <%
                         } else {
                             %>
-                        <option value="Denunciar publicación de mascota">Denunciar publicación de mascota</option>
-                        <option value="Denunciar publicación de artículo">Denunciar publicación de artículo</option>
+                            <p>No estás logueado. Inicia sesion <a href="index.jsp">aquí</a></p>
                             <%
                         }
+                        
                     %>
-                </select>
-                <textarea name="descripcion" id="" cols="40" rows="20" placeholder="Escribe aquí tu texto"></textarea>
-                <input name="contactar" type="submit" value="Enviar" class="hvr-grow-shadow">
-            </form>
+                </form>
+            </nav>
+    </header>
+    <main>
+        <section id="table_usuarios_container" class="display" style="width: 40vw;">
+            <table id="table-usuarios" class="table table-hover table-white" style="width: 100%"></table>
         </section>
+        <section id="table_articulos_container" class="display" style="width: 40vw;">
+            <table id="table-articulos" class="table table-hover table-white" style="width: 100%"></table>
+        </section>
+        <section id="table_incidencias_container" class="display" style="width: 40vw;">
+            <table id="table-incidencias" class="table table-hover table-white" style="width: 100%"></table>
+        </section>
+        <section id="table_mascotas_container" class="display" style="width: 40vw;">
+            <table id="table-mascotas" class="table table-hover table-white" style="width: 100%"></table>
+        </section>  
     </main>
     <footer class="footer bg-success">
         <p class="footer" style="color: white;">&copy; Guillermo Illera Vinatea - Calle emperador, Portal 43, Piso 4ºB</p>
     </footer>
 </body>
-
 
 </html>

@@ -50,7 +50,7 @@ public class articuloController extends HttpServlet {
             Usuario actual = (Usuario) session.getAttribute("usuarioLogueado");
             if (registro.registrarArticulo(new Articulo(request.getParameter("nombre"), request.getParameter("descripcion"), Double.parseDouble(request.getParameter("precio"))), actual.getId())){
                 System.out.println("Se ha registrado correctamente");
-                rd = getServletContext().getRequestDispatcher("/articulos.jsp");
+                rd = getServletContext().getRequestDispatcher("/mercado.jsp");
                 registro.cerrarConexion();
                 rd.forward(request, response);
             } else {

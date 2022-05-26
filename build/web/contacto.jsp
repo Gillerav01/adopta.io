@@ -39,7 +39,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="index.jsp">Inicio </a>
+                                <a class="nav-link" aria-current="page" href="index.jsp">Inicio </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="mascotas.jsp">Mascotas</a>
@@ -50,8 +50,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="perdidos.jsp">Perdidos </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item active">
                                 <a class="nav-link" href="contacto.jsp">Contacto</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="administracion.jsp">Administracion</a>
                             </li>
                     </div>
                 </div>
@@ -79,16 +82,16 @@
                     <%
                         if (request.getParameter("denunciar") == null){
                             %>
-                        <option value="1">Problema comunicando con usuario</option>
-                        <option value="2">Problema con la adopción de una mascota </option>
-                        <option value="3">Problema con la compra de un artículo </option>
-                        <option value="4">Problema con la adopción de una mascota </option>
-                        <option value="5">Otros</option>
+                        <option value="Problema comunicando con usuario">Problema comunicando con usuario</option>
+                        <option value="Problema con la adopción de una mascota">Problema con la adopción de una mascota </option>
+                        <option value="Problema con la compra de un artículo">Problema con la compra de un artículo </option>
+                        <option value="Problema con la adopción de una mascota">Problema con la adopción de una mascota </option>
+                        <option value="Otros">Otros</option>
                             <%
                         } else {
                             %>
-                        <option value="6">Denunciar publicación de mascota</option>
-                        <option value="7">Denunciar publicación de artículo</option>
+                        <option value="Denunciar publicación de mascota">Denunciar publicación de mascota</option>
+                        <option value="Denunciar publicación de artículo">Denunciar publicación de artículo</option>
                             <%
                         }
                     %>

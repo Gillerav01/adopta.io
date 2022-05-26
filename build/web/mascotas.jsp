@@ -58,6 +58,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="contacto.jsp">Contacto</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="administracion.jsp">Administracion</a>
+                            </li>
                     </div>
                 </div>
                 <form class="d-flex">
@@ -79,8 +82,17 @@
         </header>
         <main class="main-mascotas">
             <aside>
-                <form action="#">
+                <form action="mascotas.jsp">
                     <p>Formulario para el filtrado de mascotas</p>
+                    <select name="comunidad">
+                        <%
+                            for(String comunidad : util.devolverArrayComunidad()){
+                                %>
+                                <option value="<%=comunidad%>"><%=comunidad%></option>
+                                <%
+                            }
+                        %>
+                    </select>
                 </form>
             </aside>
             <section class="mascotas d-flex justify-content-center float-left">

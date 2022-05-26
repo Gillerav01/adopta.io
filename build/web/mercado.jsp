@@ -57,6 +57,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="contacto.jsp">Contacto</a>
                             </li>
+                           <li class="nav-item">
+                                <a class="nav-link" href="administracion.jsp">Administracion</a>
+                            </li>
                     </div>
                 </div>
                 <form class="d-flex">

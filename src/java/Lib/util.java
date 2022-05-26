@@ -36,20 +36,20 @@ public class util {
    }
    
        public static String devolverComunidad(int n) {
-        ArrayList<String> comunidad = new ArrayList(Arrays.asList("Andalucía", "Aragón", "Canarias", "Cantabria", "Castilla y León",
-                "Castilla-La Mancha", "Cataluña", "Ceuta", "Comunidad Valenciana",
+        ArrayList<String> comunidad = new ArrayList(Arrays.asList("Andalucia", "Aragon", "Canarias", "Cantabria", "Castilla y Leon",
+                "Castilla-La Mancha", "Catalunya", "Ceuta", "Comunidad Valenciana",
                 "Comunidad de Madrid", "Extremadura", "Galicia", "Islas Baleares",
-                "La Rioja", "Melilla", "Navarra", "País Vasco", "Principado de Asturias",
-                "Región de Murcia"));
+                "La Rioja", "Melilla", "Navarra", "Pais Vasco", "Principado de Asturias",
+                "Region de Murcia"));
         return comunidad.get(n);
     }
     
     public static ArrayList<String> devolverArrayComunidad(){
-        return new ArrayList(Arrays.asList("Andalucía", "Aragón", "Canarias", "Cantabria", "Castilla y León",
-                "Castilla-La Mancha", "Cataluña", "Ceuta", "Comunidad Valenciana",
+        return new ArrayList(Arrays.asList("Andalucia", "Aragon", "Canarias", "Cantabria", "Castilla y Leon",
+                "Castilla-La Mancha", "Catalunya", "Ceuta", "Comunidad Valenciana",
                 "Comunidad de Madrid", "Extremadura", "Galicia", "Islas Baleares",
-                "La Rioja", "Melilla", "Navarra", "País Vasco", "Principado de Asturias",
-                "Región de Murcia"));
+                "La Rioja", "Melilla", "Navarra", "Pais Vasco", "Principado de Asturias",
+                "Region de Murcia"));
     }
     
     public static String devolverProvincia(int n) {

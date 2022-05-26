@@ -18,8 +18,8 @@ public class UsuarioDAO {
         } else {
             System.out.println(Usuario);
             Statement st = this.conn.createStatement();
-            st.executeUpdate("INSERT INTO `usuarios` (`id`, `nombre`, `email`, `telefono`, `dni`, `password`, `urlImagen`, `localidad`, `comunidad`) "
-                    + "VALUES (NULL, '" + Usuario.getNombre() + "', '" + Usuario.getEmail() + "', '" + Usuario.getTelefono() + "', '" + Usuario.getDni() + "', '" + util.convertirSHA256(Usuario.getPassword()) + "', DEFAULT, '" + Usuario.getLocalidad() + "', '" + Usuario.getComunidad() + "');");
+            st.executeUpdate("INSERT INTO `usuarios` (`id`, `nombre`, `email`, `telefono`, `dni`, `password`, `urlImagen`, `comunidad`) "
+                    + "VALUES (NULL, '" + Usuario.getNombre() + "', '" + Usuario.getEmail() + "', '" + Usuario.getTelefono() + "', '" + Usuario.getDni() + "', '" + util.convertirSHA256(Usuario.getPassword()) + "', DEFAULT, '" + Usuario.getComunidad() + "');");
             return true;
         }
     }
@@ -37,9 +37,9 @@ public class UsuarioDAO {
 
     public Usuario informacionUsuarioDetallada(int id) throws SQLException {
         Statement stmt = this.conn.createStatement();
-        ResultSet result = stmt.executeQuery("SELECT * FROM usuarios WHERE id = " + id);
+        ResultSet result = stmt.executeQuery("SELECT nombre, email, telefono, dni, urlImagen, comunidad FROM usuarios WHERE id = " + id);
         while (result.next()) {
-            return new Usuario(result.getString("nombre"), result.getString("email"), result.getString("telefono"), result.getString("dni"), result.getString("urlImagen"), result.getString("localidad"), result.getString("comunidad"));
+            return new Usuario(result.getString("nombre"), result.getString("email"), result.getString("telefono"), result.getString("dni"), result.getString("urlImagen"), result.getString("comunidad"));
         }
         return null;
     }

@@ -7,6 +7,8 @@ public class Mascota {
     private String raza;
     private int prioridad;
     private boolean perdida;
+    private String comunidad;
+    private String motivo;
     private String imagenMascota;
     private int idUsuario;
 
@@ -22,6 +24,21 @@ public class Mascota {
         this.perdida = perdida;
         this.idUsuario = idUsuario;
     }
+
+    public Mascota(int id, String nombre, String tipo, String raza, int prioridad, boolean perdida, String comunidad, String motivo, String imagenMascota, int idUsuario) {
+        this.id = id;
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.raza = raza;
+        this.prioridad = prioridad;
+        this.perdida = perdida;
+        this.comunidad = comunidad;
+        this.motivo = motivo;
+        this.imagenMascota = imagenMascota;
+        this.idUsuario = idUsuario;
+    }
+    
+    
 
     public Mascota(String nombre, String tipo, String raza, int prioridad, boolean perdida, int idUsuario) {
         this.nombre = nombre;
@@ -67,7 +84,33 @@ public class Mascota {
         this.raza = raza;
         this.prioridad = prioridad;
     }
+    
+    public Mascota(String nombre, String tipo, String raza, int prioridad, String comunidad) {
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.raza = raza;
+        this.prioridad = prioridad;
+        this.comunidad = comunidad;
+    }
+    
+        public Mascota(String nombre, String tipo, String raza, int prioridad, String comunidad, String motivo) {
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.raza = raza;
+        this.prioridad = prioridad;
+        this.comunidad = comunidad;
+        this.motivo = motivo;
+    }
 
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
+        
     public String getImagenMascota() {
         return imagenMascota;
     }
@@ -130,6 +173,14 @@ public class Mascota {
 
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public String getComunidad() {
+        return comunidad;
+    }
+
+    public void setComunidad(String comunidad) {
+        this.comunidad = comunidad;
     }
 
     @Override

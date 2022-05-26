@@ -1,3 +1,4 @@
+<%@page import="Lib.util"%>
 <%@page import="Models.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" errorPage="error.jsp"%>
 <!DOCTYPE html>
@@ -26,7 +27,7 @@
 
     <body>
         <header>
-                <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-success">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="index.jsp">ADOPTA.IO
                         <a class="navbar-brand" href="index.jsp">
@@ -52,58 +53,64 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="contacto.jsp">Contacto</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="administracion.jsp">Administracion</a>
+                            </li>
                     </div>
                 </div>
                 <form class="d-flex">
                     <%
                         Usuario actual = (Usuario) session.getAttribute("usuarioLogueado");
-                        if (actual != null){
-                            %>
-                            <p>Bienvenido, <%=actual.getNombre()%>. <a href="logout">Cerrar sesion</a></p>
-                            <%
-                        } else {
-                            %>
-                            <p>No estás logueado. Inicia sesion <a href="index.jsp">aquí</a></p>
-                            <%
+                        if (actual != null) {
+                    %>
+                    <p>Bienvenido, <%=actual.getNombre()%>. <a href="logout">Cerrar sesion</a></p>
+                    <%
+                    } else {
+                    %>
+                    <p>No estás logueado. Inicia sesion <a href="index.jsp">aquí</a></p>
+                    <%
                         }
-                        
+
                     %>
                 </form>
             </nav>
-            </header>
-            <main class="d-flex flex-column">
-                <form class="col-12 col-xl-12 bg-light d-flex p-2 flex-column justify-content-center align-items-center rounded"  action="registro" method="post">
-                    <section class="col-12 col-xl-12 bg-light d-flex p-2 justify-content-center align-items-center">
-                        <section class="col-12 col-xl-5 bg-light d-flex p-2 flex-column justify-content-center align-items-center rounded">
-                            <img src="" alt="" class="form_img" name="img">
-                            <input type="file" class="form_file" id="form_file" name="file">
-                        </section>
-                        <section class="col-12 col-xl-5 bg-light d-flex p-2 flex-column justify-content-center align-items-center rounded">
-                            <input type="text" placeholder="Correo" name="email">
-                            <input type="password" placeholder="Contraseña" name="password">
-                            <input type="password" placeholder="Repetir contraseña">
-                        </section>
+        </header>
+        <main class="d-flex flex-column">
+            <form class="col-12 col-xl-12 bg-light d-flex p-2 flex-column justify-content-center align-items-center rounded"  action="registro" method="post">
+                <section class="col-12 col-xl-12 bg-light d-flex p-2 justify-content-center align-items-center">
+                    <section class="col-12 col-xl-5 bg-light d-flex p-2 flex-column justify-content-center align-items-center rounded">
+                        <img src="" alt="" class="form_img" name="img">
+                        <input type="file" class="form_file" id="form_file" name="file">
                     </section>
-                    <section class="col-12 col-xl-12 bg-light d-flex p-2 flex-column justify-content-center align-items-center rounded">
-                        <input type="text" placeholder="Nombre" name="nombre">
-                        <input type="text" placeholder="Telefono" name="tlf">
-                        <input type="text" placeholder="DNI" name="dni">
-                        <select name="comunidad" id="select_comunidad" name="comunidad">
-                            <option value="laredo">Laredo</option>
-                        </select>
-                        <select name="localidad" id="select_localidad" name="localidad">
-                            <option value="laredo">Laredo</option>
-                        </select>
+                    <section class="col-12 col-xl-5 bg-light d-flex p-2 flex-column justify-content-center align-items-center rounded">
+                        <input type="text" placeholder="Correo" name="email">
+                        <input type="password" placeholder="Contraseña" name="password">
+                        <input type="password" placeholder="Repetir contraseña">
                     </section>
-                    <section>
-                        <input type="submit" value="Registrarse" id="submit_registro" class="submit_registro" name="registrarse">
-                        <input type="reset" value="Reiniciar formulario" id="reset_registro2" class="reset_registro">
-                    </section>
-                </form>
-            </main>
-            <footer class="footer bg-success">
-                <p class="footer" style="color: white;">&copy; Guillermo Illera Vinatea - Calle emperador, Portal 43, Piso 4ºB</p>
-            </footer>
+                </section>
+                <section class="col-12 col-xl-12 bg-light d-flex p-2 flex-column justify-content-center align-items-center rounded">
+                    <input type="text" placeholder="Nombre" name="nombre">
+                    <input type="text" placeholder="Telefono" name="tlf">
+                    <input type="text" placeholder="DNI" name="dni">
+                    <select name="comunidad" id="select_comunidad" name="comunidad">
+                        <%                                                        
+                            for (String comunidad : util.devolverArrayComunidad()) {
+                        %>
+                        <option value="<%=comunidad%>"><%=comunidad%></option>
+                        <%
+                            }
+                        %>
+                    </select>
+                </section>
+                <section>
+                    <input type="submit" value="Registrarse" id="submit_registro" class="submit_registro" name="registrarse">
+                    <input type="reset" value="Reiniciar formulario" id="reset_registro2" class="reset_registro">
+                </section>
+            </form>
+        </main>
+        <footer class="footer bg-success">
+            <p class="footer" style="color: white;">&copy; Guillermo Illera Vinatea - Calle emperador, Portal 43, Piso 4ºB</p>
+        </footer>
     </body>
 
 </html>

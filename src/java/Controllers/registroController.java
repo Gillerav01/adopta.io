@@ -51,7 +51,7 @@ public class registroController extends HttpServlet {
             UsuarioDAO registro = new UsuarioDAO();
             conn = bdActual.getConexion();
             registro.setConn(conn);
-            if (registro.crearUsuario(new Usuario(request.getParameter("nombre"), request.getParameter("email"), request.getParameter("tlf"), request.getParameter("dni"), request.getParameter("password"), request.getParameter("comunidad"), request.getParameter("localidad")))){
+            if (registro.crearUsuario(new Usuario(request.getParameter("nombre"), request.getParameter("email"), request.getParameter("tlf"), request.getParameter("dni"), request.getParameter("password"), request.getParameter("comunidad")))){
                 System.out.println("Se ha registrado correctamente");
                 rd = getServletContext().getRequestDispatcher("/index.jsp");
                 registro.cerrarConexion();

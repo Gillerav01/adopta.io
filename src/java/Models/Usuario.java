@@ -72,13 +72,12 @@ public class Usuario {
         this.comunidad = comunidad;
     }
 
-    public Usuario(String nombre, String email, String telefono, String dni, String password, String localidad, String comunidad) {
+    public Usuario(String nombre, String email, String telefono, String dni, String password, String comunidad) {
         this.nombre = nombre;
         this.email = email;
         this.telefono = telefono;
         this.dni = dni;
         this.password = password;
-        this.localidad = localidad;
         this.comunidad = comunidad;
     }
     
