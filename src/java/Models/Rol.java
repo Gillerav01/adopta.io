@@ -29,6 +29,22 @@ public class Rol {
         this.descripcion = descripcion;
     }
 
+    public Rol(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+    
     public void setId(int id) {
         this.id = id;
     }

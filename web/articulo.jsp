@@ -1,3 +1,6 @@
+<%@page import="Models.Rol"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="Lib.util"%>
 <%@page import="DAO.UsuarioDAO"%>
 <%@page import="Models.Articulo"%>
@@ -5,6 +8,10 @@
 <%@page import="DAO.ConectorBD"%>
 <%@page import="Models.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    Usuario actual = (Usuario) session.getAttribute("usuarioLogueado");
+    ArrayList <Rol> rolesActuales = (ArrayList <Rol>) session.getAttribute("rolesUsuarioLogueado");
+%>
 <!DOCTYPE html>
 <html lang="es-ES">
 
@@ -44,40 +51,53 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex">
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="index.jsp">Inicio </a>
+                                <a class="nav-link active" aria-current="page" href="index.jsp">Inicio </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="mascotas.jsp">Mascotas</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="mercado.jsp">Mercado</a>
+                                <a class="nav-link" href="mercado.jsp">Mercado</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="perdidos.jsp">Perdidos </a>
                             </li>
+                             <%
+                            if (actual != null) {   
+                            %>
                             <li class="nav-item">
                                 <a class="nav-link" href="contacto.jsp">Contacto</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="administracion.jsp">Administracion</a>
-                            </li>
+                            <%
+                            }
+                            if (actual != null) {   
+                                for (Rol rol : rolesActuales) {
+                                    if (rol.getNombre().equals("Administrador")) {
+                            %>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="administracion.jsp">Administracion</a>
+                                        </li>
+                            <%
+                                    }
+                                }
+                            }
+                            %>
                     </div>
                 </div>
-                <form class="d-flex">
+                <section class="d-flex col-2 offset">
                     <%
-                        Usuario actual = (Usuario) session.getAttribute("usuarioLogueado");
                         if (actual != null) {
                     %>
-                    <p>Bienvenido, <%=actual.getNombre()%>. <a href="logout">Cerrar sesion</a></p>
+                    <p style="color:white;">Bienvenido, <%=actual.getNombre()%>. <a href="logout" style="color:white;" >Cerrar sesion</a></p>
                     <%
                     } else {
                     %>
-                    <p>No estás logueado. Inicia sesion <a href="index.jsp">aquí</a></p>
+                    <p  style="color:white;">No estás logueado. Inicia sesion <a href="index.jsp" style="color:white;" >aquí</a></p>
                     <%
                         }
 
                     %>
-                </form>
+                </section>
             </nav>
         </header>
         <main class="main-objeto">

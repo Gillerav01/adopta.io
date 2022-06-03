@@ -1,8 +1,14 @@
+<%@page import="Models.Rol"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="Models.Mascota"%>
 <%@page import="DAO.MascotaDAO"%>
 <%@page import="DAO.UsuarioDAO"%>
 <%@page import="DAO.ConectorBD"%>
 <%@page import="Models.Usuario"%>
+<%
+    Usuario actual = (Usuario) session.getAttribute("usuarioLogueado");
+    ArrayList <Rol> rolesActuales = (ArrayList <Rol>) session.getAttribute("rolesUsuarioLogueado");
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8" errorPage="error.jsp"%>
 <!DOCTYPE html>
 <html lang="es-ES">
@@ -28,7 +34,7 @@
     <script src="./js/main.js"></script>
 </head>
 <body>
-       <header>
+        <header>
             <nav class="navbar navbar-expand-lg navbar-dark bg-success">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="index.jsp">ADOPTA.IO
@@ -41,10 +47,10 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex">
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="index.jsp">Inicio </a>
+                                <a class="nav-link active" aria-current="page" href="index.jsp">Inicio </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="mascotas.jsp">Mascotas</a>
+                                <a class="nav-link" href="mascotas.jsp">Mascotas</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="mercado.jsp">Mercado</a>
@@ -52,32 +58,45 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="perdidos.jsp">Perdidos </a>
                             </li>
+                             <%
+                            if (actual != null) {   
+                            %>
                             <li class="nav-item">
                                 <a class="nav-link" href="contacto.jsp">Contacto</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="administracion.jsp">Administracion</a>
-                            </li>
+                            <%
+                            }
+                            if (actual != null) {   
+                                for (Rol rol : rolesActuales) {
+                                    if (rol.getNombre().equals("Administrador")) {
+                            %>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="administracion.jsp">Administracion</a>
+                                        </li>
+                            <%
+                                    }
+                                }
+                            }
+                            %>
                     </div>
                 </div>
-                <form class="d-flex">
+                <section class="d-flex col-2 offset">
                     <%
-                        Usuario actual = (Usuario) session.getAttribute("usuarioLogueado");
                         if (actual != null) {
                     %>
-                    <p>Bienvenido, <%=actual.getNombre()%>. <a href="logout">Cerrar sesion</a></p>
+                    <p style="color:white;">Bienvenido, <%=actual.getNombre()%>. <a href="logout" style="color:white;" >Cerrar sesion</a></p>
                     <%
                     } else {
                     %>
-                    <p>No estás logueado. Inicia sesion <a href="index.jsp">aquí</a></p>
+                    <p  style="color:white;">No estás logueado. Inicia sesion <a href="index.jsp" style="color:white;" >aquí</a></p>
                     <%
                         }
 
                     %>
-                </form>
+                </section>
             </nav>
         </header>
-    <main class="main-mascota">
+    <main class="main-mascota container-fluid">
                     <%
                 ConectorBD bdActual = new ConectorBD("localhost", "adoptaio", "root", "");
                 MascotaDAO informacionMascota = new MascotaDAO();
@@ -90,9 +109,11 @@
                 informacionDuenio.cerrarConexion();
                 bdActual.cerrarConexion();
             %>
-            <section class="info-general-objeto">
-                <img src="data:image/png;base64,<%=mascota.getImagenMascota()%>" alt="Foto del artículo con nombre <%=mascota.getNombre()%>" />
-                <div class="info-dueño">
+            <section class="info-general-objeto col-xs-4 col-4 col-sm-4 col-md-4 col-lg-2 d-flex justify-content-around container-fluid">
+                <section class="col-xs-12 col-12 col-sm-12 col-md-12 col-lg-12"
+                <img src="data:image/png;base64,<%=mascota.getImagenMascota()%>" alt="Foto del artículo con nombre <%=mascota.getNombre()%>"/>
+                </section>
+                <div class="info-dueño flex-column d-flex col-xs-2 col-2 col-sm-2 col-md-2 col-lg-2 justify-content-around">
                     <p><%=usuario.getNombre()%>, vive en <%=usuario.getComunidad()%>.</p>
                     <p> Datos de contacto </p>
                     <ul>

@@ -1,5 +1,11 @@
+<%@page import="Models.Rol"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="Models.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" errorPage="error.jsp"%>
+<%
+    Usuario actual = (Usuario) session.getAttribute("usuarioLogueado");
+    ArrayList <Rol> rolesActuales = (ArrayList <Rol>) session.getAttribute("rolesUsuarioLogueado");
+%>
 <!DOCTYPE html>
 <html lang="es-ES">
 
@@ -17,15 +23,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
     <link rel="stylesheet" href="./css/normalize/normalize.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" href="./css/style.css">
-    <script
-  src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8"
         src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
@@ -35,7 +38,7 @@
 </head>
 
 <body>
-    <header>
+        <header>
             <nav class="navbar navbar-expand-lg navbar-dark bg-success">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="index.jsp">ADOPTA.IO
@@ -48,7 +51,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex">
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="index.jsp">Inicio </a>
+                                <a class="nav-link active" aria-current="page" href="index.jsp">Inicio </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="mascotas.jsp">Mascotas</a>
@@ -59,44 +62,61 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="perdidos.jsp">Perdidos </a>
                             </li>
+                             <%
+                            if (actual != null) {   
+                            %>
                             <li class="nav-item">
                                 <a class="nav-link" href="contacto.jsp">Contacto</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="administracion.jsp">Administracion</a>
-                            </li>
+                            <%
+                            }
+                            if (actual != null) {   
+                                for (Rol rol : rolesActuales) {
+                                    if (rol.getNombre().equals("Administrador")) {
+                            %>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="administracion.jsp">Administracion</a>
+                                        </li>
+                            <%
+                                    }
+                                }
+                            }
+                            %>
                     </div>
                 </div>
-                <form class="d-flex">
+                <section class="d-flex col-2 offset">
                     <%
-                        Usuario actual = (Usuario) session.getAttribute("usuarioLogueado");
-                        if (actual != null){
-                            %>
-                            <p>Bienvenido, <%=actual.getNombre()%>. <a href="logout">Cerrar sesion</a></p>
-                            <%
-                        } else {
-                            %>
-                            <p>No estás logueado. Inicia sesion <a href="index.jsp">aquí</a></p>
-                            <%
-                        }
-                        
+                        if (actual != null) {
                     %>
-                </form>
+                    <p style="color:white;">Bienvenido, <%=actual.getNombre()%>. <a href="logout" style="color:white;" >Cerrar sesion</a></p>
+                    <%
+                    } else {
+                    %>
+                    <p  style="color:white;">No estás logueado. Inicia sesion <a href="index.jsp" style="color:white;" >aquí</a></p>
+                    <%
+                        }
+
+                    %>
+                </section>
             </nav>
-    </header>
-    <main>
-        <section id="table_usuarios_container" class="display" style="width: 40vw;">
-            <table id="table-usuarios" class="table table-hover table-white" style="width: 100%"></table>
+        </header>
+    <input type="hidden" value="<%=actual.getId()%>" id="idActual">
+    <main class="main-administracion d-flex justify-content-center align-items-center">
+        <section class="seccion-tablas  container-fluid row d-flex align-items-center justify-content-evenly p-5 ">
+            <section id="table_usuarios_container" class="display col-5">
+                <table id="table-usuarios" class="table table-hover table-white" style="width: 100%"></table>
+            </section>
+            <section id="table_articulos_container" class="display col-5">
+                <table id="table-articulos" class="table table-hover table-white" style="width: 100%"></table>
+            </section>
+            <section id="table_incidencias_container" class="display col-5">
+                <table id="table-incidencias" class="table table-hover table-white" style="width: 100%"></table>
+            </section>
+            <section id="table_mascotas_container" class="display col-5">
+                <table id="table-mascotas" class="table table-hover table-white" style="width: 100%"></table>
+            </section> 
         </section>
-        <section id="table_articulos_container" class="display" style="width: 40vw;">
-            <table id="table-articulos" class="table table-hover table-white" style="width: 100%"></table>
-        </section>
-        <section id="table_incidencias_container" class="display" style="width: 40vw;">
-            <table id="table-incidencias" class="table table-hover table-white" style="width: 100%"></table>
-        </section>
-        <section id="table_mascotas_container" class="display" style="width: 40vw;">
-            <table id="table-mascotas" class="table table-hover table-white" style="width: 100%"></table>
-        </section>  
+  
     </main>
     <footer class="footer bg-success">
         <p class="footer" style="color: white;">&copy; Guillermo Illera Vinatea - Calle emperador, Portal 43, Piso 4ºB</p>

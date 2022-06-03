@@ -6,6 +6,7 @@
 package Controllers;
 
 import DAO.ConectorBD;
+import DAO.RolDAO;
 import DAO.UsuarioDAO;
 import Lib.util;
 import Models.Usuario;
@@ -55,12 +56,19 @@ public class indexController extends HttpServlet {
             if(comprobacionLogueo != null){
                 HttpSession session = request.getSession(true);
                 session.setAttribute("usuarioLogueado", comprobacionLogueo);
+                RolDAO recibirRoles = new RolDAO();
+                recibirRoles.setConn(conn);
+                session.setAttribute("rolesUsuarioLogueado", recibirRoles.devolverRolesUsuario(comprobacionLogueo.getId()));
                 rd = getServletContext().getRequestDispatcher("/index.jsp");
                 System.out.println("El usuario: " + comprobacionLogueo + " se ha logueado con exito.");
                 logueando.cerrarConexion();
                 rd.forward(request, response);
             } else {
                 System.out.println("No se ha logueado correctamente.");
+                rd = getServletContext().getRequestDispatcher("/index.jsp");
+                System.out.println("El usuario: " + comprobacionLogueo + " se ha logueado con exito.");
+                logueando.cerrarConexion();
+                rd.forward(request, response);
             }
         }
     }

@@ -1,12 +1,12 @@
-<%-- 
-    Document   : publicarMascota
-    Created on : 23-may-2022, 8:47:31
-    Author     : Guillermo
---%>
-
+<%@page import="Models.Rol"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="Lib.util"%>
 <%@page import="Models.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    Usuario actual = (Usuario) session.getAttribute("usuarioLogueado");
+    ArrayList<Rol> rolesActuales = (ArrayList<Rol>) session.getAttribute("rolesUsuarioLogueado");
+%>
 <!DOCTYPE html>
 <html lang="es-ES">
 
@@ -45,7 +45,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex">
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="index.jsp">Inicio </a>
+                                <a class="nav-link active" aria-current="page" href="index.jsp">Inicio </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="mascotas.jsp">Mascotas</a>
@@ -54,36 +54,60 @@
                                 <a class="nav-link" href="mercado.jsp">Mercado</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="perdidos.jsp">Perdidos </a>
+                                <a class="nav-link" href="perdidos.jsp">Perdidos </a>
                             </li>
+                            <%
+                                if (actual != null) {
+                            %>
                             <li class="nav-item">
                                 <a class="nav-link" href="contacto.jsp">Contacto</a>
                             </li>
+                            <%
+                                }
+                                if (actual != null) {
+                                    for (Rol rol : rolesActuales) {
+                                        if (rol.getNombre().equals("Administrador")) {
+                            %>
                             <li class="nav-item">
                                 <a class="nav-link" href="administracion.jsp">Administracion</a>
                             </li>
+                            <%
+                                        }
+                                    }
+                                }
+                            %>
                     </div>
                 </div>
-                <form class="d-flex">
+                <section class="d-flex col-2 offset">
                     <%
-                        Usuario actual = (Usuario) session.getAttribute("usuarioLogueado");
                         if (actual != null) {
                     %>
-                    <p>Bienvenido, <%=actual.getNombre()%>. <a href="logout">Cerrar sesion</a></p>
+                    <p style="color:white;">Bienvenido, <%=actual.getNombre()%>. <a href="logout" style="color:white;" >Cerrar sesion</a></p>
                     <%
                     } else {
                     %>
-                    <p>No estás logueado. Inicia sesion <a href="index.jsp">aquí</a></p>
+                    <p  style="color:white;">No estás logueado. Inicia sesion <a href="index.jsp" style="color:white;" >aquí</a></p>
                     <%
                         }
 
                     %>
-                </form>
+                </section>
             </nav>
         </header>
         <main class="">
             <section>
+                <%                                        
+                    if (actual != null) {
+                %>
                 <form action="mascota">
+                <%
+                } else {
+                %>
+                <form action="#">
+                <%
+                    }
+
+                %>
                     <section class="imagen" id="imagen-formulario">
                         <img src=""default.jpg" alt="Imagen de registro de la mascota"/></img>
                         <input type="file">
@@ -98,10 +122,9 @@
                         </select>
                         <section class="informacion-localizacion-motivo">
                             <select name="comunidad">
-                                <%                            
-                                    for (String comunidad : util.devolverArrayComunidad()) {
+                                <%                                    for (String comunidad : util.devolverArrayComunidad()) {
                                 %>
-                                    <option value="<%=comunidad%>"><%=comunidad%></option>
+                                <option value="<%=comunidad%>"><%=comunidad%></option>
                                 <%
                                     }
                                 %>
@@ -121,7 +144,18 @@
                             <label for="noperdida">Mi mascota no está perdida</label>
                         </section>
                     </section>
+                    <%
+                        if (actual != null) {
+                    %>
                     <input type="submit" name="registrarMascota" value="Registrar mascota" id="registrarMascota" class="registrarMascota">
+                    <%
+                    } else {
+                    %>
+                    <input type="submit" name="registrarMascota" value="Logueate para registrar una mascota" id="registrarMascota" class="registrarMascota" disabled>
+                    <%
+                        }
+
+                    %>
                     <input type="reset" value="Reiniciar registro">
                 </form>
             </section>

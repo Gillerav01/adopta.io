@@ -52,6 +52,15 @@ public class UsuarioDAO {
         }
         return -1;
     }
+    
+    public int buscarIdUsuario(String email) throws SQLException{
+           Statement stmt = this.conn.createStatement();
+           ResultSet result = stmt.executeQuery("SELECT usuarios.id FROM usuarios WHERE usuarios.email = '" + email + "'");
+           while (result.next()) {
+               return result.getInt("id");
+           }
+           return -1;
+    }
 
     public int buscarIdDuenioMascota(int idMascota) throws SQLException {
         Statement stmt = this.conn.createStatement();

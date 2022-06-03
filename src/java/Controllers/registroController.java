@@ -6,6 +6,7 @@
 package Controllers;
 
 import DAO.ConectorBD;
+import DAO.RolUsuarioDAO;
 import DAO.UsuarioDAO;
 import Lib.util;
 import Models.Usuario;
@@ -53,8 +54,12 @@ public class registroController extends HttpServlet {
             registro.setConn(conn);
             if (registro.crearUsuario(new Usuario(request.getParameter("nombre"), request.getParameter("email"), request.getParameter("tlf"), request.getParameter("dni"), request.getParameter("password"), request.getParameter("comunidad")))){
                 System.out.println("Se ha registrado correctamente");
+                RolUsuarioDAO otorgarRolUsuario = new RolUsuarioDAO();
+                otorgarRolUsuario.setConn(conn);
+                otorgarRolUsuario.otorgarRolUsuario(registro.buscarIdUsuario(request.getParameter("email")));
                 rd = getServletContext().getRequestDispatcher("/index.jsp");
                 registro.cerrarConexion();
+                otorgarRolUsuario.cerrarConexion();
                 rd.forward(request, response);
             } else {
                 System.out.println("No se ha registrado.");

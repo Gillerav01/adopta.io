@@ -1,3 +1,4 @@
+<%@page import="Models.Rol"%>
 <%@page import="Lib.util"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Models.Mascota"%>
@@ -6,6 +7,10 @@
 <%@page import="java.sql.Connection"%>
 <%@page import="Models.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" errorPage="error.jsp"%>
+<%
+    Usuario actual = (Usuario) session.getAttribute("usuarioLogueado");
+    ArrayList <Rol> rolesActuales = (ArrayList <Rol>) session.getAttribute("rolesUsuarioLogueado");
+%>
 <!DOCTYPE html>
 <html lang="es-ES">
 
@@ -44,10 +49,10 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex">
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="index.jsp">Inicio </a>
+                                <a class="nav-link active" aria-current="page" href="index.jsp">Inicio </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="mascotas.jsp">Mascotas</a>
+                                <a class="nav-link" href="mascotas.jsp">Mascotas</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="mercado.jsp">Mercado</a>
@@ -55,36 +60,50 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="perdidos.jsp">Perdidos </a>
                             </li>
+                             <%
+                            if (actual != null) {   
+                            %>
                             <li class="nav-item">
                                 <a class="nav-link" href="contacto.jsp">Contacto</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="administracion.jsp">Administracion</a>
-                            </li>
+                            <%
+                            }
+                            if (actual != null) {   
+                                for (Rol rol : rolesActuales) {
+                                    if (rol.getNombre().equals("Administrador")) {
+                            %>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="administracion.jsp">Administracion</a>
+                                        </li>
+                            <%
+                                    }
+                                }
+                            }
+                            %>
                     </div>
                 </div>
-                <form class="d-flex">
+                <section class="d-flex col-2 offset">
                     <%
-                        Usuario actual = (Usuario) session.getAttribute("usuarioLogueado");
                         if (actual != null) {
                     %>
-                    <p>Bienvenido, <%=actual.getNombre()%>. <a href="logout">Cerrar sesion</a></p>
+                    <p style="color:white;">Bienvenido, <%=actual.getNombre()%>. <a href="logout" style="color:white;" >Cerrar sesion</a></p>
                     <%
                     } else {
                     %>
-                    <p>No estás logueado. Inicia sesion <a href="index.jsp">aquí</a></p>
+                    <p  style="color:white;">No estás logueado. Inicia sesion <a href="index.jsp" style="color:white;" >aquí</a></p>
                     <%
                         }
 
                     %>
-                </form>
+                </section>
             </nav>
         </header>
-        <main class="main-mascotas">
-            <aside>
+        <main class="main-mascotas container-fluid p-2 d-flex flex-wrap">
+            <aside class="form-mascotas col-xs-12 col-12 col-sm-12 col-md-12 col-lg-2 d-flex justify-content-center">
                 <form action="mascotas.jsp">
                     <p>Formulario para el filtrado de mascotas</p>
                     <select name="comunidad">
+                        <option value="porDefecto">Por defecto</option>
                         <%
                             for(String comunidad : util.devolverArrayComunidad()){
                                 %>
@@ -93,10 +112,18 @@
                             }
                         %>
                     </select>
+                    <select name="tipoMascota">
+                        <option value="porDefecto">Por defecto</option>
+                        <option value="Perro">Perro</option>
+                        <option value="Gato">Gato</option>
+                        <option value="Pajaro">Pajaro</option>
+                        <option value="Roedor">Roedor</option>
+                    </select>
+                    <input type="submit" value="Filtrar" name="filtro">
                 </form>
             </aside>
-            <section class="mascotas d-flex justify-content-center float-left">
-                <div class="card col-3" style="">
+            <section class="mascotas col-lg-10 col-xs-12 col-sm-12 col-md-12 d-flex justify-content-center">
+                <div class="card col-lg-3 col-xs-12 col-sm-6 col-md-3" style="">
                     <a href="publicarMascota.jsp">
                         <svg class="card-img-top" src="./assets/img/mas.png" xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
                         <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>
@@ -119,7 +146,7 @@
                     }
                     for (Mascota mascota : mascotas) {
                 %>
-                <div class="card col-3" style="">
+                <div class="card col-lg-3 col-xs-12 col-sm-6 col-md-3" style="">
                     <a href="mascota.jsp?idMascota=<%=mascota.getId()%>">
                         <img class="card-img-top" src="data:image/png;base64,<%=mascota.getImagenMascota()%>" alt="Red dot" />
                     </a>

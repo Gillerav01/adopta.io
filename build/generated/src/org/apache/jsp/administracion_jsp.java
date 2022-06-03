@@ -5,7 +5,7 @@ import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 import Models.Usuario;
 
-public final class error_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class administracion_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -23,10 +23,6 @@ public final class error_jsp extends org.apache.jasper.runtime.HttpJspBase
 
     PageContext pageContext = null;
     HttpSession session = null;
-    Throwable exception = org.apache.jasper.runtime.JspRuntimeLibrary.getThrowable(request);
-    if (exception != null) {
-      response.setStatus((Integer)request.getAttribute("javax.servlet.error.status_code"));
-    }
     ServletContext application = null;
     ServletConfig config = null;
     JspWriter out = null;
@@ -37,7 +33,7 @@ public final class error_jsp extends org.apache.jasper.runtime.HttpJspBase
     try {
       response.setContentType("text/html;charset=UTF-8");
       pageContext = _jspxFactory.getPageContext(this, request, response,
-      			null, true, 8192, true);
+      			"error.jsp", true, 8192, true);
       _jspx_page_context = pageContext;
       application = pageContext.getServletContext();
       config = pageContext.getServletConfig();
@@ -65,14 +61,22 @@ public final class error_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js\"\n");
       out.write("        integrity=\"sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p\"\n");
       out.write("        crossorigin=\"anonymous\"></script>\n");
+      out.write("    <script src=\"//cdn.jsdelivr.net/npm/sweetalert2@11\"></script>\n");
       out.write("    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css\">\n");
       out.write("    <link rel=\"stylesheet\" href=\"./css/normalize/normalize.css\">\n");
       out.write("    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css\" />\n");
       out.write("    <link rel=\"stylesheet\" href=\"./css/style.css\">\n");
+      out.write("    <script src=\"https://code.jquery.com/jquery-3.6.0.min.js\" integrity=\"sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=\" crossorigin=\"anonymous\"></script>\n");
+      out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css\">\n");
+      out.write("    <script type=\"text/javascript\" charset=\"utf8\"\n");
+      out.write("        src=\"https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js\"></script>\n");
+      out.write("    <link rel=\"stylesheet\" href=\"css/style.css\">\n");
       out.write("    <script src=\"./js/main.js\"></script>\n");
+      out.write("    <script src=\"./js/administracion.js\"></script>\n");
       out.write("</head>\n");
+      out.write("\n");
       out.write("<body>\n");
-      out.write("       <header>\n");
+      out.write("    <header>\n");
       out.write("            <nav class=\"navbar navbar-expand-lg navbar-dark bg-success\">\n");
       out.write("                <div class=\"container-fluid\">\n");
       out.write("                    <a class=\"navbar-brand\" href=\"index.jsp\">ADOPTA.IO\n");
@@ -85,7 +89,7 @@ public final class error_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\n");
       out.write("                        <ul class=\"navbar-nav me-auto mb-2 mb-lg-0 d-flex\">\n");
       out.write("                            <li class=\"nav-item\">\n");
-      out.write("                                <a class=\"nav-link active\" aria-current=\"page\" href=\"index.jsp\">Inicio </a>\n");
+      out.write("                                <a class=\"nav-link\" aria-current=\"page\" href=\"index.jsp\">Inicio </a>\n");
       out.write("                            </li>\n");
       out.write("                            <li class=\"nav-item\">\n");
       out.write("                                <a class=\"nav-link\" href=\"mascotas.jsp\">Mascotas</a>\n");
@@ -99,42 +103,80 @@ public final class error_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                            <li class=\"nav-item\">\n");
       out.write("                                <a class=\"nav-link\" href=\"contacto.jsp\">Contacto</a>\n");
       out.write("                            </li>\n");
+      out.write("                            <li class=\"nav-item\">\n");
+      out.write("                                <a class=\"nav-link active\" href=\"administracion.jsp\">Administracion</a>\n");
+      out.write("                            </li>\n");
       out.write("                    </div>\n");
       out.write("                </div>\n");
       out.write("                <form class=\"d-flex\">\n");
       out.write("                    ");
 
                         Usuario actual = (Usuario) session.getAttribute("usuarioLogueado");
-                        if (actual != null) {
-                    
+                        if (actual != null){
+                            
       out.write("\n");
-      out.write("                    <p>Bienvenido, ");
+      out.write("                            <p>Bienvenido, ");
       out.print(actual.getNombre());
       out.write(". <a href=\"logout\">Cerrar sesion</a></p>\n");
-      out.write("                    ");
+      out.write("                            ");
 
-                    } else {
-                    
+                        } else {
+                            
       out.write("\n");
-      out.write("                    <p>No estás logueado. Inicia sesion <a href=\"index.jsp\">aquí</a></p>\n");
-      out.write("                    ");
+      out.write("                            <p>No estás logueado. Inicia sesion <a href=\"index.jsp\">aquí</a></p>\n");
+      out.write("                            ");
 
                         }
-
+                        
                     
       out.write("\n");
       out.write("                </form>\n");
       out.write("            </nav>\n");
-      out.write("        </header>\n");
-      out.write("    <main class=\"main-mascota\">\n");
-      out.write("        <h1>Opppps... Algo salió mal :(</h1>\n");
-      out.write("        <img src=\"./assets/img/pipoError.png\">\n");
+      out.write("    </header>\n");
+      out.write("                <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModalCenter\">\n");
+      out.write("  Launch demo modal\n");
+      out.write("</button>\n");
+      out.write("\n");
+      out.write("<!-- Modal -->\n");
+      out.write("<div class=\"modal fade\" id=\"exampleModalCenter\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\" aria-hidden=\"true\">\n");
+      out.write("  <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n");
+      out.write("    <div class=\"modal-content\">\n");
+      out.write("      <div class=\"modal-header\">\n");
+      out.write("        <h5 class=\"modal-title\" id=\"exampleModalLongTitle\">Modal title</h5>\n");
+      out.write("        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n");
+      out.write("          <span aria-hidden=\"true\">&times;</span>\n");
+      out.write("        </button>\n");
+      out.write("      </div>\n");
+      out.write("      <div class=\"modal-body\">\n");
+      out.write("        ...\n");
+      out.write("      </div>\n");
+      out.write("      <div class=\"modal-footer\">\n");
+      out.write("        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n");
+      out.write("        <button type=\"button\" class=\"btn btn-primary\">Save changes</button>\n");
+      out.write("      </div>\n");
+      out.write("    </div>\n");
+      out.write("  </div>\n");
+      out.write("</div>\n");
+      out.write("    <main class=\"main-administracion d-flex justify-content-center align-items-center\">\n");
+      out.write("        <section class=\"seccion-tablas  container-fluid row d-flex align-items-center justify-content-evenly p-5 \">\n");
+      out.write("            <section id=\"table_usuarios_container\" class=\"display col-5\">\n");
+      out.write("                <table id=\"table-usuarios\" class=\"table table-hover table-white\" style=\"width: 100%\"></table>\n");
+      out.write("            </section>\n");
+      out.write("            <section id=\"table_articulos_container\" class=\"display col-5\">\n");
+      out.write("                <table id=\"table-articulos\" class=\"table table-hover table-white\" style=\"width: 100%\"></table>\n");
+      out.write("            </section>\n");
+      out.write("            <section id=\"table_incidencias_container\" class=\"display col-5\">\n");
+      out.write("                <table id=\"table-incidencias\" class=\"table table-hover table-white\" style=\"width: 100%\"></table>\n");
+      out.write("            </section>\n");
+      out.write("            <section id=\"table_mascotas_container\" class=\"display col-5\">\n");
+      out.write("                <table id=\"table-mascotas\" class=\"table table-hover table-white\" style=\"width: 100%\"></table>\n");
+      out.write("            </section> \n");
+      out.write("        </section>\n");
       out.write("    </main>\n");
       out.write("    <footer class=\"footer bg-success\">\n");
       out.write("        <p class=\"footer\" style=\"color: white;\">&copy; Guillermo Illera Vinatea - Calle emperador, Portal 43, Piso 4ºB</p>\n");
       out.write("    </footer>\n");
       out.write("</body>\n");
-      out.write("\n");
       out.write("</html>");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
