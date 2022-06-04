@@ -11,10 +11,27 @@
 <html lang="es-ES">
 
     <head>
-        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Inicio</title>
+        <meta name="title" content="adopta.io">
+        <meta name="description" content="Aquí podrás adoptar y dar en adopción a tus mascotas, además de poder publicar a tus mascotas pérdidas. También comprar y vender artículos de segunda mano.">
+        <meta name="keywords" content="adoptar,adopcion,adopta,mascotas,perros,gatos,pajaros,compraventa,segundamano">
+        <meta name="robots" content="index, follow">
+        <meta name="language" content="Spanish">
+        <meta name="author" content="Guillermo Illera Vinatea">
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+        <link rel="manifest" href="assets/icons/site.webmanifest">
+        <link rel="mask-icon" href="assets/icons/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="apple-mobile-web-app-title" content="adopta.io">
+        <meta name="application-name" content="adopta.io">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ADOPTA.IO - Registro</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;1,300&display=swap"
@@ -29,6 +46,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
         <link rel="stylesheet" href="./css/style.css">
         <script src="./js/main.js"></script>
+        <script src="./js/registro.js"></script>
     </head>
 
     <body>
@@ -95,23 +113,23 @@
             </nav>
         </header>
         <main class="d-flex flex-column">
-            <form class="col-12 col-xl-12 bg-light d-flex p-2 flex-column justify-content-center align-items-center rounded"  action="registro" method="post">
+            <form class="col-12 col-xl-12 bg-light d-flex p-2 flex-column justify-content-center align-items-center rounded"  action="registro" method="post" id="registro">
                 <section class="col-12 col-xl-12 bg-light d-flex p-2 justify-content-center align-items-center">
                     <section class="col-12 col-xl-5 bg-light d-flex p-2 flex-column justify-content-center align-items-center rounded">
                         <img src="" alt="" class="form_img" name="img">
                         <input type="file" class="form_file" id="form_file" name="file">
                     </section>
                     <section class="col-12 col-xl-5 bg-light d-flex p-2 flex-column justify-content-center align-items-center rounded">
-                        <input type="text" placeholder="Correo" name="email">
-                        <input type="password" placeholder="Contraseña" name="password">
-                        <input type="password" placeholder="Repetir contraseña">
+                        <input type="text" placeholder="Correo" name="email" id="email">
+                        <input type="password" placeholder="Contraseña" name="password" id="pwd">
+                        <input type="password" placeholder="Repetir contraseña" id="repetir-pwd">
                     </section>
                 </section>
                 <section class="col-12 col-xl-12 bg-light d-flex p-2 flex-column justify-content-center align-items-center rounded">
-                    <input type="text" placeholder="Nombre" name="nombre">
-                    <input type="text" placeholder="Telefono" name="tlf">
-                    <input type="text" placeholder="DNI" name="dni">
-                    <select name="comunidad" id="select_comunidad" name="comunidad">
+                    <input type="text" placeholder="Nombre" name="nombre" id="nombre">
+                    <input type="text" placeholder="Telefono" name="tlf" id="tlf">
+                    <input type="text" placeholder="DNI" name="dni" id="dni">
+                    <select name="comunidad" id="select_comunidad">
                         <%                                                        
                             for (String comunidad : util.devolverArrayComunidad()) {
                         %>
@@ -123,7 +141,7 @@
                 </section>
                 <section>
                     <input type="submit" value="Registrarse" id="submit_registro" class="submit_registro" name="registrarse">
-                    <input type="reset" value="Reiniciar formulario" id="reset_registro2" class="reset_registro">
+                    <input type="reset" value="Reiniciar formulario" id="reset_registro" class="reset_registro">
                 </section>
             </form>
         </main>

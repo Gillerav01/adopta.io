@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class MascotaDAO {
 
     private Connection conn;
-
     public int contarMascotas() throws SQLException {
         if (this.conn == null) {
             System.out.println("No existe una conexión con la base de datos.");
@@ -43,6 +42,54 @@ public class MascotaDAO {
         }
     }
 
+        public ArrayList<Mascota> devolverMascotasFiltradas(String tipoMascota, String comunidad, int numeroRegistros, int paginaActual, int numeroMascotas) throws SQLException {
+        if (this.conn == null) {
+            System.out.println("No existe una conexión con la base de datos.");
+            return null;
+        } else {
+            Statement stmt = this.conn.createStatement();
+            String consulta = "SELECT * FROM mascotas WHERE perdida = 0 ";
+            if (!"Por defecto".equals(comunidad)){
+                consulta +=  "AND mascotas.comunidad = '" + comunidad + "' ";
+            }
+            if (!"Por defecto".equals(tipoMascota)){
+                consulta += "AND mascotas.tipo = '" + tipoMascota + "'";
+            }
+            
+            ResultSet result = stmt.executeQuery(consulta + " ORDER BY fechaRegistro DESC LIMIT " + paginaActual * (numeroRegistros + 1) + ", " + numeroRegistros + ";");
+
+            ArrayList<Mascota> mascotas = new ArrayList<>();
+            while (result.next()) {
+                mascotas.add(new Mascota(result.getInt("id"), result.getString("nombre"), result.getString("tipo"), result.getString("raza"), result.getInt("prioridad"), true, result.getString("fotoMascota"), result.getInt("idUsuario")));
+            }
+            return mascotas;
+        }
+    }
+    
+    public ArrayList<Mascota> devolverMascotasPerdidasFiltradas(String tipoMascota, String comunidad, int numeroRegistros, int paginaActual, int numeroMascotas) throws SQLException {
+        if (this.conn == null) {
+            System.out.println("No existe una conexión con la base de datos.");
+            return null;
+        } else {
+            Statement stmt = this.conn.createStatement();
+            String consulta = "SELECT * FROM mascotas WHERE perdida = 1 ";
+            if (!"Por defecto".equals(comunidad)){
+                consulta +=  "AND mascotas.comunidad = '" + comunidad + "' ";
+            }
+            if (!"Por defecto".equals(tipoMascota)){
+                consulta += "AND mascotas.tipo = '" + tipoMascota + "'";
+            }
+            
+            ResultSet result = stmt.executeQuery(consulta + " ORDER BY fechaRegistro DESC LIMIT " + paginaActual * (numeroRegistros + 1) + ", " + numeroRegistros + ";");
+
+            ArrayList<Mascota> mascotas = new ArrayList<>();
+            while (result.next()) {
+                mascotas.add(new Mascota(result.getInt("id"), result.getString("nombre"), result.getString("tipo"), result.getString("raza"), result.getInt("prioridad"), true, result.getString("fotoMascota"), result.getInt("idUsuario")));
+            }
+            return mascotas;
+        }
+    }
+    
     public ArrayList<Mascota> devolverMascotasPerdidas(int numeroRegistros, int paginaActual, int numeroMascotas) throws SQLException {
         if (this.conn == null) {
             System.out.println("No existe una conexión con la base de datos.");
@@ -78,6 +125,8 @@ public class MascotaDAO {
         }
     }
     
+   
+    
         public Mascota informacionMascotaDetallado(int id) throws SQLException {
         if (this.conn == null) {
             System.out.println("No existe una conexión con la base de datos.");
@@ -107,13 +156,19 @@ public class MascotaDAO {
         return this.conn;
     }
     
-        public boolean registrarMascota(Mascota mascota, int perdida, int idUsuario) throws SQLException {
+        public boolean registrarMascota(Mascota mascota, int perdida, int idUsuario, String foto) throws SQLException {
         if (this.conn == null) {
             System.out.println("No existe una conexión con la base de datos.");
             return false;
         } else {
             Statement st = this.conn.createStatement();
-            st.executeUpdate("INSERT INTO `mascotas` (`id`, `nombre`, `tipo`, `raza`, `prioridad`, `perdida`, `comunidad`, `motivo`, `fotoMascota`, `idUsuario`, `idAdoptante`, `fechaRegistro`) VALUES (NULL, '" + mascota.getNombre() + "', '" + mascota.getTipo() + "', '" + mascota.getRaza() + "', " + mascota.getPrioridad() + "," + perdida + ", '" + mascota.getComunidad() + "', '" + mascota.getMotivo() + "'" + ", DEFAULT, '" + idUsuario + "', NULL, DEFAULT);");
+            String consulta = "INSERT INTO `mascotas` (`id`, `nombre`, `tipo`, `raza`, `prioridad`, `perdida`, `comunidad`, `motivo`, `fotoMascota`, `idUsuario`, `idAdoptante`, `fechaRegistro`) VALUES (NULL, '" + mascota.getNombre() + "', '" + mascota.getTipo() + "', '" + mascota.getRaza() + "', " + mascota.getPrioridad() + "," + perdida + ", '" + mascota.getComunidad() + "', '" + mascota.getMotivo() + "'";
+            if (!"DEFAULT".equals(foto)){
+                consulta += ", '" + foto + "', ";
+            } else {
+                consulta += ", DEFAULT, ";
+            }
+            st.executeUpdate(consulta + "'" + idUsuario + "', NULL, DEFAULT);");
             return true;
         }
     }

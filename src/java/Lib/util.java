@@ -45,7 +45,7 @@ public class util {
     }
     
     public static ArrayList<String> devolverArrayComunidad(){
-        return new ArrayList(Arrays.asList("Andalucia", "Aragon", "Canarias", "Cantabria", "Castilla y Leon",
+        return new ArrayList(Arrays.asList("Por defecto", "Andalucia", "Aragon", "Canarias", "Cantabria", "Castilla y Leon",
                 "Castilla-La Mancha", "Catalunya", "Ceuta", "Comunidad Valenciana",
                 "Comunidad de Madrid", "Extremadura", "Galicia", "Islas Baleares",
                 "La Rioja", "Melilla", "Navarra", "Pais Vasco", "Principado de Asturias",
@@ -62,12 +62,15 @@ public class util {
     }    
    
         public static ArrayList<String> devolverArrayProvincia(){
-            return new ArrayList(Arrays.asList("Alava", "Albacete", "Alicante", "Almería", "Avila", "Badajoz", "Baleares", "Barcelona", "Burgos", "Cáceres",
+            return new ArrayList(Arrays.asList("Por defecto", "Alava", "Albacete", "Alicante", "Almería", "Avila", "Badajoz", "Baleares", "Barcelona", "Burgos", "Cáceres",
             "Cádiz", "Castellón", "Ciudad Real", "Córdoba", "La Coruña", "Cuenca", "Gerona", "Granada", "Guadalajara",
             "Guipúzcoa", "Huelva", "Huesca", "Jaén", "León", "Lérida", "La rioja", "Lugo", "Madrid", "Málaga", "Murcia", "Navarra",
             "Orense", "Asturias", "Palencia", "Las Palmas", "Pontevedra", "Salamanca", "Tenerife", "Cantabria", "Segovia", "Sevilla", "Soria", "Tarragona",
             "Teruel", "Toledo", "Valencia", "Valladolid", "Vizcaya", "Zamora", "Zaragoza", "Ceuta", "Melilla"));
     }
     
-   
+           public static ArrayList<String> devolverArrayTiposMascota(){
+            return new ArrayList(Arrays.asList("Por defecto", "Gato", "Perro", "Pájaro", "Roedor"));
+    }
+        
 }

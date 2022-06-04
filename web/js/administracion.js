@@ -152,11 +152,132 @@ function verInformacionArticulo(id) {
     });
 }
 
+function verInformacionMascota(id) {
+    // Se crea una variable que contiene la peticion ajax.
+    var peticion = $.ajax({
+        url: "http://localhost/apiAdopta.io/getMascota.php",
+        type: "post",
+        data: {
+            idMascota: id
+        },
+        dataType: "json",
+        success: function (response) {
+            console.log(response.mascota[0]);
+            Swal.fire({
+                title: 'Informacion de la mascota',
+                text: `
+                    id: ${response.mascota[0].id} \n,
+                    nombre: ${response.mascota[0].nombre} \n,
+                    tipo: ${response.mascota[0].tipo} \n,
+                    raza: ${response.mascota[0].raza} \n,
+                    perdida: ${response.mascota[0].perdida} \n,
+                    idUsuario: ${response.mascota[0].idUsuario} \n,
+
+                `,
+                type: 'success',
+                confirmButtonText: 'Ok'
+            });
+        },
+        error: function (response) {
+            console.log("ERROH");
+        }
+    });
+}
+
+function borrarIncidencia(id) {
+    // Se crea una variable que contiene la peticion ajax.
+    var peticion = $.ajax({
+        url: "http://localhost/apiAdopta.io/borrarIncidencia.php",
+        type: "post",
+        data: {
+            idIncidencia: id
+        },
+        dataType: "json",
+        success: function (response) {
+            Swal.fire({
+                title: 'Incidencia borrada',
+                text: 'La incidencia ha sido borrada correctamente',
+                type: 'success',
+                confirmButtonText: 'Ok'
+            });
+        },
+        error: function (response) {
+            console.log("ERROH");
+            Swal.fire({
+                title: 'Error',
+                text: 'La incidencia no ha podido ser borrada',
+                type: 'error',
+                confirmButtonText: 'Ok'
+            });
+        }
+    });
+}
+
+function atenderIncidencia(id) {
+    // Se crea una variable que contiene la peticion ajax.
+    var peticion = $.ajax({
+        url: "http://localhost/apiAdopta.io/atenderIncidencia.php",
+        type: "post",
+        data: {
+            idIncidencia: id,
+            idEncargado: document.getElementById("idActual").value
+        },
+        dataType: "json",
+        success: function (response) {
+            Swal.fire({
+                title: 'Incidencia atendida',
+                text: 'La incidencia se ha marcado como "Atendiendo".',
+                type: 'success',
+                confirmButtonText: 'Ok'
+            });
+        },
+        error: function (response) {
+            console.log("ERROH");
+            Swal.fire({
+                title: 'Error',
+                text: 'La incidencia no ha podido ser atendida',
+                type: 'error',
+                confirmButtonText: 'Ok'
+            });
+        }
+    });
+}
+
+function verInformacionIncidencia(id) {
+    // Se crea una variable que contiene la peticion ajax.
+    var peticion = $.ajax({
+        url: "http://localhost/apiAdopta.io/getIncidencia.php",
+        type: "post",
+        data: {
+            idIncidencia: id
+        },
+        dataType: "json",
+        success: function (response) {
+            console.log(response.incidencia[0]);
+            Swal.fire({
+                title: 'Informacion de la incidencia',
+                text: `
+                    id: ${response.incidencia[0].id} \n 
+                    descripcion: ${response.incidencia[0].descripcion} \n
+                    estado: ${response.incidencia[0].estado} \n
+                    motivo: ${response.incidencia[0].motivo} \n
+                    idUsuario: ${response.incidencia[0].idUsuario} \n
+                `,
+                type: 'success',
+                confirmButtonText: 'Ok'
+            });
+        },
+        error: function (response) {
+            console.log("ERROH");
+        }
+    });
+}
+
 
 // Crea un metodo llamado modificarRoles, que reciba como parametro la id del usuario, haga una petición ajax a obtenerRoles.php para obtener todos los roles que hay en la base de dato,s
 // luego haz una peticion a getRolesPertenecientesUsuario.php para obtener los roles que tiene el usuario.
 
-function modificarRoles(id){
+function modificarRoles(id) {
     var rolesCreados = [];
     var rolesObtenidos = [];
     var rolesNoObtenidos = [];
@@ -176,47 +297,49 @@ function modificarRoles(id){
         }).catch(function (error) {
             console.log(error);
         }
-    );
+        );
     //  Haz la peticion a getRolesPertenecientesUsuario.php para obtener los roles que tiene el usuario y guardala en rolesObtenidos
-        var peticion = $.ajax({
-            url: "http://localhost/apiAdopta.io/getRolesPertenecientesUsuario.php",
-            type: "post",
-            data: {
-                idUsuario: id
-            },
-            dataType: "json",
-            success: function (response) { 
-                // Comprueba que el array no está vacío
-                if (response.roles != null) {
-                    // Guarda los roles recogidos en el jSon en el array de rolesObtenidos
-                    for (var i = 0; i < response.roles.length; i++) {
-                        rolesObtenidos.push([response.roles[i].id, response.roles[i].nombre]);
-                    }
-                } else {
-                    rolesObtenidos = [];
-                    console.info("No tiene roles");
+    var peticion = $.ajax({
+        url: "http://localhost/apiAdopta.io/getRolesPertenecientesUsuario.php",
+        type: "post",
+        data: {
+            idUsuario: id
+        },
+        dataType: "json",
+        success: function (response) {
+            // Comprueba que el array no está vacío
+            if (response.roles != null) {
+                // Guarda los roles recogidos en el jSon en el array de rolesObtenidos
+                for (var i = 0; i < response.roles.length; i++) {
+                    rolesObtenidos.push([response.roles[i].id, response.roles[i].nombre]);
                 }
-            },
-            error: function (response) {
-                console.log("ERROH");
+            } else {
+                rolesObtenidos = [];
+                console.info("No tiene roles");
             }
-        });
-        // Compara los roles creados y los roles obtenidos y guarda los roles que no estan en el array de rolesObtenidos en el array de rolesNoObtenidos
-        for (var i = 0; i < rolesCreados.length; i++) {
-            var encontrado = false;
-            for (var j = 0; j < rolesObtenidos.length; j++) {
-                if (rolesCreados[i][0] == rolesObtenidos[j][0]) {
-                    encontrado = true;
-                }
-            }
-            if (!encontrado) {
-                rolesNoObtenidos.push(rolesCreados[i]);
+        },
+        error: function (response) {
+            console.log("ERROH");
+        }
+    });
+    // Compara los roles creados y los roles obtenidos y guarda los roles que no estan en el array de rolesObtenidos en el array de rolesNoObtenidos
+    for (var i = 0; i < rolesCreados.length; i++) {
+        var encontrado = false;
+        for (var j = 0; j < rolesObtenidos.length; j++) {
+            if (rolesCreados[i][0] == rolesObtenidos[j][0]) {
+                encontrado = true;
             }
         }
-        console.log("Roles no obtenidos: " + rolesNoObtenidos.length);
-        console.log("Roles obtenidos: " + rolesObtenidos.length);
-        console.log("Roles creados: " + rolesCreados.length);
+        if (!encontrado) {
+            rolesNoObtenidos.push(rolesCreados[i]);
+        }
+    }
+    console.log("Roles no obtenidos: " + rolesNoObtenidos.length);
+    console.log("Roles obtenidos: " + rolesObtenidos.length);
+    console.log("Roles creados: " + rolesCreados.length);
 }
+
+
 
 function tablaUsuarios() {
     fetch('http://localhost/apiAdopta.io/getUsuarios.php')
@@ -252,7 +375,7 @@ function tablaUsuarios() {
                 var datos = tabla.DataTable().row(this).data();
                 console.log("Datos: " + datos);
                 Swal.fire({
-                    title: `Usuario ${datos[0]}`,
+                    title: `Usuario ${datos[1]}`,
                     // Añade un HTML con 4 botones, Borrar usuario, modificar roles, ver informacion y cancelar.
                     html: `<div class="row">
                             <div class="col-md-6">
@@ -283,12 +406,6 @@ function tablaUsuarios() {
             console.log(error);
         });
 }
-
-// Crea un metodo que esconda la clase .swal2-modal 
-function cancelar() {
-    $('.swal2-modal').hide();
-}
-
 
 function tablaArticulos() {
     fetch('http://localhost/apiAdopta.io/getArticulos.php')
@@ -325,7 +442,7 @@ function tablaArticulos() {
                 var datos = tabla.DataTable().row(this).data();
                 console.log("Datos: " + datos);
                 Swal.fire({
-                    title: `Articulo ${datos[0]}`,
+                    title: `Articulo ${datos[1]}`,
                     // Añade un HTML con 4 botones, Borrar articulo, modificar articulo, ver informacion y cancelar.
                     html: `<div class="row">
                             <div class="col-md-6">
@@ -391,7 +508,7 @@ function tablaIncidencias() {
                 var datos = tabla.DataTable().row(this).data();
                 console.log("Datos: " + datos);
                 Swal.fire({
-                    title: `Incidencia ${datos[0]}`,
+                    title: `Incidencia ${datos[1]}`,
                     // Añade un HTML con 4 botones, Borrar articulo, modificar articulo, ver informacion y cancelar.
                     html: `<div class="row">
                             <div class="col-md-6">
@@ -452,9 +569,40 @@ function tablaMascotas() {
                 "autoWidth": false,
                 "lengthChange": false
             });
+            var tabla = $('#table-mascotas');
+            $('#table-mascotas tbody').on('click', 'tr', function () {
+                // Guarda los datos del articulo seleccionado
+                var datos = tabla.DataTable().row(this).data();
+                console.log("Datos: " + datos);
+                Swal.fire({
+                    title: `Mascota ${datos[1]}`,
+
+                    html: `<div class="row">
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-danger" onclick="borrarMascota(${datos[0]})">Borrar mascota</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-success" onclick="verInformacionMascota(${datos[0]})">Ver informacion</button>
+                            </div>
+                        </div>`,
+                    showCloseButton: true,
+                    showCancelButton: true,
+                    showConfirmButton: false,
+                    focusConfirm: false,
+                    focusCancel: false,
+                    allowOutsideClick: true,
+                    allowEscapeKey: true,
+                    allowEnterKey: true,
+                }).then((result) => {
+                    if (result.value) {
+                        console.log("Cancelado");
+                    }
+                })
+            });
         }).catch(function (error) {
             console.log(error);
         });
+
 }
 
 

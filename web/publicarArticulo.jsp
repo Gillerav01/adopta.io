@@ -10,10 +10,27 @@
 <html lang="es-ES">
 
     <head>
-        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Inicio</title>
+        <meta name="title" content="adopta.io">
+        <meta name="description" content="Aquí podrás adoptar y dar en adopción a tus mascotas, además de poder publicar a tus mascotas pérdidas. También comprar y vender artículos de segunda mano.">
+        <meta name="keywords" content="adoptar,adopcion,adopta,mascotas,perros,gatos,pajaros,compraventa,segundamano">
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="language" content="Spanish">
+        <meta name="author" content="Guillermo Illera Vinatea">
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+        <link rel="manifest" href="assets/icons/site.webmanifest">
+        <link rel="mask-icon" href="assets/icons/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="apple-mobile-web-app-title" content="adopta.io">
+        <meta name="application-name" content="adopta.io">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ADOPTA.IO - Publicar artículo</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;1,300&display=swap"
@@ -28,6 +45,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
         <link rel="stylesheet" href="./css/style.css">
         <script src="./js/main.js"></script>
+        <script src="./js/registrarArticulo.js"></script>
     </head>
 
     <body>
@@ -50,7 +68,7 @@
                                 <a class="nav-link" href="mascotas.jsp">Mascotas</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="mercado.jsp">Mercado</a>
+                                <a class="nav-link active" href="mercado.jsp">Mercado</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="perdidos.jsp">Perdidos </a>
@@ -98,7 +116,7 @@
                 <%                                            
                     if (actual != null) {
                 %>
-                <form action="articulo">
+                <form action="articulo" method="POST">
                 <%
                 } else {
                 %>
@@ -107,14 +125,14 @@
                     }
 
                 %>
-                <form action="articulo">
+                    <input type="hidden" value="DEFAULT" name="baseImagen" id="baseImagen">
                     <section class="imagen" id="imagen-formulario">
-                        <img src=""default.jpg" alt="Imagen de registro del articulo"/></img>
-                        <input type="file" name="foto">
+                        <img src="./assets/fotosPerfil/default.png" id="imagen-subida" alt="Imagen de registro de la mascota"/></img>
+                        <input type="file" id="idFile">
                     </section>
                     <section class="datos-articulo">
                         <input type="text" placeholder="Nombre del artículo" name="nombre">
-                        <textarea name="textarea" placeholder="Describe el objeto aquí" name="descripcion"></textarea>
+                        <textarea name="descripcion" placeholder="Describe el objeto aquí"></textarea>
                         <input type="text" placeholder="Precio en euros" name="precio">
                     </section>
                     <section class="botones-articulo">
@@ -127,7 +145,6 @@
                         <input type="submit" value="Logueate para registrar un artículo" name="registrarArticulo" disabled>
                         <%
                             }
-
                         %>
                         <input type="reset">
                     </section>

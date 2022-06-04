@@ -5,11 +5,13 @@
  */
 package Models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Guillermo
  */
-public class Rol {
+public class Rol implements Serializable{
 
     private int id;
     private String nombre;

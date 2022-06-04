@@ -48,7 +48,7 @@ public class articuloController extends HttpServlet {
             registro.setConn(bdActual.getConexion());
             HttpSession session = request.getSession(true);
             Usuario actual = (Usuario) session.getAttribute("usuarioLogueado");
-            if (registro.registrarArticulo(new Articulo(request.getParameter("nombre"), request.getParameter("descripcion"), Double.parseDouble(request.getParameter("precio"))), actual.getId())){
+            if (registro.registrarArticulo(new Articulo(request.getParameter("nombre"), request.getParameter("descripcion"), Double.parseDouble(request.getParameter("precio"))), actual.getId(), request.getParameter("baseImagen"))){
                 System.out.println("Se ha registrado correctamente");
                 rd = getServletContext().getRequestDispatcher("/mercado.jsp");
                 registro.cerrarConexion();

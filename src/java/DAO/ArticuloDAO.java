@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class ArticuloDAO {
+
     private Connection conn;
 
     public int contarArticulos() throws SQLException {
@@ -53,17 +54,25 @@ public class ArticuloDAO {
         }
     }
 
-            public boolean registrarArticulo(Articulo articulo, int idUsuario) throws SQLException {
+    public boolean registrarArticulo(Articulo articulo, int idUsuario, String foto) throws SQLException {
         if (this.conn == null) {
             System.out.println("No existe una conexión con la base de datos.");
             return false;
         } else {
             Statement st = this.conn.createStatement();
-            st.executeUpdate("INSERT INTO `articulos` (`id`, `nombre`, `descripcion`, `estado`, `fotoArticulo`, `precio`, `fechaRegistro`, `fechaVenta`, `idVendedor`, `idComprador`) VALUES (NULL, '" + articulo.getNombre() + "', '" + articulo.getDescripcion() + "', 'Publicado', DEFAULT, '" + articulo.getPrecio() + "', current_timestamp(), NULL, " + idUsuario + ", NULL);");
+            String consulta = "INSERT INTO `articulos` (`id`, `nombre`, `descripcion`, `estado`, `fotoArticulo`, `precio`, `fechaRegistro`, `fechaVenta`, `idVendedor`, `idComprador`) VALUES (NULL, '" + articulo.getNombre() + "', '" + articulo.getDescripcion() + "', 'Publicado'";
+            if (!"DEFAULT".equals(foto)) {
+                consulta += ", '" + foto + "', ";
+            } else {
+                consulta += ", DEFAULT, ";
+            }
+            consulta += articulo.getPrecio() + ", current_timestamp(), NULL, " + idUsuario + ", NULL);";
+            System.out.println(consulta);
+            st.executeUpdate(consulta);
             return true;
         }
     }
-    
+
     public void setConn(Connection conn) {
         this.conn = conn;
     }

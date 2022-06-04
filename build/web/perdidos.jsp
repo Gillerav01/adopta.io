@@ -8,16 +8,33 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" errorPage="error.jsp"%>
 <%
     Usuario actual = (Usuario) session.getAttribute("usuarioLogueado");
-    ArrayList <Rol> rolesActuales = (ArrayList <Rol>) session.getAttribute("rolesUsuarioLogueado");
+    ArrayList<Rol> rolesActuales = (ArrayList<Rol>) session.getAttribute("rolesUsuarioLogueado");
 %>
 <!DOCTYPE html>
 <html lang="es-ES">
 
     <head>
-        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Inicio</title>
+        <meta name="title" content="adopta.io">
+        <meta name="description" content="Aquí podrás adoptar y dar en adopción a tus mascotas, además de poder publicar a tus mascotas pérdidas. También comprar y vender artículos de segunda mano.">
+        <meta name="keywords" content="adoptar,adopcion,adopta,mascotas,perros,gatos,pajaros,compraventa,segundamano">
+        <meta name="robots" content="index, follow">
+        <meta name="language" content="Spanish">
+        <meta name="author" content="Guillermo Illera Vinatea">
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+        <link rel="manifest" href="assets/icons/site.webmanifest">
+        <link rel="mask-icon" href="assets/icons/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="apple-mobile-web-app-title" content="adopta.io">
+        <meta name="application-name" content="adopta.io">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ADOPTA.IO - Perdidos</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;1,300&display=swap"
@@ -48,7 +65,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="index.jsp">Inicio </a>
+                                <a class="nav-link" aria-current="page" href="index.jsp">Inicio </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="mascotas.jsp">Mascotas</a>
@@ -57,27 +74,27 @@
                                 <a class="nav-link" href="mercado.jsp">Mercado</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="perdidos.jsp">Perdidos </a>
+                                <a class="nav-link active" href="perdidos.jsp">Perdidos </a>
                             </li>
-                             <%
-                            if (actual != null) {   
+                            <%
+                                if (actual != null) {
                             %>
                             <li class="nav-item">
                                 <a class="nav-link" href="contacto.jsp">Contacto</a>
                             </li>
                             <%
-                            }
-                            if (actual != null) {   
-                                for (Rol rol : rolesActuales) {
-                                    if (rol.getNombre().equals("Administrador")) {
+                                }
+                                if (actual != null) {
+                                    for (Rol rol : rolesActuales) {
+                                        if (rol.getNombre().equals("Administrador")) {
                             %>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="administracion.jsp">Administracion</a>
-                                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="administracion.jsp">Administracion</a>
+                            </li>
                             <%
+                                        }
                                     }
                                 }
-                            }
                             %>
                     </div>
                 </div>
@@ -98,25 +115,53 @@
             </nav>
         </header>
         <main class="main-mascotas container-fluid p-2 d-flex flex-wrap">
-            <aside class="col-xs-12 col-12 col-sm-12 col-md-12 col-lg-2 d-flex justify-content-center">
-                <form action="perdidos.jsp" class="form-mascotas">
+            <aside class="form-mascotas col-xs-12 col-12 col-sm-12 col-md-12 col-lg-2 d-flex justify-content-center">
+                <%                    if (request.getParameter("comunidad") != null) {
+                %>
+                <input type="hidden" value="<%=request.getParameter("comunidad")%>" name="comunidadFiltro">
+                <%
+                    }
+                %>
+                <%
+                    if (request.getParameter("tipoMascota") != null) {
+                %>
+                <input type="hidden" value="<%=request.getParameter("tipoMascota")%>" name="tipoMascotaFiltro">
+                <%
+                    }
+                %>
+                <form action="perdidos.jsp" name="filtro" value="filtro">
                     <p>Formulario para el filtrado de mascotas</p>
                     <select name="comunidad">
-                        <option value="porDefecto">Por defecto</option>
-                        <%                            
+                        <%
                             for (String comunidad : util.devolverArrayComunidad()) {
+                                if (request.getParameter("comunidad") != null && request.getParameter("comunidad").equals(comunidad)) {
                         %>
-                        <option value="<%=comunidad%>"><%=comunidad%></option>
+                        <option selected><%=comunidad%></option>
+                        <%
+                        } else {
+                        %>
+                        <option><%=comunidad%></option>
+                        <%
+                            }
+                        %>
                         <%
                             }
                         %>
                     </select>
                     <select name="tipoMascota">
-                        <option value="porDefecto">Por defecto</option>
-                        <option value="Perro">Perro</option>
-                        <option value="Gato">Gato</option>
-                        <option value="Pajaro">Pajaro</option>
-                        <option value="Roedor">Roedor</option>
+                        <%
+                            for (String mascota : util.devolverArrayTiposMascota()) {
+                                if (request.getParameter("tipoMascota") != null && request.getParameter("tipoMascota").equals(mascota)) {
+                        %>
+                        <option selected><%=mascota%></option>
+                        <%
+                        } else {
+                        %>
+                        <option><%=mascota%></option>
+                        <%
+                                }
+                            }
+                        %>
                     </select>
                     <input type="submit" value="Filtrar" name="filtro">
                 </form>
@@ -139,9 +184,17 @@
                     mostrarMascotas.setConn(bdActual.getConexion());
                     ArrayList<Mascota> mascotas;
                     if (request.getParameter("pagina") == null) {
-                        mascotas = mostrarMascotas.devolverMascotasPerdidas(8, 0, mostrarMascotas.contarMascotas());
+                        if (request.getParameter("filtro") != null) {
+                            mascotas = mostrarMascotas.devolverMascotasPerdidasFiltradas(request.getParameter("tipoMascota"), request.getParameter("comunidad"), 8, 0, mostrarMascotas.contarMascotas());
+                        } else {
+                            mascotas = mostrarMascotas.devolverMascotasPerdidas(8, 0, mostrarMascotas.contarMascotas());
+                        }
                     } else {
-                        mascotas = mostrarMascotas.devolverMascotasPerdidas(8, Integer.parseInt(request.getParameter("pagina")), mostrarMascotas.contarMascotas());
+                        if (request.getParameter("filtro") != null) {
+                            mascotas = mostrarMascotas.devolverMascotasPerdidasFiltradas(request.getParameter("tipoMascota"), request.getParameter("comunidad"), 8, Integer.parseInt(request.getParameter("pagina")), mostrarMascotas.contarMascotas());
+                        } else {
+                            mascotas = mostrarMascotas.devolverMascotasPerdidas(8, Integer.parseInt(request.getParameter("pagina")), mostrarMascotas.contarMascotas());
+                        }
                     }
                     for (Mascota mascota : mascotas) {
                 %>
@@ -186,22 +239,34 @@
                         <%
                         } else {
                             int siguientePagina = Integer.parseInt(request.getParameter("pagina")) - 1;
+                            if (request.getParameter("tipoMascota") != null || request.getParameter("comunidad") != null) {
                         %>
-                        <a href="mascotas.jsp?pagina=<%=siguientePagina%>" class="btn btn-success" style="width: 100%;">Pagina anterior</a>
+                        <a href="perdidos.jsp?comunidad=<%=request.getParameter("comunidad")%>&tipoMascota=<%=request.getParameter("tipoMascota")%>&filtro=Filtrar&pagina=<%=siguientePagina%>" class="btn btn-success" style="width: 100%;">Pagina anterior</a>
                         <%
+                        } else {
+                        %>
+                        <a href="perdidos.jsp?comunidad=<%=request.getParameter("comunidad")%>&tipoMascota=<%=request.getParameter("tipoMascota")%>&filtro=Filtrar&pagina=<%=siguientePagina%>" class="btn btn-success" style="width: 100%;">Pagina anterior</a>
+                        <%
+                                }
                             }
                         %>
                     </div>
                     <div class="col-5">
                         <%
                             if (request.getParameter("pagina") == null || Integer.parseInt(request.getParameter("pagina")) == 0) {
+                                if (request.getParameter("tipoMascota") != null || request.getParameter("comunidad") != null) {
                         %>
-                        <a href="mascotas.jsp?pagina=1" class="btn btn-success" style="width: 100%;">Siguiente página</a>
+                        <a href="perdidos.jsp?comunidad=<%=request.getParameter("comunidad")%>&tipoMascota=<%=request.getParameter("tipoMascota")%>&filtro=Filtrar&pagina=1" class="btn btn-success" style="width: 100%;">Siguiente página</a>
                         <%
+                        } else {
+                        %>
+                        <a href="perdidos.jsp?pagina=1" class="btn btn-success" style="width: 100%;">Siguiente página</a>
+                        <%
+                            }
                         } else {
                             int siguientePagina = Integer.parseInt(request.getParameter("pagina")) + 1;
                         %>
-                        <a href="mascotas.jsp?pagina=<%=siguientePagina%>" class="btn btn-success" style="width: 100%;">Siguiente página</a>
+                        <a href="perdidos.jsp?comunidad=<%=request.getParameter("comunidad")%>&tipoMascota=<%=request.getParameter("tipoMascota")%>&filtro=Filtrar&pagina=<%=siguientePagina%>" class="btn btn-success" style="width: 100%;">Siguiente página</a>
                         <%
                             }
                         %>
