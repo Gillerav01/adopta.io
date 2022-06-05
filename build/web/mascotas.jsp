@@ -194,7 +194,7 @@
                         if (request.getParameter("filtro") != null) {
                             mascotas = mostrarMascotas.devolverMascotasFiltradas(request.getParameter("tipoMascota"), request.getParameter("comunidad"), 8, Integer.parseInt(request.getParameter("pagina")), mostrarMascotas.contarMascotas());
                         } else {
-                        mascotas = mostrarMascotas.devolverMascotas(8, Integer.parseInt(request.getParameter("pagina")), mostrarMascotas.contarMascotas());
+                            mascotas = mostrarMascotas.devolverMascotas(8, Integer.parseInt(request.getParameter("pagina")), mostrarMascotas.contarMascotas());
                         }
                     }
                     for (Mascota mascota : mascotas) {
@@ -246,7 +246,7 @@
                         <%
                         } else {
                         %>
-                        <a href="mascotas.jsp?comunidad=<%=request.getParameter("comunidad")%>&tipoMascota=<%=request.getParameter("tipoMascota")%>&filtro=Filtrar&pagina=<%=siguientePagina%>" class="btn btn-success" style="width: 100%;">Pagina anterior</a>
+                        <a href="mascotas.jsp?pagina=<%=siguientePagina%>" class="btn btn-success" style="width: 100%;">Pagina anterior</a>
                         <%
                                 }
                             }
@@ -266,9 +266,15 @@
                             }
                         } else {
                             int siguientePagina = Integer.parseInt(request.getParameter("pagina")) + 1;
+                            if (request.getParameter("tipoMascota") != null || request.getParameter("comunidad") != null) {
                         %>
                         <a href="mascotas.jsp?comunidad=<%=request.getParameter("comunidad")%>&tipoMascota=<%=request.getParameter("tipoMascota")%>&filtro=Filtrar&pagina=<%=siguientePagina%>" class="btn btn-success" style="width: 100%;">Siguiente página</a>
                         <%
+                                } else {
+                        %>
+                                    <a href="mascotas.jsp?pagina=<%=siguientePagina%>" class="btn btn-success" style="width: 100%;">Siguiente página</a>
+                        <%
+                                }
                             }
                         %>
                     </div>

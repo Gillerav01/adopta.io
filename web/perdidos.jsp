@@ -174,7 +174,7 @@
                         </svg>
                     </a>
                     <div class="card-body">
-                        <h5 class="card-title">¡Publica aquí tu mascota!</h5>
+                        <h5 class="card-title">Publica aquí tu mascota perdida</h5>
                         <a href="publicarMascota.jsp" class="btn btn-primary" style="width: 100%;">Publicar mascota</a>
                     </div>
                 </div>
@@ -224,7 +224,7 @@
                             </div>
                     </div>
                     </h5>
-                    <a href="mascota.jsp?idMascota=<%=mascota.getId()%>" class="btn btn-success">Adoptar mascota</a>
+                    <a href="mascota.jsp?idMascota=<%=mascota.getId()%>" class="btn btn-success">Información de la mascota</a>
                 </div>
                 </div>
                 <%
@@ -245,7 +245,7 @@
                         <%
                         } else {
                         %>
-                        <a href="perdidos.jsp?comunidad=<%=request.getParameter("comunidad")%>&tipoMascota=<%=request.getParameter("tipoMascota")%>&filtro=Filtrar&pagina=<%=siguientePagina%>" class="btn btn-success" style="width: 100%;">Pagina anterior</a>
+                        <a href="perdidos.jsp?pagina=<%=siguientePagina%>" class="btn btn-success" style="width: 100%;">Pagina anterior</a>
                         <%
                                 }
                             }
@@ -265,9 +265,15 @@
                             }
                         } else {
                             int siguientePagina = Integer.parseInt(request.getParameter("pagina")) + 1;
+                            if (request.getParameter("tipoMascota") != null || request.getParameter("comunidad") != null) {
                         %>
                         <a href="perdidos.jsp?comunidad=<%=request.getParameter("comunidad")%>&tipoMascota=<%=request.getParameter("tipoMascota")%>&filtro=Filtrar&pagina=<%=siguientePagina%>" class="btn btn-success" style="width: 100%;">Siguiente página</a>
                         <%
+                                } else {
+                        %>
+                                    <a href="perdidos.jsp?pagina=<%=siguientePagina%>" class="btn btn-success" style="width: 100%;">Siguiente página</a>
+                        <%
+                                }
                             }
                         %>
                     </div>

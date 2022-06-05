@@ -38,9 +38,11 @@
               rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
         <link rel="stylesheet" href="./css/normalize/normalize.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
@@ -115,10 +117,6 @@
         <main class="d-flex flex-column">
             <form class="col-12 col-xl-12 bg-light d-flex p-2 flex-column justify-content-center align-items-center rounded"  action="registro" method="post" id="registro">
                 <section class="col-12 col-xl-12 bg-light d-flex p-2 justify-content-center align-items-center">
-                    <section class="col-12 col-xl-5 bg-light d-flex p-2 flex-column justify-content-center align-items-center rounded">
-                        <img src="" alt="" class="form_img" name="img">
-                        <input type="file" class="form_file" id="form_file" name="file">
-                    </section>
                     <section class="col-12 col-xl-5 bg-light d-flex p-2 flex-column justify-content-center align-items-center rounded">
                         <input type="text" placeholder="Correo" name="email" id="email">
                         <input type="password" placeholder="Contraseña" name="password" id="pwd">

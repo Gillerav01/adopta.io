@@ -136,13 +136,33 @@
                         <li>Teléfono: <%=usuario.getTelefono()%></li>
                         <li>Correo: <%=usuario.getEmail()%></li>
                     </ul>
+                    <%
+                        if (actual != null) {
+                    %>
                     <a href="mailto:<%=usuario.getEmail()%>?&subject=Quiero%20contactar%20con%20usted:%20<%=usuario.getNombre()%>">Contactar con <%=usuario.getNombre()%></a>
+                    <%
+                    } else {
+                    %>
+                    <a href="#">Inicia sesión para contactar con el usuario.</a>
+                    <%
+                        }
+                    %>
                 </div>
             </section>
             <section class="info-objeto">
                 <p><%=mascota.getTipo()%> - <%=mascota.getRaza()%></p>
                 <p>Motivo de la adopción: <%=mascota.getMotivo()%></p>
+                <%
+                    if (actual != null) {
+                %>
                 <a href="mailto:<%=usuario.getEmail()%>?&subject=Quiero%20comprar%20tu%20artículo:%20<%=usuario.getNombre()%>&body=Hola%20me%20gustaria%20comprar%20el%20mascota:%20<%=mascota.getNombre()%>%20por%20Ruego%20se%20ponga%20en%20contacto%20para%20continuar%20con%20el%20proceso.%20Saludos%20de%20<%=usuario.getNombre()%>">Adoptar mascota</a>
+                <%
+                } else {
+                %>
+                <a href="#">Inicia sesión para adoptar a esta mascota</a>
+                <%
+                    }
+                %>
             </section>
         </main>
         <footer class="footer bg-success">

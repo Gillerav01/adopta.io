@@ -41,6 +41,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
         <link rel="stylesheet" href="./css/normalize/normalize.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
@@ -117,7 +119,7 @@
                 <%                                        
                     if (actual != null) {
                 %>
-                <form action="mascota" method="POST">
+                <form action="mascota" method="POST" id="registrarMascota">
                 <%
                 } else {
                 %>
@@ -131,19 +133,21 @@
                         <img src="./assets/fotosPerfil/default.png" id="imagen-subida" alt="Imagen de registro de la mascota"/></img>
                         <input type="file" id="idFile">
                     </section>
-                    <section class="datos--mascota" id="datos-mascota">
-                        <input type="text" placeholder="Nombre de la mascota" name="nombre">
+                    <section class="datos-mascota" id="datos-mascota">
+                        <input type="text" id="nombre" placeholder="Nombre de la mascota" name="nombre">
                         <select id="tipo" class="tipoMascota" name="tipoMascota">
+                            <option value="">Seleccionar tipo de masccota</option>
                             <option value="Perro">Perro</option>
                             <option value="gato">Gato</option>
                             <option value="Pajaro">Pajaro</option>
                             <option value="Roedor">Roedor</option>                    
                         </select>
                         <section class="informacion-localizacion-motivo">
-                            <select name="comunidad">
-                                <%                                    for (String comunidad : util.devolverArrayComunidad()) {
+                            <select name="comunidad" id="comunidad">
+                                <%                                    
+                                    for (String comunidad : util.devolverArrayComunidad()) {
                                 %>
-                                <option value="<%=comunidad%>"><%=comunidad%></option>
+                                    <option value="<%=comunidad%>"><%=comunidad%></option>
                                 <%
                                     }
                                 %>
@@ -159,7 +163,7 @@
                             <input type="radio" id="perdida" name="perdida" value="1">
                             <label for="perdida">Mi mascota está perdida</label>
 
-                            <input type="radio" id="noperdida" name="perdida" value="0">
+                            <input type="radio" id="noperdida" name="perdida" value="0" checked>
                             <label for="noperdida">Mi mascota no está perdida</label>
                         </section>
                     </section>

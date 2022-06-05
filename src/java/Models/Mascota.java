@@ -67,6 +67,8 @@ public class Mascota {
         this.imagenMascota = imagenMascota;
         this.idUsuario = idUsuario;
     }
+    
+    
 
     public Mascota(String nombre, String tipo, String raza, int prioridad, boolean perdida, String imagenMascota, int idUsuario) {
         this.nombre = nombre;

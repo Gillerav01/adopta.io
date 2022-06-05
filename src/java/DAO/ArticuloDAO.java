@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class ArticuloDAO {
 
@@ -59,6 +60,25 @@ public class ArticuloDAO {
             System.out.println("No existe una conexión con la base de datos.");
             return false;
         } else {
+            if (articulo.getNombre() != null || articulo.getNombre() == "" || articulo.getDescripcion() != null || articulo.getDescripcion() == null) {
+                char[] ch = articulo.getNombre().toCharArray();
+                for (char c : ch) {
+                    if (Character.isDigit(c)) {
+                        return false;
+                    }
+                }
+            }
+            if (idUsuario <= 0) {
+                return false;
+            }
+            if (foto.equals("DEFAULT")){
+                return false;
+            }
+            
+            if (articulo.getPrecio() <= 0){
+                return false;
+            }
+            
             Statement st = this.conn.createStatement();
             String consulta = "INSERT INTO `articulos` (`id`, `nombre`, `descripcion`, `estado`, `fotoArticulo`, `precio`, `fechaRegistro`, `fechaVenta`, `idVendedor`, `idComprador`) VALUES (NULL, '" + articulo.getNombre() + "', '" + articulo.getDescripcion() + "', 'Publicado'";
             if (!"DEFAULT".equals(foto)) {

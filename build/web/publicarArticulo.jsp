@@ -40,6 +40,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
         <link rel="stylesheet" href="./css/normalize/normalize.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
@@ -116,7 +118,7 @@
                 <%                                            
                     if (actual != null) {
                 %>
-                <form action="articulo" method="POST">
+                <form action="articulo" method="POST" id="registroArticulo">
                 <%
                 } else {
                 %>
@@ -131,12 +133,13 @@
                         <input type="file" id="idFile">
                     </section>
                     <section class="datos-articulo">
-                        <input type="text" placeholder="Nombre del artículo" name="nombre">
-                        <textarea name="descripcion" placeholder="Describe el objeto aquí"></textarea>
-                        <input type="text" placeholder="Precio en euros" name="precio">
+                        <input type="text" placeholder="Nombre del artículo" name="nombre" id="nombre">
+                        <textarea name="descripcion" placeholder="Describe el objeto aquí" id="descripcion"></textarea>
+                        <input type="text" placeholder="Precio en euros" name="precio" id="precio">
                     </section>
                     <section class="botones-articulo">
-                        <%                            if (actual != null) {
+                        <%                            
+                            if (actual != null) {
                         %>
                         <input type="submit" value="Registrar artículo" name="registrarArticulo">
                         <%

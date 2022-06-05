@@ -8,7 +8,8 @@ import java.util.Arrays;
 import java.util.Base64;
 
 public class util {
-        public static String convertirSHA256(String password) {
+
+    public static String convertirSHA256(String password) {
         MessageDigest md = null;
         try {
             md = MessageDigest.getInstance("SHA-256");
@@ -26,16 +27,16 @@ public class util {
 
         return sb.toString();
     }
-    
-   public static String convertirBase64(String s){
-       return Base64.getEncoder().encodeToString(s.getBytes());
-   }
-   
-   public static int contarPaginas(int x) {
+
+    public static String convertirBase64(String s) {
+        return Base64.getEncoder().encodeToString(s.getBytes());
+    }
+
+    public static int contarPaginas(int x) {
         return x / 9;
-   }
-   
-       public static String devolverComunidad(int n) {
+    }
+
+    public static String devolverComunidad(int n) {
         ArrayList<String> comunidad = new ArrayList(Arrays.asList("Andalucia", "Aragon", "Canarias", "Cantabria", "Castilla y Leon",
                 "Castilla-La Mancha", "Catalunya", "Ceuta", "Comunidad Valenciana",
                 "Comunidad de Madrid", "Extremadura", "Galicia", "Islas Baleares",
@@ -43,34 +44,42 @@ public class util {
                 "Region de Murcia"));
         return comunidad.get(n);
     }
-    
-    public static ArrayList<String> devolverArrayComunidad(){
+
+    public static ArrayList<String> devolverArrayComunidad() {
         return new ArrayList(Arrays.asList("Por defecto", "Andalucia", "Aragon", "Canarias", "Cantabria", "Castilla y Leon",
                 "Castilla-La Mancha", "Catalunya", "Ceuta", "Comunidad Valenciana",
                 "Comunidad de Madrid", "Extremadura", "Galicia", "Islas Baleares",
                 "La Rioja", "Melilla", "Navarra", "Pais Vasco", "Principado de Asturias",
                 "Region de Murcia"));
     }
-    
+
     public static String devolverProvincia(int n) {
         ArrayList<String> provincia = new ArrayList(Arrays.asList("Alava", "Albacete", "Alicante", "Almería", "Avila", "Badajoz", "Baleares", "Barcelona", "Burgos", "Cáceres",
-        "Cádiz", "Castellón", "Ciudad Real", "Córdoba", "La Coruña", "Cuenca", "Gerona", "Granada", "Guadalajara",
-        "Guipúzcoa", "Huelva", "Huesca", "Jaén", "León", "Lérida", "La rioja", "Lugo", "Madrid", "Málaga", "Murcia", "Navarra",
-        "Orense", "Asturias", "Palencia", "Las Palmas", "Pontevedra", "Salamanca", "Tenerife", "Cantabria", "Segovia", "Sevilla", "Soria", "Tarragona",
-        "Teruel", "Toledo", "Valencia", "Valladolid", "Vizcaya", "Zamora", "Zaragoza", "Ceuta", "Melilla"));
+                "Cádiz", "Castellón", "Ciudad Real", "Córdoba", "La Coruña", "Cuenca", "Gerona", "Granada", "Guadalajara",
+                "Guipúzcoa", "Huelva", "Huesca", "Jaén", "León", "Lérida", "La rioja", "Lugo", "Madrid", "Málaga", "Murcia", "Navarra",
+                "Orense", "Asturias", "Palencia", "Las Palmas", "Pontevedra", "Salamanca", "Tenerife", "Cantabria", "Segovia", "Sevilla", "Soria", "Tarragona",
+                "Teruel", "Toledo", "Valencia", "Valladolid", "Vizcaya", "Zamora", "Zaragoza", "Ceuta", "Melilla"));
         return provincia.get(n);
-    }    
-   
-        public static ArrayList<String> devolverArrayProvincia(){
-            return new ArrayList(Arrays.asList("Por defecto", "Alava", "Albacete", "Alicante", "Almería", "Avila", "Badajoz", "Baleares", "Barcelona", "Burgos", "Cáceres",
-            "Cádiz", "Castellón", "Ciudad Real", "Córdoba", "La Coruña", "Cuenca", "Gerona", "Granada", "Guadalajara",
-            "Guipúzcoa", "Huelva", "Huesca", "Jaén", "León", "Lérida", "La rioja", "Lugo", "Madrid", "Málaga", "Murcia", "Navarra",
-            "Orense", "Asturias", "Palencia", "Las Palmas", "Pontevedra", "Salamanca", "Tenerife", "Cantabria", "Segovia", "Sevilla", "Soria", "Tarragona",
-            "Teruel", "Toledo", "Valencia", "Valladolid", "Vizcaya", "Zamora", "Zaragoza", "Ceuta", "Melilla"));
     }
-    
-           public static ArrayList<String> devolverArrayTiposMascota(){
-            return new ArrayList(Arrays.asList("Por defecto", "Gato", "Perro", "Pájaro", "Roedor"));
+
+    public static ArrayList<String> devolverArrayProvincia() {
+        return new ArrayList(Arrays.asList("Por defecto", "Alava", "Albacete", "Alicante", "Almería", "Avila", "Badajoz", "Baleares", "Barcelona", "Burgos", "Cáceres",
+                "Cádiz", "Castellón", "Ciudad Real", "Córdoba", "La Coruña", "Cuenca", "Gerona", "Granada", "Guadalajara",
+                "Guipúzcoa", "Huelva", "Huesca", "Jaén", "León", "Lérida", "La rioja", "Lugo", "Madrid", "Málaga", "Murcia", "Navarra",
+                "Orense", "Asturias", "Palencia", "Las Palmas", "Pontevedra", "Salamanca", "Tenerife", "Cantabria", "Segovia", "Sevilla", "Soria", "Tarragona",
+                "Teruel", "Toledo", "Valencia", "Valladolid", "Vizcaya", "Zamora", "Zaragoza", "Ceuta", "Melilla"));
     }
-        
-}
+
+    public static ArrayList<String> devolverArrayTiposMascota() {
+        return new ArrayList(Arrays.asList("Por defecto", "Gato", "Perro", "Pájaro", "Roedor"));
+    }
+
+//    public static boolean comprobarDNI(String DNI){
+//        String caracteres="TRWAGMYFPDXBNJZSQVHLCKE";
+//        int resto = iInDNI % 23;
+//        if(DNI.charAt(8) == caracteres.charAt(resto)){
+//            return true;
+//        }
+//        return false;
+//    }
+    }

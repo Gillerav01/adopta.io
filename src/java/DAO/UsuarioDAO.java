@@ -16,6 +16,12 @@ public class UsuarioDAO {
             System.out.println("No existe una conexión con la base de datos.");
             return false;
         } else {
+            final String regexEmail = "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$";
+            final String regexPwd = "^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$";
+            final String regexDNI = "^\\d{8}[a-zA-Z]$";
+//            if(Usuario.getNombre() == null || ){
+//            
+//            }
             System.out.println(Usuario);
             Statement st = this.conn.createStatement();
             st.executeUpdate("INSERT INTO `usuarios` (`id`, `nombre`, `email`, `telefono`, `dni`, `password`, `urlImagen`, `comunidad`) "

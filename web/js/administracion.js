@@ -3,9 +3,7 @@ var articulos = [];
 var incidencias = [];
 var mascotas = [];
 
-// Crea la funcion borrarUsuario, que recibe el id del usuario a borrar.
 function borrarUsuario(id) {
-    // Se crea una variable que contiene la peticion ajax.
     var peticion = $.ajax({
         url: "http://localhost/apiAdopta.io/borrarUsuario.php",
         type: "post",
@@ -33,9 +31,7 @@ function borrarUsuario(id) {
     });
 }
 
-// Crea una funcion para ver los datos del usuario seleccionado
 function verInformacionUsuario(id) {
-    // Se crea una variable que contiene la peticion ajax.
     var peticion = $.ajax({
         url: "http://localhost/apiAdopta.io/getUsuario.php",
         type: "post",
@@ -63,7 +59,6 @@ function verInformacionUsuario(id) {
 }
 
 function borrarArticulo(id) {
-    // Se crea una variable que contiene la peticion ajax.
     var peticion = $.ajax({
         url: "http://localhost/apiAdopta.io/borrarArticulo.php",
         type: "post",
@@ -92,7 +87,6 @@ function borrarArticulo(id) {
 }
 
 function borrarMascota(id) {
-    // Se crea una variable que contiene la peticion ajax.
     var peticion = $.ajax({
         url: "http://localhost/apiAdopta.io/borrarMascota.php",
         type: "post",
@@ -273,33 +267,72 @@ function verInformacionIncidencia(id) {
     });
 }
 
+function addRol(id) {
+    // Se crea una variable que contiene la peticion ajax.
+    var rol = document.getElementById("rolesNoObtenidos").value;
+    var peticion = $.ajax({
+        url: "http://localhost/apiAdopta.io/addRol.php",
+        type: "post",
+        data: {
+            idUsuario: id,
+            idRol: rol
+        },
+        dataType: "json",
+        success: function (response) {
+            Swal.fire({
+                title: 'Rol asignado',
+                text: 'El rol ha sido asignado correctamente',
+                type: 'success',
+                confirmButtonText: 'Ok'
+            });
+        },
+        error: function (response) {
+            console.log("ERROH");
+            Swal.fire({
+                title: 'Error',
+                text: 'El rol no ha podido ser asignado',
+                type: 'error',
+                confirmButtonText: 'Ok'
+            });
+        }
+    });
+}
 
-// Crea un metodo llamado modificarRoles, que reciba como parametro la id del usuario, haga una petición ajax a obtenerRoles.php para obtener todos los roles que hay en la base de dato,s
-// luego haz una peticion a getRolesPertenecientesUsuario.php para obtener los roles que tiene el usuario.
+function rmRol(id) {
+    // Se crea una variable que contiene la peticion ajax.
+    var rol = document.getElementById("rolesObtenidos").value;
+    var peticion = $.ajax({
+        url: "http://localhost/apiAdopta.io/rmRol.php",
+        type: "post",
+        data: {
+            idUsuario: id,
+            idRol: rol
+        },
+        dataType: "json",
+        success: function (response) {
+            Swal.fire({
+                title: 'Rol eliminado',
+                text: 'El rol ha sido eliminado correctamente',
+                type: 'success',
+                confirmButtonText: 'Ok'
+            });
+        },
+        error: function (response) {
+            console.log("ERROH");
+            Swal.fire({
+                title: 'Error',
+                text: 'El rol no ha podido ser eliminado',
+                type: 'error',
+                confirmButtonText: 'Ok'
+            });
+        }
+    });
+}
 
 function modificarRoles(id) {
-    var rolesCreados = [];
-    var rolesObtenidos = [];
+    var rolesUsuario = [];
     var rolesNoObtenidos = [];
-
-    //  Haz la peticion a obtenerRoles.php para obtener todos los roles que hay en la base de datos y guardala en rolesCreados
-    fetch('http://localhost/apiAdopta.io/obtenerRoles.php')
-        .then(function (response) {
-            return response.json();
-        }).then(function (myJson) {
-            // Guarda los roles recogidos en el jSon en el array de rolesCreados
-            console.log(myJson);
-            console.log(myJson.roles);
-            console.log(myJson.roles.length);
-            for (var i = 0; i < myJson.roles.length; i++) {
-                rolesCreados.push([myJson.roles[i].id, myJson.roles[i].nombre]);
-            }
-        }).catch(function (error) {
-            console.log(error);
-        }
-        );
-    //  Haz la peticion a getRolesPertenecientesUsuario.php para obtener los roles que tiene el usuario y guardala en rolesObtenidos
-    var peticion = $.ajax({
+    var peticionRolesUsuario = $.ajax({
         url: "http://localhost/apiAdopta.io/getRolesPertenecientesUsuario.php",
         type: "post",
         data: {
@@ -307,77 +340,115 @@ function modificarRoles(id) {
         },
         dataType: "json",
         success: function (response) {
-            // Comprueba que el array no está vacío
-            if (response.roles != null) {
-                // Guarda los roles recogidos en el jSon en el array de rolesObtenidos
-                for (var i = 0; i < response.roles.length; i++) {
-                    rolesObtenidos.push([response.roles[i].id, response.roles[i].nombre]);
-                }
-            } else {
-                rolesObtenidos = [];
-                console.info("No tiene roles");
+            for (var i = 0; i < response.rolesUsuario.length; i++) {
+                rolesUsuario.push([response.rolesUsuario[i].id, response.rolesUsuario[i].nombre]);
             }
+            console.log(rolesUsuario);
         },
         error: function (response) {
             console.log("ERROH");
         }
     });
-    // Compara los roles creados y los roles obtenidos y guarda los roles que no estan en el array de rolesObtenidos en el array de rolesNoObtenidos
-    for (var i = 0; i < rolesCreados.length; i++) {
-        var encontrado = false;
-        for (var j = 0; j < rolesObtenidos.length; j++) {
-            if (rolesCreados[i][0] == rolesObtenidos[j][0]) {
-                encontrado = true;
+    var peticionRolesNoObtenidos = $.ajax({
+        url: "http://localhost/apiAdopta.io/getRolesNoPertenecientesUsuario.php",
+        type: "post",
+        data: {
+            idUsuario: id
+        },
+        dataType: "json",
+        success: function (response) {
+            for (var i = 0; i < response.rolesUsuario.length; i++) {
+                rolesNoObtenidos.push([response.rolesUsuario[i].id, response.rolesUsuario[i].nombre]);
             }
+            console.log(rolesNoObtenidos);
+        },
+        error: function (response) {
+            console.log("ERROH");
         }
-        if (!encontrado) {
-            rolesNoObtenidos.push(rolesCreados[i]);
+    });
+    Promise.all([peticionRolesUsuario, peticionRolesNoObtenidos]).then(function (values) {
+
+        Swal.fire({
+            title: 'Modificar roles',
+            html: `
+            <div class="form-group">
+                <label for="rolesObtenidos">Roles obtenidos</label>
+                <select class="form-control" id="rolesObtenidos">
+                    ${rolesUsuario.map(function (item) {
+                return `<option class="addRol" value="${item[0]}">${item[1]}</option>`;
+            }).join('')}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="rolesNoObtenidos">Roles no obtenidos</label>
+                <select class="form-control" id="rolesNoObtenidos">
+                    ${rolesNoObtenidos.map(function (item) {
+                return `<option class="rmRol" value="${item[0]}">${item[1]}</option>`;
+            }).join('')}
+                </select>
+            </div>
+            <div>
+                <button class="btn btn-success" id="btnAgregarRol" onclick="addRol(${id})">Agregar</button>
+                <button class="btn btn-danger" id="btnQuitarRol" onclick="rmRol(${id})">Quitar</button>
+            </div>`
+            ,
+            showCancelButton: true,
+            showConfirmButton: false,
+            cancelButtonText: 'Cancelar',
+            showLoaderOnConfirm: true,
+        }).then((result) => {
+        }).catch(() => {
+            Swal.fire({
+                title: 'Cancelado',
+                text: 'No se ha modificado ningun rol',
+                type: 'error',
+                confirmButtonText: 'Ok'
+            });
         }
-    }
-    console.log("Roles no obtenidos: " + rolesNoObtenidos.length);
-    console.log("Roles obtenidos: " + rolesObtenidos.length);
-    console.log("Roles creados: " + rolesCreados.length);
+        );
+    });
 }
 
 
 
+
 function tablaUsuarios() {
-    fetch('http://localhost/apiAdopta.io/getUsuarios.php')
-        .then(function (response) {
-            return response.json();
-        }).then(function (myJson) {
-            for (var i = 0; i < myJson.usuarios.length; i++) {
-                usuarios.push([myJson.usuarios[i].id, myJson.usuarios[i].nombre, myJson.usuarios[i].email, myJson.usuarios[i].telefono, myJson.usuarios[i].dni, myJson.usuarios[i].comunidad]);
-            }
-            $('#table-usuarios').DataTable({
-                data: usuarios,
-                columns: [
-                    { title: "ID" },
-                    { title: "Nombre" },
-                    { title: "Email" },
-                    { title: "Telefono" },
-                    { title: "DNI" },
-                    { title: "Comunidad" },
-                ],
-                "language": {
-                    "lengthMenu": "Mostrando MENU usuarios por página",
-                    "zeroRecords": "No se ha encontrado el usuario.",
-                    "info": "Mostrando página PAGE de PAGES",
-                    "infoEmpty": "No se ha encontrado el usuario...",
-                    "infoFiltered": "(filtrado de MAX usuarios)"
-                },
-                "autoWidth": false,
-                "lengthChange": false
-            });
-            var tabla = $('#table-usuarios');
-            $('#table-usuarios tbody').on('click', 'tr', function () {
-                // Guarda los datos del usuario seleccionado
-                var datos = tabla.DataTable().row(this).data();
-                console.log("Datos: " + datos);
-                Swal.fire({
-                    title: `Usuario ${datos[1]}`,
-                    // Añade un HTML con 4 botones, Borrar usuario, modificar roles, ver informacion y cancelar.
-                    html: `<div class="row">
+                fetch('http://localhost/apiAdopta.io/getUsuarios.php')
+                    .then(function (response) {
+                        return response.json();
+                    }).then(function (myJson) {
+                        for (var i = 0; i < myJson.usuarios.length; i++) {
+                            usuarios.push([myJson.usuarios[i].id, myJson.usuarios[i].nombre, myJson.usuarios[i].email, myJson.usuarios[i].telefono, myJson.usuarios[i].dni, myJson.usuarios[i].comunidad]);
+                        }
+                        $('#table-usuarios').DataTable({
+                            data: usuarios,
+                            columns: [
+                                { title: "ID" },
+                                { title: "Nombre" },
+                                { title: "Email" },
+                                { title: "Telefono" },
+                                { title: "DNI" },
+                                { title: "Comunidad" },
+                            ],
+                            "language": {
+                                "lengthMenu": "Mostrando MENU usuarios por página",
+                                "zeroRecords": "No se ha encontrado el usuario.",
+                                "info": "Mostrando página PAGE de PAGES",
+                                "infoEmpty": "No se ha encontrado el usuario...",
+                                "infoFiltered": "(filtrado de MAX usuarios)"
+                            },
+                            "autoWidth": false,
+                            "lengthChange": false
+                        });
+                        var tabla = $('#table-usuarios');
+                        $('#table-usuarios tbody').on('click', 'tr', function () {
+                            // Guarda los datos del usuario seleccionado
+                            var datos = tabla.DataTable().row(this).data();
+                            console.log("Datos: " + datos);
+                            Swal.fire({
+                                title: `Usuario ${datos[1]}`,
+                                // Añade un HTML con 4 botones, Borrar usuario, modificar roles, ver informacion y cancelar.
+                                html: `<div class="row">
                             <div class="col-md-6">
                                 <button type="button" class="btn btn-danger" onclick="borrarUsuario(${datos[0]})">Borrar usuario</button>
                             </div>
@@ -388,63 +459,63 @@ function tablaUsuarios() {
                                 <button type="button" class="btn btn-success" onclick="verInformacionUsuario(${datos[0]})">Ver informacion</button>
                             </div>
                         </div>`,
-                    showCloseButton: true,
-                    showCancelButton: true,
-                    showConfirmButton: false,
-                    focusConfirm: false,
-                    focusCancel: false,
-                    allowOutsideClick: true,
-                    allowEscapeKey: true,
-                    allowEnterKey: true,
-                }).then((result) => {
-                    if (result.value) {
-                        console.log("Cancelado");
-                    }
-                })
-            });
-        }).catch(function (error) {
-            console.log(error);
-        });
-}
+                                showCloseButton: true,
+                                showCancelButton: true,
+                                showConfirmButton: false,
+                                focusConfirm: false,
+                                focusCancel: false,
+                                allowOutsideClick: true,
+                                allowEscapeKey: true,
+                                allowEnterKey: true,
+                            }).then((result) => {
+                                if (result.value) {
+                                    console.log("Cancelado");
+                                }
+                            })
+                        });
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+            }
 
 function tablaArticulos() {
-    fetch('http://localhost/apiAdopta.io/getArticulos.php')
-        .then(function (response) {
-            return response.json();
-        }).then(function (myJson) {
-            for (var i = 0; i < myJson.articulos.length; i++) {
-                articulos.push([myJson.articulos[i].id, myJson.articulos[i].nombre, myJson.articulos[i].descripcion, myJson.articulos[i].precio, myJson.articulos[i].fechaRegistro, myJson.articulos[i].idVendedor]);
+                fetch('http://localhost/apiAdopta.io/getArticulos.php')
+                    .then(function (response) {
+                        return response.json();
+                    }).then(function (myJson) {
+                        for (var i = 0; i < myJson.articulos.length; i++) {
+                            articulos.push([myJson.articulos[i].id, myJson.articulos[i].nombre, myJson.articulos[i].descripcion, myJson.articulos[i].precio, myJson.articulos[i].fechaRegistro, myJson.articulos[i].idVendedor]);
 
-            }
-            $('#table-articulos').DataTable({
-                data: articulos,
-                columns: [
-                    { title: "ID" },
-                    { title: "Nombre" },
-                    { title: "Descripcion" },
-                    { title: "Precio" },
-                    { title: "Fecha registro" },
-                    { title: "ID del vendedor" },
-                ],
-                "language": {
-                    "lengthMenu": "Mostrando MENU usuarios por página",
-                    "zeroRecords": "No se ha encontrado el usuario.",
-                    "info": "Mostrando página PAGE de PAGES",
-                    "infoEmpty": "No se ha encontrado el usuario...",
-                    "infoFiltered": "(filtrado de MAX usuarios)"
-                },
-                "autoWidth": false,
-                "lengthChange": false
-            });
-            var tabla = $('#table-articulos');
-            $('#table-articulos tbody').on('click', 'tr', function () {
-                // Guarda los datos del articulo seleccionado
-                var datos = tabla.DataTable().row(this).data();
-                console.log("Datos: " + datos);
-                Swal.fire({
-                    title: `Articulo ${datos[1]}`,
-                    // Añade un HTML con 4 botones, Borrar articulo, modificar articulo, ver informacion y cancelar.
-                    html: `<div class="row">
+                        }
+                        $('#table-articulos').DataTable({
+                            data: articulos,
+                            columns: [
+                                { title: "ID" },
+                                { title: "Nombre" },
+                                { title: "Descripcion" },
+                                { title: "Precio" },
+                                { title: "Fecha registro" },
+                                { title: "ID del vendedor" },
+                            ],
+                            "language": {
+                                "lengthMenu": "Mostrando MENU usuarios por página",
+                                "zeroRecords": "No se ha encontrado el usuario.",
+                                "info": "Mostrando página PAGE de PAGES",
+                                "infoEmpty": "No se ha encontrado el usuario...",
+                                "infoFiltered": "(filtrado de MAX usuarios)"
+                            },
+                            "autoWidth": false,
+                            "lengthChange": false
+                        });
+                        var tabla = $('#table-articulos');
+                        $('#table-articulos tbody').on('click', 'tr', function () {
+                            // Guarda los datos del articulo seleccionado
+                            var datos = tabla.DataTable().row(this).data();
+                            console.log("Datos: " + datos);
+                            Swal.fire({
+                                title: `Articulo ${datos[1]}`,
+                                // Añade un HTML con 4 botones, Borrar articulo, modificar articulo, ver informacion y cancelar.
+                                html: `<div class="row">
                             <div class="col-md-6">
                                 <button type="button" class="btn btn-danger" onclick="borrarArticulo(${datos[0]})">Borrar articulo</button>
                             </div>
@@ -452,65 +523,65 @@ function tablaArticulos() {
                                 <button type="button" class="btn btn-success" onclick="verInformacionArticulo(${datos[0]})">Ver informacion</button>
                             </div>
                         </div>`,
-                    showCloseButton: true,
-                    showCancelButton: true,
-                    showConfirmButton: false,
-                    focusConfirm: false,
-                    focusCancel: false,
-                    allowOutsideClick: true,
-                    allowEscapeKey: true,
-                    allowEnterKey: true,
-                }).then((result) => {
-                    if (result.value) {
-                        console.log("Cancelado");
-                    }
-                })
-            });
-        }).catch(function (error) {
-            console.log(error);
-        });
+                                showCloseButton: true,
+                                showCancelButton: true,
+                                showConfirmButton: false,
+                                focusConfirm: false,
+                                focusCancel: false,
+                                allowOutsideClick: true,
+                                allowEscapeKey: true,
+                                allowEnterKey: true,
+                            }).then((result) => {
+                                if (result.value) {
+                                    console.log("Cancelado");
+                                }
+                            })
+                        });
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
 
-}
+            }
 
 function tablaIncidencias() {
-    fetch('http://localhost/apiAdopta.io/verIncidencias.php')
-        .then(function (response) {
-            return response.json();
-        }
-        ).then(function (myJson) {
-            for (var i = 0; i < myJson.incidencias.length; i++) {
-                console.log(myJson.incidencias[i].id);
-                incidencias.push([myJson.incidencias[i].id, myJson.incidencias[i].descripcion, myJson.incidencias[i].estado, myJson.incidencias[i].motivo, myJson.incidencias[i].idEncargado, myJson.incidencias[i].idUsuario, myJson.incidencias[i].idArticulo, myJson.incidencias[i].idUsuario]);
-            }
-            $('#table-incidencias').DataTable({
-                data: incidencias,
-                columns: [
-                    { title: "ID" },
-                    { title: "Descripcion" },
-                    { title: "Estado" },
-                    { title: "Motivo" },
-                    { title: "idEncargado" },
-                    { title: "idUsuario" },
-                ],
-                "language": {
-                    "lengthMenu": "Mostrando MENU usuarios por página",
-                    "zeroRecords": "No se ha encontrado el usuario.",
-                    "info": "Mostrando página PAGE de PAGES",
-                    "infoEmpty": "No se ha encontrado el usuario...",
-                    "infoFiltered": "(filtrado de MAX usuarios)"
-                },
-                "autoWidth": false,
-                "lengthChange": false
-            });
-            var tabla = $('#table-incidencias');
-            $('#table-incidencias tbody').on('click', 'tr', function () {
-                // Guarda los datos del articulo seleccionado
-                var datos = tabla.DataTable().row(this).data();
-                console.log("Datos: " + datos);
-                Swal.fire({
-                    title: `Incidencia ${datos[1]}`,
-                    // Añade un HTML con 4 botones, Borrar articulo, modificar articulo, ver informacion y cancelar.
-                    html: `<div class="row">
+                fetch('http://localhost/apiAdopta.io/verIncidencias.php')
+                    .then(function (response) {
+                        return response.json();
+                    }
+                    ).then(function (myJson) {
+                        for (var i = 0; i < myJson.incidencias.length; i++) {
+                            console.log(myJson.incidencias[i].id);
+                            incidencias.push([myJson.incidencias[i].id, myJson.incidencias[i].descripcion, myJson.incidencias[i].estado, myJson.incidencias[i].motivo, myJson.incidencias[i].idEncargado, myJson.incidencias[i].idUsuario, myJson.incidencias[i].idArticulo, myJson.incidencias[i].idUsuario]);
+                        }
+                        $('#table-incidencias').DataTable({
+                            data: incidencias,
+                            columns: [
+                                { title: "ID" },
+                                { title: "Descripcion" },
+                                { title: "Estado" },
+                                { title: "Motivo" },
+                                { title: "idEncargado" },
+                                { title: "idUsuario" },
+                            ],
+                            "language": {
+                                "lengthMenu": "Mostrando MENU usuarios por página",
+                                "zeroRecords": "No se ha encontrado el usuario.",
+                                "info": "Mostrando página PAGE de PAGES",
+                                "infoEmpty": "No se ha encontrado el usuario...",
+                                "infoFiltered": "(filtrado de MAX usuarios)"
+                            },
+                            "autoWidth": false,
+                            "lengthChange": false
+                        });
+                        var tabla = $('#table-incidencias');
+                        $('#table-incidencias tbody').on('click', 'tr', function () {
+                            // Guarda los datos del articulo seleccionado
+                            var datos = tabla.DataTable().row(this).data();
+                            console.log("Datos: " + datos);
+                            Swal.fire({
+                                title: `Incidencia ${datos[1]}`,
+                                // Añade un HTML con 4 botones, Borrar articulo, modificar articulo, ver informacion y cancelar.
+                                html: `<div class="row">
                             <div class="col-md-6">
                                 <button type="button" class="btn btn-danger" onclick="borrarIncidencia(${datos[0]})">Borrar incidencia</button>
                             </div>
@@ -521,63 +592,63 @@ function tablaIncidencias() {
                                 </div><button type="button" class="btn btn-success" onclick="atenderIncidencia(${datos[0]})">Atender incidencia</button>
                             </div>
                         </div>`,
-                    showCloseButton: true,
-                    showCancelButton: true,
-                    showConfirmButton: false,
-                    focusConfirm: false,
-                    focusCancel: false,
-                    allowOutsideClick: true,
-                    allowEscapeKey: true,
-                    allowEnterKey: true,
-                }).then((result) => {
-                    if (result.value) {
-                        console.log("Cancelado");
-                    }
-                })
+                                showCloseButton: true,
+                                showCancelButton: true,
+                                showConfirmButton: false,
+                                focusConfirm: false,
+                                focusCancel: false,
+                                allowOutsideClick: true,
+                                allowEscapeKey: true,
+                                allowEnterKey: true,
+                            }).then((result) => {
+                                if (result.value) {
+                                    console.log("Cancelado");
+                                }
+                            })
+                        }
+                        );
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
             }
-            );
-        }).catch(function (error) {
-            console.log(error);
-        });
-}
 
 function tablaMascotas() {
-    fetch('http://localhost/apiAdopta.io/getMascotas.php')
-        .then(function (response) {
-            return response.json();
-        }).then(function (myJson) {
-            for (var i = 0; i < myJson.mascotas.length; i++) {
-                mascotas.push([myJson.mascotas[i].id, myJson.mascotas[i].nombre, myJson.mascotas[i].tipo, myJson.mascotas[i].raza, myJson.mascotas[i].perdida, myJson.mascotas[i].idUsuario]);
-            }
-            $('#table-mascotas').DataTable({
-                data: mascotas,
-                columns: [
-                    { title: "ID" },
-                    { title: "Nombre" },
-                    { title: "Tipo" },
-                    { title: "Raza" },
-                    { title: "Perdida" },
-                    { title: "ID del usuario" },
-                ],
-                "language": {
-                    "lengthMenu": "Mostrando MENU usuarios por página",
-                    "zeroRecords": "No se ha encontrado el usuario.",
-                    "info": "Mostrando página PAGE de PAGES",
-                    "infoEmpty": "No se ha encontrado el usuario...",
-                    "infoFiltered": "(filtrado de MAX usuarios)"
-                },
-                "autoWidth": false,
-                "lengthChange": false
-            });
-            var tabla = $('#table-mascotas');
-            $('#table-mascotas tbody').on('click', 'tr', function () {
-                // Guarda los datos del articulo seleccionado
-                var datos = tabla.DataTable().row(this).data();
-                console.log("Datos: " + datos);
-                Swal.fire({
-                    title: `Mascota ${datos[1]}`,
+                fetch('http://localhost/apiAdopta.io/getMascotas.php')
+                    .then(function (response) {
+                        return response.json();
+                    }).then(function (myJson) {
+                        for (var i = 0; i < myJson.mascotas.length; i++) {
+                            mascotas.push([myJson.mascotas[i].id, myJson.mascotas[i].nombre, myJson.mascotas[i].tipo, myJson.mascotas[i].raza, myJson.mascotas[i].perdida, myJson.mascotas[i].idUsuario]);
+                        }
+                        $('#table-mascotas').DataTable({
+                            data: mascotas,
+                            columns: [
+                                { title: "ID" },
+                                { title: "Nombre" },
+                                { title: "Tipo" },
+                                { title: "Raza" },
+                                { title: "Perdida" },
+                                { title: "ID del usuario" },
+                            ],
+                            "language": {
+                                "lengthMenu": "Mostrando MENU usuarios por página",
+                                "zeroRecords": "No se ha encontrado el usuario.",
+                                "info": "Mostrando página PAGE de PAGES",
+                                "infoEmpty": "No se ha encontrado el usuario...",
+                                "infoFiltered": "(filtrado de MAX usuarios)"
+                            },
+                            "autoWidth": false,
+                            "lengthChange": false
+                        });
+                        var tabla = $('#table-mascotas');
+                        $('#table-mascotas tbody').on('click', 'tr', function () {
+                            // Guarda los datos del articulo seleccionado
+                            var datos = tabla.DataTable().row(this).data();
+                            console.log("Datos: " + datos);
+                            Swal.fire({
+                                title: `Mascota ${datos[1]}`,
 
-                    html: `<div class="row">
+                                html: `<div class="row">
                             <div class="col-md-6">
                                 <button type="button" class="btn btn-danger" onclick="borrarMascota(${datos[0]})">Borrar mascota</button>
                             </div>
@@ -585,30 +656,30 @@ function tablaMascotas() {
                                 <button type="button" class="btn btn-success" onclick="verInformacionMascota(${datos[0]})">Ver informacion</button>
                             </div>
                         </div>`,
-                    showCloseButton: true,
-                    showCancelButton: true,
-                    showConfirmButton: false,
-                    focusConfirm: false,
-                    focusCancel: false,
-                    allowOutsideClick: true,
-                    allowEscapeKey: true,
-                    allowEnterKey: true,
-                }).then((result) => {
-                    if (result.value) {
-                        console.log("Cancelado");
-                    }
-                })
-            });
-        }).catch(function (error) {
-            console.log(error);
-        });
+                                showCloseButton: true,
+                                showCancelButton: true,
+                                showConfirmButton: false,
+                                focusConfirm: false,
+                                focusCancel: false,
+                                allowOutsideClick: true,
+                                allowEscapeKey: true,
+                                allowEnterKey: true,
+                            }).then((result) => {
+                                if (result.value) {
+                                    console.log("Cancelado");
+                                }
+                            })
+                        });
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
 
-}
+            }
 
 
 $(document).ready(function () {
-    tablaUsuarios();
-    tablaArticulos();
-    tablaIncidencias();
-    tablaMascotas();
-});
+                tablaUsuarios();
+                tablaArticulos();
+                tablaIncidencias();
+                tablaMascotas();
+            });
