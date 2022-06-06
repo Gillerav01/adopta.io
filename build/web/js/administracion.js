@@ -10,7 +10,7 @@ function borrarUsuario(id) {
         data: {
             idUsuario: id
         },
-        dataType: "json",
+        dataType: "text",
         success: function (response) {
             Swal.fire({
                 title: 'Usuario borrado',
@@ -38,7 +38,7 @@ function verInformacionUsuario(id) {
         data: {
             idUsuario: id
         },
-        dataType: "json",
+        dataType: "text",
         success: function (response) {
             console.log(response.usuario[0]);
             Swal.fire({
@@ -65,7 +65,7 @@ function borrarArticulo(id) {
         data: {
             idArticulo: id
         },
-        dataType: "json",
+        dataType: "text",
         success: function (response) {
             Swal.fire({
                 title: 'Articulo borrado',
@@ -123,7 +123,7 @@ function verInformacionArticulo(id) {
         data: {
             idArticulo: id
         },
-        dataType: "json",
+        dataType: "text",
         success: function (response) {
             console.log(response.articulo[0]);
             Swal.fire({
@@ -155,7 +155,7 @@ function verInformacionMascota(id) {
         data: {
             idMascota: id
         },
-        dataType: "json",
+        dataType: "text",
         success: function (response) {
             console.log(response.mascota[0]);
             Swal.fire({
@@ -187,7 +187,7 @@ function borrarIncidencia(id) {
         data: {
             idIncidencia: id
         },
-        dataType: "json",
+        dataType: "text",
         success: function (response) {
             Swal.fire({
                 title: 'Incidencia borrada',
@@ -217,7 +217,7 @@ function atenderIncidencia(id) {
             idIncidencia: id,
             idEncargado: document.getElementById("idActual").value
         },
-        dataType: "json",
+        dataType: "text",
         success: function (response) {
             Swal.fire({
                 title: 'Incidencia atendida',
@@ -246,7 +246,7 @@ function verInformacionIncidencia(id) {
         data: {
             idIncidencia: id
         },
-        dataType: "json",
+        dataType: "text",
         success: function (response) {
             console.log(response.incidencia[0]);
             Swal.fire({
@@ -278,7 +278,7 @@ function addRol(id) {
             idUsuario: id,
             idRol: rol
         },
-        dataType: "json",
+        dataType: "text",
         success: function (response) {
             Swal.fire({
                 title: 'Rol asignado',
@@ -309,7 +309,7 @@ function rmRol(id) {
             idUsuario: id,
             idRol: rol
         },
-        dataType: "json",
+        dataType: "text",
         success: function (response) {
             Swal.fire({
                 title: 'Rol eliminado',
