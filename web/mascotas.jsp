@@ -1,4 +1,4 @@
-<%@page import="Models.Rol"%>
+    <%@page import="Models.Rol"%>
 <%@page import="Lib.util"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Models.Mascota"%>
@@ -6,7 +6,7 @@
 <%@page import="DAO.ConectorBD"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="Models.Usuario"%>
-<%@page contentType="text/html" pageEncoding="UTF-8" errorPage="error.jsp"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     Usuario actual = (Usuario) session.getAttribute("usuarioLogueado");
     ArrayList<Rol> rolesActuales = (ArrayList<Rol>) session.getAttribute("rolesUsuarioLogueado");

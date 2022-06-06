@@ -93,9 +93,10 @@ function borrarMascota(id) {
         data: {
             idMascota: id
         },
-        dataType: "json",
+        dataType: "text",
         success: function (response) {
             Swal.fire({
+                icon: 'success',
                 title: 'Mascota borrada',
                 text: 'La mascota ha sido borrada correctamente',
                 type: 'success',
@@ -302,7 +303,7 @@ function rmRol(id) {
     // Se crea una variable que contiene la peticion ajax.
     var rol = document.getElementById("rolesObtenidos").value;
     var peticion = $.ajax({
-        url: "http://localhost/apiAdopta.io/rmRol.php",
+        url: "http://localhost/apiAdopta.io/revocarRol.php",
         type: "post",
         data: {
             idUsuario: id,
@@ -367,31 +368,39 @@ function modificarRoles(id) {
         }
     });
     Promise.all([peticionRolesUsuario, peticionRolesNoObtenidos]).then(function (values) {
-
+        var html = `<div class="form-group">
+                        <label for="rolesObtenidos">Roles obtenidos</label>`;
+        if (rolesUsuario.length == 0) {
+            html += `<select class="form-control" id="rolesObtenidos" disabled>
+                        <option>No hay roles obtenidos</option>
+                    </select>`;
+        } else {
+            html += `<select class="form-control" id="rolesObtenidos">`;
+            for (var i = 0; i < rolesUsuario.length; i++) {
+                html += `<option value="${rolesUsuario[i][0]}">${rolesUsuario[i][1]}</option>`;
+            }
+            html += `</select>`;
+            html += `</div>`;
+        }
+        html += `<div class="form-group">
+                    <label for="rolesNoObtenidos">Roles no obtenidos</label>`;
+        if (rolesNoObtenidos.length == 0) {
+            html += `<select class="form-control" id="rolesNoObtenidos" disabled>
+                        <option>No hay roles no obtenidos</option>
+                    </select>`;
+        } else {
+            html += `<select class="form-control" id="rolesNoObtenidos">`;
+            for (var i = 0; i < rolesNoObtenidos.length; i++) {
+                html += `<option value="${rolesNoObtenidos[i][0]}">${rolesNoObtenidos[i][1]}</option>`;
+            }
+            html += `</select>`;
+            html += `</div>`;
+        }
+        html += `<button type="button" class="btn btn-primary" onclick="addRol(${id})">Agregar</button>
+                <button type="button" class="btn btn-danger" onclick="rmRol(${id})">Eliminar</button>`;
         Swal.fire({
             title: 'Modificar roles',
-            html: `
-            <div class="form-group">
-                <label for="rolesObtenidos">Roles obtenidos</label>
-                <select class="form-control" id="rolesObtenidos">
-                    ${rolesUsuario.map(function (item) {
-                return `<option class="addRol" value="${item[0]}">${item[1]}</option>`;
-            }).join('')}
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="rolesNoObtenidos">Roles no obtenidos</label>
-                <select class="form-control" id="rolesNoObtenidos">
-                    ${rolesNoObtenidos.map(function (item) {
-                return `<option class="rmRol" value="${item[0]}">${item[1]}</option>`;
-            }).join('')}
-                </select>
-            </div>
-            <div>
-                <button class="btn btn-success" id="btnAgregarRol" onclick="addRol(${id})">Agregar</button>
-                <button class="btn btn-danger" id="btnQuitarRol" onclick="rmRol(${id})">Quitar</button>
-            </div>`
-            ,
+            html: html,
             showCancelButton: true,
             showConfirmButton: false,
             cancelButtonText: 'Cancelar',
@@ -438,7 +447,8 @@ function tablaUsuarios() {
                                 "infoFiltered": "(filtrado de MAX usuarios)"
                             },
                             "autoWidth": false,
-                            "lengthChange": false
+                            "lengthChange": false,
+                            "responsive": true,
                         });
                         var tabla = $('#table-usuarios');
                         $('#table-usuarios tbody').on('click', 'tr', function () {
@@ -531,6 +541,7 @@ function tablaArticulos() {
                                 allowOutsideClick: true,
                                 allowEscapeKey: true,
                                 allowEnterKey: true,
+                                responsive: true,
                             }).then((result) => {
                                 if (result.value) {
                                     console.log("Cancelado");

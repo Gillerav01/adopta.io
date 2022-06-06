@@ -24,6 +24,7 @@ public class MascotaDAO {
                 return result.getInt(1);
             }
         }
+        this.cerrarConexion();
         return -1;
     }
 
@@ -39,6 +40,7 @@ public class MascotaDAO {
             while (result.next()) {
                 mascotas.add(new Mascota(result.getInt("id"), result.getString("nombre"), result.getString("tipo"), result.getString("raza"), result.getInt("prioridad"), false, result.getString("fotoMascota"), result.getInt("idUsuario")));
             }
+            this.cerrarConexion();
             return mascotas;
         }
     }
@@ -56,6 +58,8 @@ public class MascotaDAO {
             if (!"Por defecto".equals(tipoMascota)) {
                 consulta += "AND mascotas.tipo = '" + tipoMascota + "'";
             }
+            
+            System.out.println(consulta);
 
             ResultSet result = stmt.executeQuery(consulta + " ORDER BY fechaRegistro DESC LIMIT " + paginaActual * (numeroRegistros + 1) + ", " + numeroRegistros + ";");
 
@@ -63,6 +67,7 @@ public class MascotaDAO {
             while (result.next()) {
                 mascotas.add(new Mascota(result.getInt("id"), result.getString("nombre"), result.getString("tipo"), result.getString("raza"), result.getInt("prioridad"), true, result.getString("fotoMascota"), result.getInt("idUsuario")));
             }
+            this.cerrarConexion();
             return mascotas;
         }
     }
@@ -87,6 +92,7 @@ public class MascotaDAO {
             while (result.next()) {
                 mascotas.add(new Mascota(result.getInt("id"), result.getString("nombre"), result.getString("tipo"), result.getString("raza"), result.getInt("prioridad"), true, result.getString("fotoMascota"), result.getInt("idUsuario")));
             }
+            this.cerrarConexion();
             return mascotas;
         }
     }
@@ -103,6 +109,7 @@ public class MascotaDAO {
             while (result.next()) {
                 mascotas.add(new Mascota(result.getInt("id"), result.getString("nombre"), result.getString("tipo"), result.getString("raza"), result.getInt("prioridad"), true, result.getString("fotoMascota"), result.getInt("idUsuario")));
             }
+            this.cerrarConexion();
             return mascotas;
         }
     }
@@ -122,6 +129,7 @@ public class MascotaDAO {
                 }
                 mascotas.add(new Mascota(result.getInt("id"), result.getString("nombre"), result.getString("tipo"), result.getString("raza"), result.getInt("prioridad"), perdida, result.getString("comunidad"), result.getString("motivo"), result.getString("fotoMascota"), result.getInt("idUsuario")));
             }
+            this.cerrarConexion();
             return mascotas;
         }
     }
@@ -134,8 +142,10 @@ public class MascotaDAO {
             Statement stmt = this.conn.createStatement();
             ResultSet result = stmt.executeQuery("SELECT * FROM mascotas WHERE mascotas.id = " + id);
             while (result.next()) {
+                this.cerrarConexion();
                 return new Mascota(result.getInt("id"), result.getString("nombre"), result.getString("tipo"), result.getString("raza"), result.getInt("prioridad"), result.getBoolean("perdida"), result.getString("comunidad"), result.getString("motivo"), result.getString("fotoMascota"), result.getInt("idUsuario"));
             }
+            this.cerrarConexion();
             return null;
         }
     }
@@ -160,28 +170,8 @@ public class MascotaDAO {
             System.out.println("No existe una conexión con la base de datos.");
             return false;
         } else {
-            if (mascota.getNombre() != null && !"".equals(mascota.getNombre()) && mascota.getTipo() != null && !"".equals(mascota.getTipo()) && mascota.getRaza() != null && !"".equals(mascota.getRaza()) && mascota.getPrioridad() < 1 && mascota.getPrioridad() > 10 && perdida == 0 && perdida == 1 && mascota.getComunidad() == null && !"".equals(mascota.getComunidad()) || mascota.getMotivo() != null || "".equals(mascota.getMotivo())) {
-                char[] ch = mascota.getNombre().toCharArray();
-                for (char c : ch) {
-                    if (Character.isDigit(c)) {
-                        return false;
-                    }
-                }
-                ch = mascota.getRaza().toCharArray();
-                for (char c : ch) {
-                    if (Character.isDigit(c)) {
-                        return false;
-                    }
-                }
-                if(idUsuario <= 0){
-                    return false;
-                }
-                if (foto.equals("DEFAULT")){
-                    return false;
-                }
-            }
-        }
         Statement st = this.conn.createStatement();
+        System.out.println(mascota.toString());
         String consulta = "INSERT INTO `mascotas` (`id`, `nombre`, `tipo`, `raza`, `prioridad`, `perdida`, `comunidad`, `motivo`, `fotoMascota`, `idUsuario`, `idAdoptante`, `fechaRegistro`) VALUES (NULL, '" + mascota.getNombre() + "', '" + mascota.getTipo() + "', '" + mascota.getRaza() + "', " + mascota.getPrioridad() + "," + perdida + ", '" + mascota.getComunidad() + "', '" + mascota.getMotivo() + "'";
         if (!"DEFAULT".equals(foto)) {
             consulta += ", '" + foto + "', ";
@@ -192,4 +182,5 @@ public class MascotaDAO {
         return true;
     }
 
+}
 }
