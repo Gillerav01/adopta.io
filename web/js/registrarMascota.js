@@ -1,3 +1,4 @@
+// Valida el registro de la mascota
 function validarRegistroMascota(){
     var nombre = document.getElementById("nombre").value;
     var tipo = document.getElementById("tipo").value;
@@ -53,7 +54,8 @@ function validarRegistroMascota(){
     }
     return true;
 }
-
+// Añade un evento al input file para que cuando cambie compruebe que le archivo es menor de 1MB, y el value del input hidden cambie al valor de la imagen en base64.
+// Añade un eventlistener submit al formulario para registrar msacota y se valida
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("idFile").addEventListener("change", function (e) {
         var file = e.target.files[0];

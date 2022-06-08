@@ -12,7 +12,12 @@ public class RolUsuarioDAO {
     public Connection getConn() {
         return conn;
     }
-    
+        /***
+         * Otorga un rol a un usuario
+         * @param idUsuario
+         * @return
+         * @throws SQLException 
+         */
         public boolean otorgarRolUsuario(int idUsuario) throws SQLException {
         if (this.conn == null) {
             System.out.println("No existe una conexión con la base de datos.");

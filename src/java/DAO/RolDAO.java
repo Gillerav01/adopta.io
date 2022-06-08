@@ -16,7 +16,12 @@ public class RolDAO {
         return conn;
     }
     
-    
+    /***
+     * Devuelve los roles de un usuario.
+     * @param idUsuario
+     * @return
+     * @throws SQLException 
+     */
     public ArrayList<Rol> devolverRolesUsuario(int idUsuario) throws SQLException {
         if (this.conn == null) {
             System.out.println("No existe una conexión con la base de datos.");

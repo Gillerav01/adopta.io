@@ -12,7 +12,7 @@ public class ConectorBD {
     private String usuario = "";
     private String password = "";
     private String url = "";
-
+    
     public ConectorBD(String servidor, String database, String usuario, String password) {
         try {
             this.servidor = servidor;

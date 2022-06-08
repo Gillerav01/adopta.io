@@ -9,6 +9,12 @@ public class IncidenciaDAO {
     
         private Connection conn;
     
+        /***
+         * Recibe un objeto de tipo incidencia para registrarla en la base de datos
+         * @param incidencia
+         * @return
+         * @throws SQLException 
+         */
         public boolean crearIncidencia(Incidencia incidencia) throws SQLException {
         if (this.conn == null) {
             System.out.println("No existe una conexión con la base de datos.");
@@ -21,7 +27,13 @@ public class IncidenciaDAO {
             return true;
         }
     }
-        
+        /***
+         * Recibe el ID de la incidencia y el estado de la incidencia a la que queremos modificar.
+         * @param idIncidencia
+         * @param estadoIncidencia
+         * @return
+         * @throws SQLException 
+         */
         public boolean actualizarEstadoIncidencia(int idIncidencia, String estadoIncidencia) throws SQLException {
         if (this.conn == null) {
             System.out.println("No existe una conexión con la base de datos.");

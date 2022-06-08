@@ -41,7 +41,7 @@ public class articuloController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
                 RequestDispatcher rd = null;
         ConectorBD bdActual = new ConectorBD("localhost", "adoptaio", "root", "");
-       
+       // Si se ha pulsado el botón registrarArticulo, hace las conexiones pertinentes para registrar el artículo
         if (request.getParameter("registrarArticulo") != null){
             System.out.println("Has pulsado registrarse.");
             ArticuloDAO registro = new ArticuloDAO();

@@ -47,8 +47,9 @@ public class registroController extends HttpServlet {
         ConectorBD bdActual = new ConectorBD("localhost", "adoptaio", "root", "");
         Connection conn;
         
+        
+        // Si se ha pulsado el botón de registrarse se crean las conexiones necesarias para registrar al usuario
         if (request.getParameter("registrarse") != null){
-            System.out.println("Has pulsado registrarse.");
             UsuarioDAO registro = new UsuarioDAO();
             conn = bdActual.getConexion();
             registro.setConn(conn);

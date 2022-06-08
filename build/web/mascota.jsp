@@ -97,7 +97,7 @@
                             %>
                     </div>
                 </div>
-                <section class="d-flex col-2 offset">
+                <section class="d-flex col-xs-12 col-12 col-sm-12 col-md-12 col-lg-2 offset text-center align-items-center justify-content-center">
                     <%
                         if (actual != null) {
                     %>
@@ -113,8 +113,9 @@
                 </section>
             </nav>
         </header>
-        <main class="main-mascota container-fluid">
-            <%                        ConectorBD bdActual = new ConectorBD("localhost", "adoptaio", "root", "");
+        <main class="main-mascota container-fluid p-5">
+            <%                // Saca toda la información de la mascota y del usuario al que pertenece la mascota para mostrarla
+                ConectorBD bdActual = new ConectorBD("localhost", "adoptaio", "root", "");
                 MascotaDAO informacionMascota = new MascotaDAO();
                 informacionMascota.setConn(bdActual.getConexion());
                 UsuarioDAO informacionDuenio = new UsuarioDAO();
@@ -125,11 +126,11 @@
                 informacionDuenio.cerrarConexion();
                 bdActual.cerrarConexion();
             %>
-            <section class="info-general-objeto col-xs-4 col-4 col-sm-4 col-md-4 col-lg-2 d-flex justify-content-around container-fluid">
-                <section class="col-xs-12 col-12 col-sm-12 col-md-12 col-lg-12"
-                         <img src="data:image/png;base64,<%=mascota.getImagenMascota()%>" alt="Foto del artículo con nombre <%=mascota.getNombre()%>"/>
+            <section class="info-general-mascota col-xs-12 col-12 col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center container flex-wrap">
+                <section class="col-xs-12 col-12 col-sm-8 col-md-8 col-lg-8 d-flex justify-content-center mt-5">
+                    <img src="data:image/png;base64,<%=mascota.getImagenMascota()%>" alt="Foto del artículo con nombre <%=mascota.getNombre()%>"/>
                 </section>
-                <div class="info-dueño flex-column d-flex col-xs-2 col-2 col-sm-2 col-md-2 col-lg-2 justify-content-around">
+                <div class="info-dueño flex-column d-flex col-xs-12 col-12 col-sm-12 col-md-12 col-lg-2 justify-content-around mt-5">
                     <p><%=usuario.getNombre()%>, vive en <%=usuario.getComunidad()%>.</p>
                     <p> Datos de contacto </p>
                     <ul>
@@ -139,27 +140,46 @@
                     <%
                         if (actual != null) {
                     %>
-                    <a href="mailto:<%=usuario.getEmail()%>?&subject=Quiero%20contactar%20con%20usted:%20<%=usuario.getNombre()%>">Contactar con <%=usuario.getNombre()%></a>
+                    <a href="mailto:<%=usuario.getEmail()%>?&subject=Quiero%20contactar%20con%20usted:%20<%=usuario.getNombre()%>" class="btn btn-success col-12">Contactar con <%=usuario.getNombre()%></a>
+                    <a href="contacto.jsp?denunciar" class="btn btn-success col-12">Denunciar publicación</a>
                     <%
                     } else {
                     %>
-                    <a href="#">Inicia sesión para contactar con el usuario.</a>
+                    <a href="#" class="btn btn-success col-12">Inicia sesión para contactar con el usuario.</a>
                     <%
                         }
                     %>
                 </div>
             </section>
-            <section class="info-objeto">
+            <section class="info-mascota d-flex col-xs-12 col-12 col-sm-12 col-md-12 col-lg-12 justify-content-center align-items-center flex-column p-5 mt-5">
                 <p><%=mascota.getTipo()%> - <%=mascota.getRaza()%></p>
                 <p>Motivo de la adopción: <%=mascota.getMotivo()%></p>
                 <%
                     if (actual != null) {
+                        if (!mascota.isPerdida()) {
                 %>
-                <a href="mailto:<%=usuario.getEmail()%>?&subject=Quiero%20comprar%20tu%20artículo:%20<%=usuario.getNombre()%>&body=Hola%20me%20gustaria%20comprar%20el%20mascota:%20<%=mascota.getNombre()%>%20por%20Ruego%20se%20ponga%20en%20contacto%20para%20continuar%20con%20el%20proceso.%20Saludos%20de%20<%=usuario.getNombre()%>">Adoptar mascota</a>
+                <a href="mailto:<%=usuario.getEmail()%>?&subject=Quiero%20adoptar%20tu%20mascota:%20<%=usuario.getNombre()%>&body=Hola%20me%20gustaria%20comprar%20el%20mascota:%20<%=mascota.getNombre()%>%20por%20Ruego%20se%20ponga%20en%20contacto%20para%20continuar%20con%20el%20proceso.%20Saludos%20de%20<%=usuario.getNombre()%>" class="btn btn-success col-10">Adoptar mascota</a>
+
                 <%
                 } else {
                 %>
-                <a href="#">Inicia sesión para adoptar a esta mascota</a>
+                <a href="mailto:<%=usuario.getEmail()%>?&subject=Tengo%20informacion%20sober%20tu%20mascota:%20<%=usuario.getNombre()%>" class="btn btn-success col-10">Informar sobre mascota</a>
+                <%
+                    }
+                %>
+                <%
+                } else {
+                    if (!mascota.isPerdida()) {
+                %>
+                <a href="#" class="btn btn-success col-10">Inicia sesión para adoptar a esta mascota</a>
+
+                <%
+                } else {
+                %>
+                <a href="#" class="btn btn-success col-10">Inicia sesión para ofrecer informacion de esta mascota</a>
+                <%
+                    }
+                %>
                 <%
                     }
                 %>

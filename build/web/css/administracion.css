@@ -1,0 +1,9 @@
+.main-administracion {
+    min-height: 150vh;
+    height: auto;
+    padding: 10vh;
+}
+
+.body-administracion {
+    min-height: 100vh;
+}

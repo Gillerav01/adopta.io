@@ -93,7 +93,7 @@
                             %>
                     </div>
                 </div>
-                <section class="d-flex col-2 offset">
+                <section class="d-flex col-xs-12 col-12 col-sm-12 col-md-12 col-lg-2 offset text-center align-items-center justify-content-center">
                     <%
                         if (actual != null) {
                     %>

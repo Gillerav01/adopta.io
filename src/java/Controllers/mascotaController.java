@@ -42,7 +42,7 @@ public class mascotaController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         RequestDispatcher rd = null;
         ConectorBD bdActual = new ConectorBD("localhost", "adoptaio", "root", "");
-       
+       // Si se ha pulsado registar mascota se recoge los parametros del formulario y se registra en la base de datos
         if (request.getParameter("registrarMascota") != null){
             MascotaDAO registro = new MascotaDAO();
             registro.setConn(bdActual.getConexion());

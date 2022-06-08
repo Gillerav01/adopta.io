@@ -98,7 +98,7 @@
                             %>
                     </div>
                 </div>
-                <section class="d-flex col-2 offset">
+                <section class="d-flex col-xs-12 col-12 col-sm-12 col-md-12 col-lg-2 offset text-center align-items-center justify-content-center">
                     <%
                         if (actual != null) {
                     %>
@@ -114,9 +114,9 @@
                 </section>
             </nav>
         </header>
-        <main class="main-mercado container-fluid p-2 d-flex flex-wrap">
-            <section class="objetos col-lg-12 col-xs-12 col-sm-12 col-md-12 d-flex flex-row justify-content-center flex-wrap">
-                <div class="card col-lg-3 col-xs-12 col-sm-6 col-md-3" style="">
+        <main class="main-mercado container-fluid p-3 d-flex flex-wrap">
+            <section class="objetos col-lg-12 col-xs-12 col-sm-12 p-5 col-md-12 d-flex flex-row justify-content-center flex-wrap">
+                <div class="card col-lg-3 col-xs-12 col-sm-6 col-md-3 m-5" style="">
                     <a href="publicarArticulo.jsp">
                         <svg class="card-img-top" src="./assets/img/mas.png" xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
                         <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>
@@ -139,7 +139,7 @@
                     }
                     for (Articulo articulo : articulos) {
                 %>
-                <div class="card  col-lg-3 col-xs-12 col-sm-6 col-md-3" style="">
+                <div class="card col-lg-3 col-xs-12 col-sm-6 col-md-3 m-5 p-3" style="">
                     <a href="articulo.jsp?idArticulo=<%=articulo.getId()%>">
                         <img class="card-img-top" src="data:image/png;base64,<%=articulo.getFotoArticulo()%>" alt="Red dot" />
                     </a>

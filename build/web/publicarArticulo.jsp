@@ -46,6 +46,7 @@
         <link rel="stylesheet" href="./css/normalize/normalize.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
         <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="./css/publicarArticulo.css">
         <script src="./js/main.js"></script>
         <script src="./js/registrarArticulo.js"></script>
     </head>
@@ -97,7 +98,7 @@
                             %>
                     </div>
                 </div>
-                <section class="d-flex col-2 offset">
+                <section class="d-flex col-xs-12 col-12 col-sm-12 col-md-12 col-lg-2 offset text-center align-items-center justify-content-center">
                     <%
                         if (actual != null) {
                     %>
@@ -113,26 +114,26 @@
                 </section>
             </nav>
         </header>
-        <main class="">
-            <section>
+        <main class="main-publicarArticulo container-fluid p-3">
+            <section class="col-xs-12 col-12 col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center align-items-center flex-column">
                 <%                                            
                     if (actual != null) {
                 %>
-                <form action="articulo" method="POST" id="registroArticulo">
+                <form action="articulo" method="POST" id="registroArticulo" class="form-articulo col-xs-12 col-12 col-sm-12 col-md-8 col-lg-8 p-3">
                 <%
                 } else {
                 %>
-                <form action="#">
+                <form action="#" class="form-articulo col-xs-12 col-12 col-sm-12 col-md-8 col-lg-8 p-3">
                 <%
                     }
 
                 %>
                     <input type="hidden" value="DEFAULT" name="baseImagen" id="baseImagen">
-                    <section class="imagen" id="imagen-formulario">
-                        <img src="./assets/fotosPerfil/default.png" id="imagen-subida" alt="Imagen de registro de la mascota"/></img>
+                    <section class="imagen" id="imagen-formulario" class="col-xs-12 col-12 col-sm-12 col-md-12 col-lg-12">
+                        <img src="./assets/fotosPerfil/default.png" id="imagen-subida" alt="Imagen de registro de la mascota" class="col-xs-12 col-12 col-sm-12 col-md-6 col-lg-6"></img>
                         <input type="file" id="idFile">
                     </section>
-                    <section class="datos-articulo">
+                    <section class="datos-articulo d-flex flex-column">
                         <input type="text" placeholder="Nombre del artículo" name="nombre" id="nombre">
                         <textarea name="descripcion" placeholder="Describe el objeto aquí" id="descripcion"></textarea>
                         <input type="text" placeholder="Precio en euros" name="precio" id="precio">
@@ -141,15 +142,15 @@
                         <%                            
                             if (actual != null) {
                         %>
-                        <input type="submit" value="Registrar artículo" name="registrarArticulo">
+                        <input type="submit" value="Registrar artículo" name="registrarArticulo" class="btn btn-success col-xs-12 col-12 col-sm-12 col-md-12 col-lg-12">
                         <%
                         } else {
                         %>
-                        <input type="submit" value="Logueate para registrar un artículo" name="registrarArticulo" disabled>
+                        <input type="submit" value="Logueate para registrar un artículo" name="registrarArticulo" class="btn btn-success col-xs-12 col-12 col-sm-12 col-md-12 col-lg-12" disabled>
                         <%
                             }
                         %>
-                        <input type="reset">
+                        <input type="reset" class="btn btn-success col-xs-12 col-12 col-sm-12 col-md-12 col-lg-12">
                     </section>
                 </form>
             </section>

@@ -154,6 +154,7 @@ footer {
     background-image: url(../assets/img/fondoMascotas.jpg);
     background-attachment: fixed;
     background-size: cover;
+    min-height: 100vh;
 }
 
 .main-mascotas .mascotas {
@@ -175,7 +176,7 @@ footer {
     background-image: url(../assets/img/fondoMascotas.jpg);
     background-attachment: fixed;
     background-size: cover;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .main-mercado .objetos {
@@ -187,6 +188,7 @@ footer {
 
 .main-perdidos {
     display: flex;
+    min-height: 100vh;
 }
 
 .main-perdidos aside{
@@ -214,7 +216,7 @@ footer {
     background-image: url(../assets/img/fondoContacto.jpg);
     background-attachment: fixed;
     background-size: cover;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .contacto {
@@ -368,42 +370,40 @@ footer {
 /* Inicio de mascota.html */
 
 .main-mascota {
-    display: flex;
-    justify-self: start;
-    align-items: center;
-    padding: 3vh;
-    flex-direction: column;
-    gap: 5vh;
+    background-image: url(../assets/img/fondoMascotas.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    min-height: 100vh;
 }
 
-.info-general {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
-.info-dueño {
-    width: 75%;
+.info-general-mascota {
+        background: rgba(255, 255, 255, .7);
+        padding: 5vh;
 }
 
 .info-mascota {
-    padding: 5vh;
+        background: rgba(255, 255, 255, .7);
 }
 
-/* Fin de mascota.html */
-/* Inicio de objeto.html */
-
 .main-objeto {
-
+    background-image: url(../assets/img/fondoMascotas.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    min-height: 100vh;
 }
 
 .info-general-objeto{
+        background: rgba(255, 255, 255, .7);
+        padding: 5vh;
 }
-
-.info-dueño {
-}
-
 .info-objeto {
+        background: rgba(255, 255, 255, .7);
+        padding: 5vh;
+}
+
+.objetos {
+    min-heigth: 100vh;
+    padding: 2vh;
 }
 
 /* Fin de objeto.html */
@@ -433,15 +433,3 @@ footer {
 }
 
 /* Fin administracion */
-
-/* Mediaquerys */
-
-@media (min-width: 768px) {
-
- }
-
- @media (min-width: 1024px) { 
-
- }
-
-/* Fin de mediaquerys */

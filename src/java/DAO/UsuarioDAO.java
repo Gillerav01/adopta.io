@@ -11,17 +11,17 @@ public class UsuarioDAO {
 
     private Connection conn;
 
+    /***
+     * Recibe un usuario para crearlo en la base de datos
+     * @param Usuario
+     * @return
+     * @throws SQLException 
+     */
     public boolean crearUsuario(Usuario Usuario) throws SQLException {
         if (this.conn == null) {
             System.out.println("No existe una conexión con la base de datos.");
             return false;
         } else {
-            final String regexEmail = "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$";
-            final String regexPwd = "^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$";
-            final String regexDNI = "^\\d{8}[a-zA-Z]$";
-//            if(Usuario.getNombre() == null || ){
-//            
-//            }
             System.out.println(Usuario);
             Statement st = this.conn.createStatement();
             st.executeUpdate("INSERT INTO `usuarios` (`id`, `nombre`, `email`, `telefono`, `dni`, `password`, `urlImagen`, `comunidad`) "
@@ -30,6 +30,13 @@ public class UsuarioDAO {
         }
     }
 
+    /***
+     * Recibe el usuario y la contraseña de un usuario y devuelve un usuario si es que lo encuentra.
+     * @param login
+     * @param pwd
+     * @return
+     * @throws SQLException 
+     */
     public Usuario verificar(String login, String pwd) throws SQLException {
         Statement stmt = this.conn.createStatement();
         ResultSet result = stmt.executeQuery("SELECT * FROM usuarios WHERE email = '" + login + "'");
@@ -40,7 +47,13 @@ public class UsuarioDAO {
         }
         return null;
     }
-
+    
+    /***
+     * Busca la información de un usuario en concreto
+     * @param id
+     * @return
+     * @throws SQLException 
+     */
     public Usuario informacionUsuarioDetallada(int id) throws SQLException {
         Statement stmt = this.conn.createStatement();
         ResultSet result = stmt.executeQuery("SELECT nombre, email, telefono, dni, urlImagen, comunidad FROM usuarios WHERE id = " + id);
@@ -49,7 +62,12 @@ public class UsuarioDAO {
         }
         return null;
     }
-
+    /***
+     * Busca el dueño de un artículo por ID
+     * @param idArticulo
+     * @return
+     * @throws SQLException 
+     */
     public int buscarIdDuenioArticulo(int idArticulo) throws SQLException {
         Statement stmt = this.conn.createStatement();
         ResultSet result = stmt.executeQuery("SELECT articulos.idVendedor FROM articulos WHERE articulos.id = " + idArticulo);
@@ -59,6 +77,12 @@ public class UsuarioDAO {
         return -1;
     }
     
+    /***
+     * Busca la ID de un usuario por el correo
+     * @param email
+     * @return
+     * @throws SQLException 
+     */
     public int buscarIdUsuario(String email) throws SQLException{
            Statement stmt = this.conn.createStatement();
            ResultSet result = stmt.executeQuery("SELECT usuarios.id FROM usuarios WHERE usuarios.email = '" + email + "'");
@@ -68,6 +92,12 @@ public class UsuarioDAO {
            return -1;
     }
 
+    /***
+     * Busca el dueño de la mascota por id de la mascota
+     * @param idMascota
+     * @return
+     * @throws SQLException 
+     */
     public int buscarIdDuenioMascota(int idMascota) throws SQLException {
         Statement stmt = this.conn.createStatement();
         ResultSet result = stmt.executeQuery("SELECT mascotas.idUsuario FROM mascotas WHERE mascotas.id = " + idMascota);
@@ -77,6 +107,13 @@ public class UsuarioDAO {
         return -1;
     }
 
+    
+    /***
+     * Busca el id del usuario por correo
+     * @param email
+     * @return
+     * @throws SQLException 
+     */
     public int buscarIdUsuarioPorCorreo(String email) throws SQLException {
         Statement stmt = this.conn.createStatement();
         ResultSet result = stmt.executeQuery("SELECT id FROM usuarios WHERE email = '" + email + "'");

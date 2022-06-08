@@ -1,3 +1,4 @@
+// Valida el registro del usuario
 function validarRegistro() {
     var nombre = document.getElementById("nombre").value;
     var pwd = document.getElementById("pwd").value;
@@ -87,6 +88,7 @@ function validarRegistro() {
     return true;
 }
 
+// 
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("registro").addEventListener("submit", function (e) {
         if (!validarRegistro()) {

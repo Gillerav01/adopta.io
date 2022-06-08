@@ -1,12 +1,11 @@
-    <%@page import="Models.Rol"%>
+<%@page import="Models.Rol"%>
 <%@page import="Lib.util"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Models.Mascota"%>
 <%@page import="DAO.MascotaDAO"%>
 <%@page import="DAO.ConectorBD"%>
-<%@page import="java.sql.Connection"%>
 <%@page import="Models.Usuario"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" errorPage="error.jsp"%>
 <%
     Usuario actual = (Usuario) session.getAttribute("usuarioLogueado");
     ArrayList<Rol> rolesActuales = (ArrayList<Rol>) session.getAttribute("rolesUsuarioLogueado");
@@ -66,10 +65,10 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex">
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="index.jsp">Inicio </a>
+                                <a class="nav-link active" aria-current="page" href="index.jsp">Inicio </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="mascotas.jsp">Mascotas</a>
+                                <a class="nav-link" href="mascotas.jsp">Mascotas</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="mercado.jsp">Mercado</a>
@@ -116,58 +115,7 @@
             </nav>
         </header>
         <main class="main-mascotas container-fluid p-2 d-flex flex-wrap">
-            <aside class="form-mascotas col-xs-12 col-12 col-sm-12 col-md-12 col-lg-2 d-flex justify-content-center">
-                <%                    if (request.getParameter("comunidad") != null) {
-                %>
-                <input type="hidden" value="<%=request.getParameter("comunidad")%>" name="comunidadFiltro">
-                <%
-                    }
-                %>
-                <%
-                    if (request.getParameter("tipoMascota") != null) {
-                %>
-                <input type="hidden" value="<%=request.getParameter("tipoMascota")%>" name="tipoMascotaFiltro">
-                <%
-                    }
-                %>
-                <form action="mascotas.jsp" name="filtro" value="filtro">
-                    <p>Formulario para el filtrado de mascotas</p>
-                    <select name="comunidad">
-                        <%
-                            for (String comunidad : util.devolverArrayComunidad()) {
-                                if (request.getParameter("comunidad") != null && request.getParameter("comunidad").equals(comunidad)) {
-                        %>
-                        <option selected><%=comunidad%></option>
-                        <%
-                        } else {
-                        %>
-                        <option><%=comunidad%></option>
-                        <%
-                            }
-                        %>
-                        <%
-                            }
-                        %>
-                    </select>
-                    <select name="tipoMascota">
-                        <%
-                            for (String mascota : util.devolverArrayTiposMascota()) {
-                                if (request.getParameter("tipoMascota") != null && request.getParameter("tipoMascota").equals(mascota)) {
-                        %>
-                        <option selected><%=mascota%></option>
-                        <%
-                        } else {
-                        %>
-                        <option><%=mascota%></option>
-                        <%
-                                }
-                            }
-                        %>
-                    </select>
-                    <input type="submit" value="Filtrar" name="filtro">
-                </form>
-            </aside>
-            <section class="mascotas col-lg-10 col-xs-12 col-sm-12 col-md-12 d-flex justify-content-center">
+            <section class="mascotas col-lg-12 col-xs-12 col-sm-12 col-md-12 d-flex justify-content-center">
                 <div class="card col-lg-3 col-xs-12 col-sm-6 col-md-3" style="">
                     <a href="publicarMascota.jsp">
                         <svg class="card-img-top" src="./assets/img/mas.png" xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
@@ -179,23 +127,14 @@
                         <a href="publicarMascota.jsp" class="btn btn-primary" style="width: 100%;">Publicar mascota</a>
                     </div>
                 </div>
-                <%
-                    ConectorBD bdActual = new ConectorBD("localhost", "adoptaio", "root", "");
+                <%                    ConectorBD bdActual = new ConectorBD("localhost", "adoptaio", "root", "");
                     MascotaDAO mostrarMascotas = new MascotaDAO();
                     mostrarMascotas.setConn(bdActual.getConexion());
                     ArrayList<Mascota> mascotas;
                     if (request.getParameter("pagina") == null) {
-                        if (request.getParameter("filtro") != null) {
-                            mascotas = mostrarMascotas.devolverMascotasFiltradas(request.getParameter("tipoMascota"), request.getParameter("comunidad"), 8, 0, mostrarMascotas.contarMascotas());
-                        } else {
-                            mascotas = mostrarMascotas.devolverMascotas(8, 0, mostrarMascotas.contarMascotas());
-                        }
+                        mascotas = mostrarMascotas.devolverMascotas(8, 0);
                     } else {
-                        if (request.getParameter("filtro") != null) {
-                            mascotas = mostrarMascotas.devolverMascotasFiltradas(request.getParameter("tipoMascota"), request.getParameter("comunidad"), 8, Integer.parseInt(request.getParameter("pagina")), mostrarMascotas.contarMascotas());
-                        } else {
-                            mascotas = mostrarMascotas.devolverMascotas(8, Integer.parseInt(request.getParameter("pagina")), mostrarMascotas.contarMascotas());
-                        }
+                        mascotas = mostrarMascotas.devolverMascotas(8, Integer.parseInt(request.getParameter("pagina")));
                     }
                     for (Mascota mascota : mascotas) {
                 %>
@@ -225,7 +164,7 @@
                             </div>
                     </div>
                     </h5>
-                    <a href="mascota.jsp?idMascota=<%=mascota.getId()%>" class="btn btn-success">Adoptar mascota</a>
+                    <a href="mascota.jsp?idMascota=<%=mascota.getId()%>" class="btn btn-success">Informacion de la mascota</a>
                 </div>
                 </div>
                 <%
@@ -240,41 +179,23 @@
                         <%
                         } else {
                             int siguientePagina = Integer.parseInt(request.getParameter("pagina")) - 1;
-                            if (request.getParameter("tipoMascota") != null || request.getParameter("comunidad") != null) {
-                        %>
-                        <a href="mascotas.jsp?comunidad=<%=request.getParameter("comunidad")%>&tipoMascota=<%=request.getParameter("tipoMascota")%>&filtro=Filtrar&pagina=<%=siguientePagina%>" class="btn btn-success" style="width: 100%;">Pagina anterior</a>
-                        <%
-                        } else {
                         %>
                         <a href="mascotas.jsp?pagina=<%=siguientePagina%>" class="btn btn-success" style="width: 100%;">Pagina anterior</a>
                         <%
-                                }
                             }
                         %>
                     </div>
                     <div class="col-5">
                         <%
                             if (request.getParameter("pagina") == null || Integer.parseInt(request.getParameter("pagina")) == 0) {
-                                if (request.getParameter("tipoMascota") != null || request.getParameter("comunidad") != null) {
-                        %>
-                        <a href="mascotas.jsp?comunidad=<%=request.getParameter("comunidad")%>&tipoMascota=<%=request.getParameter("tipoMascota")%>&filtro=Filtrar&pagina=1" class="btn btn-success" style="width: 100%;">Siguiente página</a>
-                        <%
-                        } else {
                         %>
                         <a href="mascotas.jsp?pagina=1" class="btn btn-success" style="width: 100%;">Siguiente página</a>
                         <%
-                            }
                         } else {
                             int siguientePagina = Integer.parseInt(request.getParameter("pagina")) + 1;
-                            if (request.getParameter("tipoMascota") != null || request.getParameter("comunidad") != null) {
                         %>
-                        <a href="mascotas.jsp?comunidad=<%=request.getParameter("comunidad")%>&tipoMascota=<%=request.getParameter("tipoMascota")%>&filtro=Filtrar&pagina=<%=siguientePagina%>" class="btn btn-success" style="width: 100%;">Siguiente página</a>
+                        <a href="mascotas.jsp?pagina=<%=siguientePagina%>" class="btn btn-success" style="width: 100%;">Siguiente página</a>
                         <%
-                                } else {
-                        %>
-                                    <a href="mascotas.jsp?pagina=<%=siguientePagina%>" class="btn btn-success" style="width: 100%;">Siguiente página</a>
-                        <%
-                                }
                             }
                         %>
                     </div>

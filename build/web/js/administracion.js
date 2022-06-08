@@ -2,7 +2,7 @@ var usuarios = [];
 var articulos = [];
 var incidencias = [];
 var mascotas = [];
-
+// Borra un usuario con una peticion a la api
 function borrarUsuario(id) {
     var peticion = $.ajax({
         url: "http://localhost/apiAdopta.io/borrarUsuario.php",
@@ -30,7 +30,7 @@ function borrarUsuario(id) {
         }
     });
 }
-
+// Ve la información del usuario pasandole a la API la id.
 function verInformacionUsuario(id) {
     var peticion = $.ajax({
         url: "http://localhost/apiAdopta.io/getUsuario.php",
@@ -38,7 +38,7 @@ function verInformacionUsuario(id) {
         data: {
             idUsuario: id
         },
-        dataType: "text",
+        dataType: "json",
         success: function (response) {
             console.log(response.usuario[0]);
             Swal.fire({
@@ -57,7 +57,7 @@ function verInformacionUsuario(id) {
         }
     });
 }
-
+// Borra un artículo con la api, pasandole la ID
 function borrarArticulo(id) {
     var peticion = $.ajax({
         url: "http://localhost/apiAdopta.io/borrarArticulo.php",
@@ -85,7 +85,7 @@ function borrarArticulo(id) {
         }
     });
 }
-
+// Borra la mascota con la ID, con la API.
 function borrarMascota(id) {
     var peticion = $.ajax({
         url: "http://localhost/apiAdopta.io/borrarMascota.php",
@@ -114,7 +114,7 @@ function borrarMascota(id) {
         }
     });
 }
-
+// Hace una llamada a la API para ver la información detallada de un artículo con esa ID
 function verInformacionArticulo(id) {
     // Se crea una variable que contiene la peticion ajax.
     var peticion = $.ajax({
@@ -123,7 +123,7 @@ function verInformacionArticulo(id) {
         data: {
             idArticulo: id
         },
-        dataType: "text",
+        dataType: "json",
         success: function (response) {
             console.log(response.articulo[0]);
             Swal.fire({
@@ -146,7 +146,7 @@ function verInformacionArticulo(id) {
         }
     });
 }
-
+// Ve la información de la mascota gracias a una llamada a la API
 function verInformacionMascota(id) {
     // Se crea una variable que contiene la peticion ajax.
     var peticion = $.ajax({
@@ -155,7 +155,7 @@ function verInformacionMascota(id) {
         data: {
             idMascota: id
         },
-        dataType: "text",
+        dataType: "json",
         success: function (response) {
             console.log(response.mascota[0]);
             Swal.fire({
@@ -178,7 +178,7 @@ function verInformacionMascota(id) {
         }
     });
 }
-
+// Borra una incidencia con una llamada a la API
 function borrarIncidencia(id) {
     // Se crea una variable que contiene la peticion ajax.
     var peticion = $.ajax({
@@ -207,7 +207,7 @@ function borrarIncidencia(id) {
         }
     });
 }
-
+// Atiende la incidencia gracias a la API, marcandola como en curso y asignandosela al administrador.
 function atenderIncidencia(id) {
     // Se crea una variable que contiene la peticion ajax.
     var peticion = $.ajax({
@@ -237,16 +237,15 @@ function atenderIncidencia(id) {
         }
     });
 }
-
+// Ve la información de la incidencia con esa id.
 function verInformacionIncidencia(id) {
-    // Se crea una variable que contiene la peticion ajax.
     var peticion = $.ajax({
         url: "http://localhost/apiAdopta.io/getIncidencia.php",
         type: "post",
         data: {
             idIncidencia: id
         },
-        dataType: "text",
+        dataType: "json",
         success: function (response) {
             console.log(response.incidencia[0]);
             Swal.fire({
@@ -267,9 +266,8 @@ function verInformacionIncidencia(id) {
         }
     });
 }
-
+// Añade un rol pasandole la ID del usuario
 function addRol(id) {
-    // Se crea una variable que contiene la peticion ajax.
     var rol = document.getElementById("rolesNoObtenidos").value;
     var peticion = $.ajax({
         url: "http://localhost/apiAdopta.io/addRol.php",
@@ -298,9 +296,8 @@ function addRol(id) {
         }
     });
 }
-
+// Borra el rol del usuario seleccionado por la ID de este.
 function rmRol(id) {
-    // Se crea una variable que contiene la peticion ajax.
     var rol = document.getElementById("rolesObtenidos").value;
     var peticion = $.ajax({
         url: "http://localhost/apiAdopta.io/revocarRol.php",
@@ -329,10 +326,11 @@ function rmRol(id) {
         }
     });
 }
-
+// Modifica los roles del usuario por pasado por la ID
 function modificarRoles(id) {
     var rolesUsuario = [];
     var rolesNoObtenidos = [];
+    // Buscamos los roles del usuario
     var peticionRolesUsuario = $.ajax({
         url: "http://localhost/apiAdopta.io/getRolesPertenecientesUsuario.php",
         type: "post",
@@ -350,6 +348,7 @@ function modificarRoles(id) {
             console.log("ERROH");
         }
     });
+    // Buscamos los roles que el usuario no tiene
     var peticionRolesNoObtenidos = $.ajax({
         url: "http://localhost/apiAdopta.io/getRolesNoPertenecientesUsuario.php",
         type: "post",
@@ -367,6 +366,7 @@ function modificarRoles(id) {
             console.log("ERROH");
         }
     });
+    // Cuando lsa dos promesas se cumplen, se realiza esta función
     Promise.all([peticionRolesUsuario, peticionRolesNoObtenidos]).then(function (values) {
         var html = `<div class="form-group">
                         <label for="rolesObtenidos">Roles obtenidos</label>`;
@@ -420,7 +420,7 @@ function modificarRoles(id) {
 
 
 
-
+// Recoge los datos de la api de todos los usuarios y crea la tabla
 function tablaUsuarios() {
                 fetch('http://localhost/apiAdopta.io/getUsuarios.php')
                     .then(function (response) {
@@ -488,6 +488,8 @@ function tablaUsuarios() {
                     });
             }
 
+
+// Recoge los artículos de la API y crea la tabla.
 function tablaArticulos() {
                 fetch('http://localhost/apiAdopta.io/getArticulos.php')
                     .then(function (response) {
@@ -553,7 +555,7 @@ function tablaArticulos() {
                     });
 
             }
-
+// Recoge las incidencias de la API y crea la tabla.
 function tablaIncidencias() {
                 fetch('http://localhost/apiAdopta.io/verIncidencias.php')
                     .then(function (response) {
@@ -622,7 +624,7 @@ function tablaIncidencias() {
                         console.log(error);
                     });
             }
-
+// Recoge las mascotas de la API y crea la tabla
 function tablaMascotas() {
                 fetch('http://localhost/apiAdopta.io/getMascotas.php')
                     .then(function (response) {
@@ -687,7 +689,7 @@ function tablaMascotas() {
 
             }
 
-
+// Inicia las tablas
 $(document).ready(function () {
                 tablaUsuarios();
                 tablaArticulos();

@@ -93,7 +93,7 @@
                             %>
                     </div>
                 </div>
-                <section class="d-flex col-2 offset">
+                <section class="d-flex col-xs-12 col-12 col-sm-12 col-md-12 col-lg-2 offset text-center align-items-center justify-content-center">
                     <%
                         if (actual != null) {
                     %>
@@ -142,30 +142,7 @@
             <section class="nosotros">
                 <article class="nosotros-info">
                     <h2>Sobre nosotros</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima quasi earum odio totam dolorum!
-                        Beatae culpa dolore velit iusto maxime accusamus perferendis iste error, quae tempora, eligendi
-                        reiciendis praesentium minus.
-                        Eligendi rerum possimus laborum, commodi doloremque sunt incidunt corporis sed labore ullam minus.
-                        Quidem maxime blanditiis esse ipsum veritatis distinctio? A aliquam eveniet dolores tempora modi
-                        dolore voluptates laboriosam distinctio?
-                        A architecto odit sed. Perspiciatis eius cumque quisquam maxime sunt aliquid autem labore, eveniet,
-                        esse, fugit ratione numquam perferendis dolorum cum eaque voluptatibus! Quos voluptas natus
-                        inventore obcaecati, cum quis.
-                        Sint, saepe id! Neque molestiae cumque corporis deleniti inventore sapiente laborum omnis corrupti
-                        consectetur vel aut dolorum quasi explicabo quisquam facilis officiis, quia officia sint iure
-                        itaque, repellendus reprehenderit. Ipsum?
-                        Ducimus dicta nisi ex deleniti minus molestiae facere rem nesciunt voluptates consectetur
-                        accusantium, perferendis et sequi omnis architecto alias consequatur modi doloribus? Obcaecati eaque
-                        quidem rem quas reiciendis praesentium eveniet?
-                        Maxime aspernatur repudiandae eveniet reprehenderit, sed excepturi officiis dolor fugit quibusdam
-                        debitis odio inci dunt veniam. Mollitia, non! Harum, tempore a dignissimos quod repudiandae, magnam
-                        excepturi laboriosam dicta similique assumenda eius!
-                        Nisi placeat illo nihil, architecto ab provident asperiores corrupti fugiat assumenda. Velit ipsum
-                        similique aspernatur natus, sunt laboriosam quas, neque asperiores recusandae sint libero
-                        accusantium quidem molestiae sequi ex vel!
-                        Molestias dignissimos fugit distinctio incidunt voluptate tenetur repellat est provident, error
-                        tempore possimus temporibus blanditiis, exercitationem dolores aperiam facere inventore reiciendis
-                        quidem animi fuga necessitatibus quo. Ea totam et ut.
+                    <p>Somos un puente entre usuarios, donde cada cual puede adoptar o dar en adopción a su mascota, vender/comprar artículos de segunda mano para sus mascotas, y publicar las mascotas perdídas de cada quien, para que resulte algo más fácil resolver estas dificiles situaciones.
                     </p>
                 </article>
                 <article class="ubicacion">

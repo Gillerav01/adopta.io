@@ -12,7 +12,11 @@ import java.util.ArrayList;
 public class MascotaDAO {
 
     private Connection conn;
-
+    /***
+     * Cuenta las mascotas en la base de datos
+     * @return
+     * @throws SQLException 
+     */
     public int contarMascotas() throws SQLException {
         if (this.conn == null) {
             System.out.println("No existe una conexión con la base de datos.");
@@ -21,30 +25,48 @@ public class MascotaDAO {
             Statement stmt = this.conn.createStatement();
             ResultSet result = stmt.executeQuery("SELECT count(id) FROM mascotas;");
             while (result.next()) {
+                System.out.println(result.getInt(1));
                 return result.getInt(1);
             }
         }
         this.cerrarConexion();
         return -1;
     }
-
-    public ArrayList<Mascota> devolverMascotas(int numeroRegistros, int paginaActual, int numeroMascotas) throws SQLException {
+    /***
+     * Devuelve lsa mascotas dependiendo del numero de registros pasados y la página actual
+     * @param numeroRegistros
+     * @param paginaActual
+     * @param numeroMascotas
+     * @return
+     * @throws SQLException 
+     */
+    public ArrayList<Mascota> devolverMascotas(int numeroRegistros, int paginaActual) throws SQLException {
         if (this.conn == null) {
             System.out.println("No existe una conexión con la base de datos.");
             return null;
         } else {
             Statement stmt = this.conn.createStatement();
 
-            ResultSet result = stmt.executeQuery("SELECT * FROM mascotas WHERE NOT perdida = 1 ORDER BY fechaRegistro DESC  LIMIT " + paginaActual * (numeroRegistros + 1) + ", " + numeroRegistros + ";");
+            ResultSet result = stmt.executeQuery("SELECT * FROM mascotas WHERE NOT perdida = 1 ORDER BY fechaRegistro DESC LIMIT " + paginaActual * (numeroRegistros + 1) + ", " + numeroRegistros + ";");
             ArrayList<Mascota> mascotas = new ArrayList<>();
             while (result.next()) {
+                System.out.println("Mascota con ID: " + result.getInt("id"));
                 mascotas.add(new Mascota(result.getInt("id"), result.getString("nombre"), result.getString("tipo"), result.getString("raza"), result.getInt("prioridad"), false, result.getString("fotoMascota"), result.getInt("idUsuario")));
             }
             this.cerrarConexion();
             return mascotas;
         }
     }
-
+    /***
+     * Devuelve las mascotas NO PERDIDAS filtradas dependiendo del tipo de mascota, comunidad, numero de registros y la página actual.
+     * @param tipoMascota
+     * @param comunidad
+     * @param numeroRegistros
+     * @param paginaActual
+     * @param numeroMascotas
+     * @return
+     * @throws SQLException 
+     */
     public ArrayList<Mascota> devolverMascotasFiltradas(String tipoMascota, String comunidad, int numeroRegistros, int paginaActual, int numeroMascotas) throws SQLException {
         if (this.conn == null) {
             System.out.println("No existe una conexión con la base de datos.");
@@ -71,7 +93,17 @@ public class MascotaDAO {
             return mascotas;
         }
     }
-
+    
+    /***
+     * Devuelve las mascotas PERDIDAS filtradas dependiendo del tipo de mascota, comunidad, numero de registros y la página actual.
+     * @param tipoMascota
+     * @param comunidad
+     * @param numeroRegistros
+     * @param paginaActual
+     * @param numeroMascotas
+     * @return
+     * @throws SQLException 
+     */
     public ArrayList<Mascota> devolverMascotasPerdidasFiltradas(String tipoMascota, String comunidad, int numeroRegistros, int paginaActual, int numeroMascotas) throws SQLException {
         if (this.conn == null) {
             System.out.println("No existe una conexión con la base de datos.");
@@ -96,7 +128,14 @@ public class MascotaDAO {
             return mascotas;
         }
     }
-
+    /***
+     * Devuelven las mascotas perdidas sin filtro
+     * @param numeroRegistros
+     * @param paginaActual
+     * @param numeroMascotas
+     * @return
+     * @throws SQLException 
+     */
     public ArrayList<Mascota> devolverMascotasPerdidas(int numeroRegistros, int paginaActual, int numeroMascotas) throws SQLException {
         if (this.conn == null) {
             System.out.println("No existe una conexión con la base de datos.");
@@ -113,7 +152,14 @@ public class MascotaDAO {
             return mascotas;
         }
     }
-
+    
+    
+    /***
+     * Busca la información de una mascota en especifico
+     * @param id
+     * @return
+     * @throws SQLException 
+     */
     public ArrayList<Mascota> informacionMascotaEspecifica(int id) throws SQLException {
         if (this.conn == null) {
             System.out.println("No existe una conexión con la base de datos.");
@@ -134,6 +180,12 @@ public class MascotaDAO {
         }
     }
 
+     /***
+     * Busca la información de una mascota en especifico
+     * @param id
+     * @return
+     * @throws SQLException 
+     */
     public Mascota informacionMascotaDetallado(int id) throws SQLException {
         if (this.conn == null) {
             System.out.println("No existe una conexión con la base de datos.");
@@ -142,7 +194,6 @@ public class MascotaDAO {
             Statement stmt = this.conn.createStatement();
             ResultSet result = stmt.executeQuery("SELECT * FROM mascotas WHERE mascotas.id = " + id);
             while (result.next()) {
-                this.cerrarConexion();
                 return new Mascota(result.getInt("id"), result.getString("nombre"), result.getString("tipo"), result.getString("raza"), result.getInt("prioridad"), result.getBoolean("perdida"), result.getString("comunidad"), result.getString("motivo"), result.getString("fotoMascota"), result.getInt("idUsuario"));
             }
             this.cerrarConexion();
@@ -165,6 +216,16 @@ public class MascotaDAO {
         return this.conn;
     }
 
+    
+    /***
+     * Recibe un objeto de mascota, perdida, idUsuario y la foto, para registrar la mascota.
+     * @param mascota
+     * @param perdida
+     * @param idUsuario
+     * @param foto
+     * @return
+     * @throws SQLException 
+     */
     public boolean registrarMascota(Mascota mascota, int perdida, int idUsuario, String foto) throws SQLException {
         if (this.conn == null) {
             System.out.println("No existe una conexión con la base de datos.");

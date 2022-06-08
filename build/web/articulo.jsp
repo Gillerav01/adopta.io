@@ -10,7 +10,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     Usuario actual = (Usuario) session.getAttribute("usuarioLogueado");
-    ArrayList <Rol> rolesActuales = (ArrayList <Rol>) session.getAttribute("rolesUsuarioLogueado");
+    ArrayList<Rol> rolesActuales = (ArrayList<Rol>) session.getAttribute("rolesUsuarioLogueado");
 %>
 <!DOCTYPE html>
 <html lang="es-ES">
@@ -79,29 +79,29 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="perdidos.jsp">Perdidos </a>
                             </li>
-                             <%
-                            if (actual != null) {   
+                            <%
+                                if (actual != null) {
                             %>
                             <li class="nav-item">
                                 <a class="nav-link" href="contacto.jsp">Contacto</a>
                             </li>
                             <%
-                            }
-                            if (actual != null) {   
-                                for (Rol rol : rolesActuales) {
-                                    if (rol.getNombre().equals("Administrador")) {
+                                }
+                                if (actual != null) {
+                                    for (Rol rol : rolesActuales) {
+                                        if (rol.getNombre().equals("Administrador")) {
                             %>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="administracion.jsp">Administracion</a>
-                                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="administracion.jsp">Administracion</a>
+                            </li>
                             <%
+                                        }
                                     }
                                 }
-                            }
                             %>
                     </div>
                 </div>
-                <section class="d-flex col-2 offset">
+                <section class="d-flex col-xs-12 col-12 col-sm-12 col-md-12 col-lg-2 offset text-center align-items-center justify-content-center">
                     <%
                         if (actual != null) {
                     %>
@@ -117,8 +117,8 @@
                 </section>
             </nav>
         </header>
-        <main class="main-objeto">
-            <%
+        <main class="main-objeto container-fluid p-5">
+            <%                // Me conecto a la base de datos para buscar la información del artículo seleccionado y del usuario que registró el artículo
                 ConectorBD bdActual = new ConectorBD("localhost", "adoptaio", "root", "");
                 ArticuloDAO informacionArticulo = new ArticuloDAO();
                 informacionArticulo.setConn(bdActual.getConexion());
@@ -130,21 +130,47 @@
                 informacionDuenio.cerrarConexion();
                 bdActual.cerrarConexion();
             %>
-            <section class="info-general-objeto">
-                <img src="data:image/png;base64,<%=articulo.getFotoArticulo()%>" alt="Foto del artículo con nombre <%=articulo.getNombre()%>" />
-                <div class="info-dueño">
+            <section class="info-general-objeto col-xs-12 col-12 col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center container flex-wrap">
+                <section class="col-xs-12 col-12 col-sm-8 col-md-8 col-lg-8 d-flex justify-content-center mt-5">
+                    <img src="data:image/png;base64,<%=articulo.getFotoArticulo()%>" alt="Foto del artículo con nombre <%=articulo.getNombre()%>"/>
+                </section>
+                <div class="info-dueño flex-column d-flex col-xs-12 col-12 col-sm-12 col-md-12 col-lg-2 justify-content-around mt-5">
                     <p><%=usuario.getNombre()%>, vive en <%=usuario.getComunidad()%>.</p>
                     <p> Datos de contacto </p>
                     <ul>
                         <li>Teléfono: <%=usuario.getTelefono()%></li>
                         <li>Correo: <%=usuario.getEmail()%></li>
                     </ul>
-                        <a href="mailto:<%=usuario.getEmail()%>?&subject=Quiero%20contactar%20con%20usted:%20<%=usuario.getNombre()%>">Contactar con <%=usuario.getNombre()%></a>
+                    <%
+                        // Si el usuario está logueado se muestra un botón y si no otro
+                        if (actual != null) {
+                    %>
+                    <a href="mailto:<%=usuario.getEmail()%>?&subject=Quiero%20contactar%20con%20usted:%20<%=usuario.getNombre()%>" class="btn btn-success col-12">Contactar con <%=usuario.getNombre()%></a>
+                    <a href="contacto.jsp?denunciar" class="btn btn-success col-12">Denunciar publicación</a>
+                    <%
+                    } else {
+                    %>
+                    <a href="#" class="btn btn-success col-12">Inicia sesión para contactar con el usuario.</a>
+                    <%
+                        }
+                    %>
                 </div>
             </section>
-            <section class="info-objeto">
+            <section class="info-objeto d-flex col-xs-12 col-12 col-sm-12 col-md-12 col-lg-12 justify-content-center align-items-center flex-column p-5 mt-5">
                 <p><%=articulo.getDescripcion()%></p>
-                <a href="mailto:<%=usuario.getEmail()%>?&subject=Quiero%20comprar%20tu%20artículo:%20<%=articulo.getNombre()%>&body=Hola%20me%20gustaria%20comprar%20el%20articulo:%20<%=articulo.getNombre()%>%20por%20<%=articulo.getPrecio()%>€.%20Ruego%20se%20ponga%20en%20contacto%20para%20continuar%20con%20el%20proceso.%20Saludos%20de%20<%=usuario.getNombre()%>">Comprar artículo</a>
+                <%
+                    // Si el usuario está logueado se muestra un botón y si no otro
+
+                    if (actual != null) {
+                %>
+                <a href="mailto:<%=usuario.getEmail()%>?&subject=Quiero%20comprar%20tu%20articulo:%20<%=usuario.getNombre()%>&body=Hola%20me%20gustaria%20comprar%20su%20artículo:%20<%=articulo.getNombre()%>%20por%20favor.%20Ruego%20se%20ponga%20en%20contacto%20para%20continuar%20con%20el%20proceso.%20Saludos%20de%20<%=usuario.getNombre()%>" class="btn btn-success col-10">Comprar artículo</a>
+                <%
+                } else {
+                %>
+                <a href="#" class="btn btn-success col-10">Inicia sesión para comprar este artículo</a>
+                <%
+                    }
+                %>
             </section>
         </main>
         <footer class="footer bg-success">

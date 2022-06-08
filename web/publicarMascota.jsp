@@ -42,11 +42,12 @@
                 integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
         <link rel="stylesheet" href="./css/normalize/normalize.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
         <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="./css/publicarMascota.css">
         <script src="./js/main.js"></script>
         <script src="./js/registrarMascota.js"></script>
     </head>
@@ -98,7 +99,7 @@
                             %>
                     </div>
                 </div>
-                <section class="d-flex col-2 offset">
+                <section class="d-flex col-xs-12 col-12 col-sm-12 col-md-12 col-lg-2 offset text-center align-items-center justify-content-center">
                     <%
                         if (actual != null) {
                     %>
@@ -114,73 +115,72 @@
                 </section>
             </nav>
         </header>
-        <main class="">
-            <section>
-                <%                                        
-                    if (actual != null) {
+        <main class="main-publicarMascota container-fluid p-3">
+            <section class="col-xs-12 col-12 col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center align-items-center flex-column">
+                <%                    if (actual != null) {
                 %>
-                <form action="mascota" method="POST" id="registrarMascota">
-                <%
-                } else {
-                %>
-                <form action="#">
-                <%
-                    }
-
-                %>
-                    <input type="hidden" value="DEFAULT" name="baseImagen" id="baseImagen">
-                    <section class="imagen" id="imagen-formulario">
-                        <img src="./assets/fotosPerfil/default.png" id="imagen-subida" alt="Imagen de registro de la mascota"/></img>
-                        <input type="file" id="idFile">
-                    </section>
-                    <section class="datos-mascota" id="datos-mascota">
-                        <input type="text" id="nombre" placeholder="Nombre de la mascota" name="nombre">
-                        <select id="tipo" class="tipoMascota" name="tipoMascota">
-                            <option value="">Seleccionar tipo de masccota</option>
-                            <option value="Perro">Perro</option>
-                            <option value="gato">Gato</option>
-                            <option value="Pajaro">Pajaro</option>
-                            <option value="Roedor">Roedor</option>                    
-                        </select>
-                        <section class="informacion-localizacion-motivo">
-                            <select name="comunidad" id="comunidad">
-                                <%                                    
-                                    for (String comunidad : util.devolverArrayComunidad()) {
-                                %>
-                                    <option value="<%=comunidad%>"><%=comunidad%></option>
-                                <%
-                                    }
-                                %>
-                            </select>
-                            <textarea id="motivo" class="motivo" name="motivo" placeholder="Introduzca del motivo de la adopción"></textarea>
-                        </section>
-                        <input type="text" placeholder="Introduzca la raza de la mascota" name="raza" id="raza" class="raza">
-                        <section class="seccion-prioridad" id="seccion-prioridad">
-                            <p id="valorPrioridad">¡Introduzca la prioridad de adopción de la mascota!</p>
-                            <input type="range" min="1" max="10" step="1" id="prioridad" name="prioridad">
-                        </section>
-                        <section class="seccion-perdida" id="seccion-perdida">
-                            <input type="radio" id="perdida" name="perdida" value="1">
-                            <label for="perdida">Mi mascota está perdida</label>
-
-                            <input type="radio" id="noperdida" name="perdida" value="0" checked>
-                            <label for="noperdida">Mi mascota no está perdida</label>
-                        </section>
-                    </section>
-                    <%
-                        if (actual != null) {
-                    %>
-                    <input type="submit" name="registrarMascota" value="Registrar mascota" id="registrarMascota" class="registrarMascota">
+                <form action="mascota" method="POST" id="registrarMascota" class="form-mascota col-xs-12 col-12 col-sm-12 col-md-8 col-lg-8 p-3">
                     <%
                     } else {
                     %>
-                    <input type="submit" name="registrarMascota" value="Logueate para registrar una mascota" id="registrarMascota" class="registrarMascota" disabled>
-                    <%
-                        }
+                    <form action="#" class="form-mascota col-xs-12 col-12 col-sm-12 col-md-8 col-lg-8 p-3">
+                        <%
+                            }
 
-                    %>
-                    <input type="reset" value="Reiniciar registro">
-                </form>
+                        %>
+                        <input type="hidden" value="DEFAULT" name="baseImagen" id="baseImagen">
+                        <section class="imagen" id="imagen-formulario" class="col-xs-12 col-12 col-sm-12 col-md-12 col-lg-12">
+                            <img src="./assets/fotosPerfil/default.png" id="imagen-subida" alt="Imagen de registro de la mascota"  class="col-xs-12 col-12 col-sm-12 col-md-6 col-lg-6"></img>
+                            <input type="file" id="idFile">
+                        </section>
+                        <section class="datos-mascota d-flex flex-column" id="datos-mascota">
+                            <input type="text" id="nombre" placeholder="Nombre de la mascota" name="nombre">
+                            <select id="tipo" class="tipoMascota" name="tipoMascota">
+                                <option value="">Seleccionar tipo de masccota</option>
+                                <option value="Perro">Perro</option>
+                                <option value="gato">Gato</option>
+                                <option value="Pajaro">Pajaro</option>
+                                <option value="Roedor">Roedor</option>                    
+                            </select>
+                                <select name="comunidad" id="comunidad">
+                                    <%                                    for (String comunidad : util.devolverArrayComunidad()) {
+                                    %>
+                                    <option value="<%=comunidad%>"><%=comunidad%></option>
+                                    <%
+                                        }
+                                    %>
+                                </select>
+                            <textarea id="motivo" class="motivo" name="motivo" placeholder="Introduzca del motivo de la adopción"></textarea>
+                            <input type="text" placeholder="Introduzca la raza de la mascota" name="raza" id="raza" class="raza">
+                            <section class="seccion-prioridad d-flex flex-column" id="seccion-prioridad">
+                                <p id="valorPrioridad" class="text-center">¡Introduzca la prioridad de adopción de la mascota!</p>
+                                <input type="range" min="1" max="10" step="1" id="prioridad" name="prioridad">
+                            </section>
+                            <section class="seccion-perdida d-flex justify-content-evenly p-4 align-items-center" id="seccion-perdida">
+                                <div>
+                                <input type="radio" id="perdida" name="perdida" value="1">
+                                <label for="perdida">Mi mascota está perdida</label>
+                                </div>
+                                <div>
+                                <input type="radio" id="noperdida" name="perdida" value="0" checked>
+                                <label for="noperdida">Mi mascota no está perdida</label>
+                                </div>
+                            </section>
+                        </section>
+                        <%
+                            if (actual != null) {
+                        %>
+                        <input type="submit" name="registrarMascota" value="Registrar mascota" id="registrarMascota" class="btn btn-success col-xs-12 col-12 col-sm-12 col-md-12 col-lg-12">
+                        <%
+                        } else {
+                        %>
+                        <input type="submit" name="registrarMascota" value="Logueate para registrar una mascota" id="registrarMascota" class="btn btn-success col-xs-12 col-12 col-sm-12 col-md-12 col-lg-12" disabled>
+                        <%
+                            }
+
+                        %>
+                        <input type="reset" value="Reiniciar registro" class="btn btn-success col-xs-12 col-12 col-sm-12 col-md-12 col-lg-12">
+                    </form>
             </section>
         </main>
         <footer class="footer bg-success">

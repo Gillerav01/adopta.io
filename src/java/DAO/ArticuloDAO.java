@@ -11,7 +11,11 @@ import java.util.regex.Pattern;
 public class ArticuloDAO {
 
     private Connection conn;
-
+    /***ç
+     * Cuenta el numero de artículos que hay en la base de datos
+     * @return
+     * @throws SQLException 
+     */
     public int contarArticulos() throws SQLException {
         if (this.conn == null) {
             System.out.println("No existe una conexión con la base de datos.");
@@ -25,7 +29,14 @@ public class ArticuloDAO {
         }
         return -1;
     }
-
+    /**
+     * Devuelve una cantidad de registros dependiendo del numeroRegistros que le pasemos y la página actual
+     * @param numeroRegistros
+     * @param paginaActual
+     * @param numeroArtículos
+     * @return
+     * @throws SQLException 
+     */
     public ArrayList<Articulo> devolverArticulos(int numeroRegistros, int paginaActual, int numeroArtículos) throws SQLException {
         if (this.conn == null) {
             System.out.println("No existe una conexión con la base de datos.");
@@ -40,6 +51,13 @@ public class ArticuloDAO {
             return articulos;
         }
     }
+    
+    /***
+     * Recibe la información de un artículo detalladamente
+     * @param id
+     * @return
+     * @throws SQLException 
+     */
 
     public Articulo informacionArtículoDetallado(int id) throws SQLException {
         if (this.conn == null) {
@@ -54,7 +72,15 @@ public class ArticuloDAO {
             return null;
         }
     }
-
+    /***
+     * Recibe el artículo, la id del usuario que lo va a registrar y la foto que va a subirse a la base de datos
+     * y entonces registra el artículo en esta.
+     * @param articulo
+     * @param idUsuario
+     * @param foto
+     * @return
+     * @throws SQLException 
+     */
     public boolean registrarArticulo(Articulo articulo, int idUsuario, String foto) throws SQLException {
         if (this.conn == null) {
             System.out.println("No existe una conexión con la base de datos.");
@@ -92,11 +118,17 @@ public class ArticuloDAO {
             return true;
         }
     }
-
+    /***
+     * Realiza la conexion
+     * @param conn 
+     */
     public void setConn(Connection conn) {
         this.conn = conn;
     }
-
+    /***
+     * Cierra la conexion
+     * @return 
+     */
     public Connection cerrarConexion() {
         try {
             this.conn.close();

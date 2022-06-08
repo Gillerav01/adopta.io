@@ -48,11 +48,12 @@
     <script type="text/javascript" charset="utf8"
         src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
     <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/administracion.css">
     <script src="./js/main.js"></script>
     <script src="./js/administracion.js"></script>
 </head>
 
-<body>
+<body class="body-administracion">
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark bg-success">
                 <div class="container-fluid">
@@ -99,7 +100,7 @@
                             %>
                     </div>
                 </div>
-                <section class="d-flex col-2 offset">
+                <section class="d-flex col-xs-12 col-12 col-sm-12 col-md-12 col-lg-2 offset text-center align-items-center justify-content-center">
                     <%
                         if (actual != null) {
                     %>
@@ -117,17 +118,17 @@
         </header>
     <input type="hidden" value="<%=actual.getId()%>" id="idActual">
     <main class="main-administracion d-flex justify-content-center align-items-center">
-        <section class="seccion-tablas  container-fluid row d-flex align-items-center justify-content-evenly p-5 ">
-            <section id="table_usuarios_container" class="display col-5">
+        <section class="seccion-tablas col-12 container-fluid row d-flex align-items-center justify-content-evenly">
+            <section id="table_usuarios_container" class="display col-12">
                 <table id="table-usuarios" class="table table-hover table-white" style="width: 100%"></table>
             </section>
-            <section id="table_articulos_container" class="display col-5">
+            <section id="table_articulos_container" class="display col-12">
                 <table id="table-articulos" class="table table-hover table-white" style="width: 100%"></table>
             </section>
-            <section id="table_incidencias_container" class="display col-5">
+            <section id="table_incidencias_container" class="display col-12">
                 <table id="table-incidencias" class="table table-hover table-white" style="width: 100%"></table>
             </section>
-            <section id="table_mascotas_container" class="display col-5">
+            <section id="table_mascotas_container" class="display col-12">
                 <table id="table-mascotas" class="table table-hover table-white" style="width: 100%"></table>
             </section> 
         </section>

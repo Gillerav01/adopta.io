@@ -1,3 +1,4 @@
+// Realiza la validación del formulario del artículo
 function validarRegistroArticulo() {
     var nombre = document.getElementById("nombre").value;
     var descripcion = document.getElementById("descripcion").value;
@@ -64,7 +65,9 @@ function validarRegistroArticulo() {
     }
     return true;
 }
-
+// Añade un evento al input idFile para comprobar que no sea mayor de 1MB y para cambiar el valor del input hidden a la base64 de la imagen
+// Añade otro evento a precio para que cambie las , por .
+// Añade un evento al submit para que solo se ejecute si es que todo esta bien validado
 document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("idFile").addEventListener("change", function (e) {
             var file = e.target.files[0];

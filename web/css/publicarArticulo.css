@@ -1,0 +1,27 @@
+.form-articulo input[type="text"],
+.form-articulo textarea {
+    padding: 2vh;
+    font-size: 1.2rem;
+    border-width: 2px;
+    border-color: #CCCCCC;
+    background-color: #FFFFFF;
+    color: #000000;
+    border-style: groove;
+    border-radius: 1px;
+    box-shadow: 0px 0px 5px rgba(66,66,66,.75);
+}
+.form-articulo input:focus {
+    outline:none;
+}
+
+.form-articulo {
+    background: rgba(255, 255, 255, .7);
+    min-height: 100vh;
+}
+
+.main-publicarArticulo {
+    min-height: 100vh;
+    background-image: url(../assets/img/fondoMascotas.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+}

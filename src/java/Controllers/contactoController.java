@@ -47,7 +47,7 @@ public class contactoController extends HttpServlet {
         RequestDispatcher rd = null;
         ConectorBD bdActual = new ConectorBD("localhost", "adoptaio", "root", "");
         Connection conn;
-        
+        // Si se ha pulsado el botón de contactar, hace las conexiones pertinentes para registrar la incidencia.
         if (request.getParameter("contactar") != null){
             IncidenciaDAO idao = new IncidenciaDAO();
             conn = bdActual.getConexion();

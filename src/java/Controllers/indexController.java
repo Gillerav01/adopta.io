@@ -44,7 +44,9 @@ public class indexController extends HttpServlet {
         RequestDispatcher rd = null;
         ConectorBD bdActual = new ConectorBD("localhost", "adoptaio", "root", "");
         Connection conn;
-        
+        // Si se ha pulsado el botón de iniciar sesion, se comprueba los datos recibidos del formulario,
+        // si devuelve un objeto de tipo Usuario, entonces se ha logueado correctamente, si no no. Si se loguea correctamente
+        // se recogen los roles del usuario y se envian tanto el usuario como sus roles a atributos de sesion.
         if (request.getParameter("iniciarSesion") != null){
             System.out.println("Has pulsado iniciar sesion");
             System.out.println("El usuario es: " + request.getParameter("nombre") + " y la contraseña es " + request.getParameter("password"));
