@@ -3,33 +3,9 @@ var articulos = [];
 var incidencias = [];
 var mascotas = [];
 // Borra un usuario con una peticion a la api
-function borrarUsuario(id) {
-    var peticion = $.ajax({
-        url: "http://localhost/apiAdopta.io/borrarUsuario.php",
-        type: "post",
-        data: {
-            idUsuario: id
-        },
-        dataType: "text",
-        success: function (response) {
-            Swal.fire({
-                title: 'Usuario borrado',
-                text: 'El usuario ha sido borrado correctamente',
-                type: 'success',
-                confirmButtonText: 'Ok'
-            });
-        },
-        error: function (response) {
-            console.log("ERROH");
-            Swal.fire({
-                title: 'Error',
-                text: 'El usuario no ha podido ser borrado',
-                type: 'error',
-                confirmButtonText: 'Ok'
-            });
-        }
-    });
-}
+function borrarUsuario(id){
+    var nombre = "Pepe";
+};
 // Ve la información del usuario pasandole a la API la id.
 function verInformacionUsuario(id) {
     var peticion = $.ajax({

@@ -116,24 +116,7 @@
                 </section>
             </nav>
         </header>
-    <input type="hidden" value="<%=actual.getId()%>" id="idActual">
-    <main class="main-administracion d-flex justify-content-center align-items-center">
-        <section class="seccion-tablas col-12 container-fluid row d-flex align-items-center justify-content-evenly">
-            <section id="table_usuarios_container" class="display col-12">
-                <table id="table-usuarios" class="table table-hover table-white" style="width: 100%"></table>
-            </section>
-            <section id="table_articulos_container" class="display col-12">
-                <table id="table-articulos" class="table table-hover table-white" style="width: 100%"></table>
-            </section>
-            <section id="table_incidencias_container" class="display col-12">
-                <table id="table-incidencias" class="table table-hover table-white" style="width: 100%"></table>
-            </section>
-            <section id="table_mascotas_container" class="display col-12">
-                <table id="table-mascotas" class="table table-hover table-white" style="width: 100%"></table>
-            </section> 
-        </section>
-  
-    </main>
+
     <footer class="footer bg-success">
         <p class="footer" style="color: white;">&copy; Guillermo Illera Vinatea - Calle emperador, Portal 43, Piso 4ºB</p>
     </footer>
